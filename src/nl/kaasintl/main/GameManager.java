@@ -6,4 +6,18 @@ package nl.kaasintl.main;
 public class GameManager
 {
     public GameManager() {}
+
+    public boolean isTurn() {
+        return true;
+    }
+
+    public void reset() {}
+
+    public boolean isValid(Field f) {
+        if (f == f) return true;
+        return false;
+    }
+
+
+
 }
