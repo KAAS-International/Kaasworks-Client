@@ -5,4 +5,5 @@ package nl.kaasintl.main;
  */
 public class GameManager
 {
+    public GameManager() {}
 }

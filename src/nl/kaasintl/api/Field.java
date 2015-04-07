@@ -5,4 +5,6 @@ package nl.kaasintl.api;
  */
 public abstract class Field
 {
+    // Field value used in Minimax strategy
+    public int value = 0;
 }

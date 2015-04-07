@@ -5,4 +5,9 @@ package nl.kaasintl.api;
  */
 public abstract class AI
 {
+    // TODO: Determine next move
+    public int nextMove() {
+        return 0;
+    }
+
 }

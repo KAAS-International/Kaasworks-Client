@@ -5,4 +5,5 @@ package nl.kaasintl.main;
  */
 public class NetManager
 {
+    public NetManager() {}
 }
