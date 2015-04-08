@@ -6,6 +6,7 @@ package nl.kaasintl.api;
 public abstract class AI {
     public int[] moves;
     public int bestmove;
+    public int movevalue;
 
     // TODO: Determine next move
     public int nextMove() {
@@ -13,13 +14,24 @@ public abstract class AI {
         backtrack();
 
         // Determine best move here
-
         return bestmove;
     }
 
     // TODO: Use minimax on all fields
     public int minimax() {
-        return 0;
+
+        movevalue = 0;
+        bestmove = 0;
+
+        // TODO: Extend to not use all fields, only occupied
+        for (Field field : GameBoard.board) {
+            if (field.getValue() > movevalue) {
+                movevalue = field.getValue();
+                bestmove = field.getNumber();
+            }
+        }
+
+        return bestmove;
     }
 
     // TODO: Backtrack 10 moves forward in time
