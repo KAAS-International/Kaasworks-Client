@@ -9,5 +9,5 @@ public class UIManager
 
     public UIManager() {
 
-    }
+    } // end of UIManager
 }
