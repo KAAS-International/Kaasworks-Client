@@ -14,7 +14,6 @@ public abstract class AI {
         backtrack();
 
         // Determine best move here
-
         return bestmove;
     }
 
