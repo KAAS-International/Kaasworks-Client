@@ -1,7 +1,11 @@
 package nl.kaasintl.main;
-import org.apache.commons.net.telnet.TelnetClient;
-import java.io.InputStream;
-import java.io.PrintStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
 
 
 /**
@@ -9,114 +13,89 @@ import java.io.PrintStream;
  *
  * Created by Tanja en Niek on 8-4-2015.
  */
-public class NetManager
-{
-    private TelnetClient telnet = new TelnetClient();
-    private InputStream in;
-    private PrintStream out;
-    private String prompt = "%";
 
 
-    public NetManager(String server, String user)
-    {
-        try {
-            // Connect to the specified server
-            telnet.connect(server, 23);
+public class NetManager extends Thread {
+    private BufferedReader in;
+    private BufferedReader stdIn;
+    private PrintWriter out;
+    private String line;
 
-            // Get input and output stream references
-            in = telnet.getInputStream();
-            out = new PrintStream(telnet.getOutputStream());
-
-            // Log the user on
-            readUntil("login: ");
-            write(user);
-
-
-            // Advance to a prompt
-            readUntil(prompt + " ");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public static void main(String args[]) {
+        new Thread(new NetManager()).start();
+        System.out.println("main test");
     }
 
-    public void su(String password)
-    {
-        try {
-            write("su");
-            prompt = "#";
-            readUntil(prompt + " ");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    @Override
+    public void run() {
+        System.out.println("Booooya");
+        boolean working = true;
 
-    public String readUntil(String pattern)
-    {
         try {
-            char lastChar = pattern.charAt(pattern.length() - 1);
-            StringBuffer sb = new StringBuffer();
-            boolean found = false;
-            char ch = (char) in.read();
-            while (true) {
-                System.out.print(ch);
-                sb.append(ch);
-                if (ch == lastChar) {
-                    if (sb.toString().endsWith(pattern)) {
-                        return sb.toString();
+            Socket sock = new Socket("localhost", 7789);
+            out = new PrintWriter(sock.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+            stdIn = new BufferedReader(new InputStreamReader(System.in));
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+
+        out.println("[Server] Connected");
+        out.flush();
+
+        while (working) {
+            try {
+                line = in.readLine();
+
+                try {
+
+                    if(line.equals("close")) {
+                        out.println("[Server] Connection closed.");
+                        out.flush();
+
+                        in.close();
+                        out.close();
+                        working = false;
+                    } else {
+                        out.println("[Server] Hoi.");
+                        out.flush();
                     }
+
+                } catch (UnknownHostException e1) {
+
+                    out.print("[Server] Cannot resolve hostname \"" + line + "\".\r\n");
+                    out.println("[Server] Connection closed.");
+                    out.flush();
+
+                    in.close();
+                    out.close();
+                    working = false;
+
+                    e1.printStackTrace();
+
                 }
-                ch = (char) in.read();
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public void write(String value)
-    {
-        try {
-            out.println(value);
-            out.flush();
-            System.out.println(value);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
-    public String sendCommand(String command)
-    {
-        try {
-            write(command);
-            return readUntil(prompt + " ");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public void disconnect()
-    {
-        try {
-            telnet.disconnect();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args) {
-        try {
-            NetManager telnet = new NetManager(
-                    "myserver", "userId");
-            System.out.println("Got Connection...");
-            telnet.sendCommand("ps -ef ");
-            System.out.println("run command");
-            telnet.sendCommand("ls ");
-            System.out.println("run command 2");
-            telnet.disconnect();
-            System.out.println("DONE");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    public static class ThreadBuilder {
+//
+//
+//
+//        private Socket client;
+//
+//        public ThreadBuilder client (Socket client) {
+//            this.client = client;
+//            return this;
+//        }
+//
+//        public NetManager build() {
+//            return new NetManager(this);
+//        }
+//    }
 }
