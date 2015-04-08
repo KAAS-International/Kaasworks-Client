@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public abstract class GameBoard {
     // Gameboard
-    public ArrayList<Field> board = new ArrayList<Field>();
+    public static ArrayList<Field> board = new ArrayList<Field>();
 
     public ArrayList<Field> getBoard() {
         return board;
