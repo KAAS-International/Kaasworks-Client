@@ -1,12 +1,17 @@
 package nl.kaasintl.api;
 
 
+import java.util.ArrayList;
+
 /**
  * Created by David on 4-4-2015.
  */
-public abstract class GameBoard
-{
+public abstract class GameBoard {
     // Gameboard
-    public List<Field> board = new List<Field>;
+    public ArrayList<Field> board = new ArrayList<Field>();
+
+    public ArrayList<Field> getBoard() {
+        return board;
+    }
 
 }
