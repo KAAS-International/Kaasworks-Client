@@ -4,7 +4,7 @@ package nl.kaasintl.api;
 import java.util.ArrayList;
 
 /**
- * Created by David on 4-4-2015.
+ * Created by Kevin on 4-4-2015.
  */
 public abstract class GameBoard {
     // Gameboard

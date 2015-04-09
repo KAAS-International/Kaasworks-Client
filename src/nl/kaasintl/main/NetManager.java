@@ -11,7 +11,9 @@ import java.net.UnknownHostException;
 /**
  * Connects to a telnet client with a password and username.
  *
- * Created by Tanja en Niek on 8-4-2015.
+ * Created by Tanja, Niek and Kevin on 8-4-2015.
+ * No animals were harmed during the creation process
+ * Only 1 cheese suffered from injury
  */
 
 
@@ -23,21 +25,20 @@ public class NetManager extends Thread {
 
     public static void main(String args[]) {
         new Thread(new NetManager()).start();
-        System.out.println("main test");
     }
 
     @Override
     public void run() {
-        System.out.println("Booooya");
         boolean working = true;
 
         try {
             Socket sock = new Socket("localhost", 7789);
+
             out = new PrintWriter(sock.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
             stdIn = new BufferedReader(new InputStreamReader(System.in));
-        } catch (IOException e1) {
-            e1.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         out.println("[Server] Connected");
@@ -49,29 +50,28 @@ public class NetManager extends Thread {
 
                 try {
 
-                    if(line.equals("close")) {
-                        out.println("[Server] Connection closed.");
+                    if (line.equals("close")) {
+                        out.println(""); // Zet hier tekens in die server verwacht volgens protocol om verbinding te stoppen. TODO: Teken invullen om verbinding te verbreken.
                         out.flush();
 
                         in.close();
                         out.close();
                         working = false;
                     } else {
-                        out.println("[Server] Hoi.");
+                        out.println(""); // Dit gooit ie naar server iedere X tijd, wordt omgezet naar protocol straks. TODO: Aanvullen met informatie uit protocol en omzetten naar werkende code
                         out.flush();
                     }
 
-                } catch (UnknownHostException e1) {
+                } catch (UnknownHostException e) {
 
-                    out.print("[Server] Cannot resolve hostname \"" + line + "\".\r\n");
-                    out.println("[Server] Connection closed.");
+                    out.println(""); // TODO: Verbinding verbreken met server, zelfde als line 51.
                     out.flush();
 
                     in.close();
                     out.close();
                     working = false;
 
-                    e1.printStackTrace();
+                    e.printStackTrace();
 
                 }
 
@@ -82,20 +82,4 @@ public class NetManager extends Thread {
             }
         }
     }
-
-//    public static class ThreadBuilder {
-//
-//
-//
-//        private Socket client;
-//
-//        public ThreadBuilder client (Socket client) {
-//            this.client = client;
-//            return this;
-//        }
-//
-//        public NetManager build() {
-//            return new NetManager(this);
-//        }
-//    }
 }
