@@ -20,6 +20,7 @@ public class GUI {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("GUI");
+
         /*
         try {
             for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -32,6 +33,7 @@ public class GUI {
             // If Nimbus is not available, you can set the GUI to another look and feel.
         }
         */
+        
         frame.setContentPane(new GUI().mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
