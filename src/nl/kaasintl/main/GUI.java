@@ -12,6 +12,11 @@ public class GUI {
     private JPanel statusPanel;
     private JPanel lobbyView;
     private JPanel boardView;
+    private JButton doMove;
+    private JTextField move;
+    private JTextArea gameHistory;
+    private JProgressBar timeLeft;
+    private JTable lobbyTable;
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("GUI");

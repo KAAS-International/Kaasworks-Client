@@ -2,13 +2,78 @@ package nl.kaasintl.main;
 
 import nl.kaasintl.api.Field;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by David on 4-4-2015.
  */
 public class GameManager
 {
+    private NetManager netManager;
+
     // Constructor
     public GameManager() {}
+
+    // TODO: Subscribe to Gametype
+    public boolean subscribe(String game)
+    {
+        return true;
+    }
+
+
+    // TODO: Quit the game
+    public boolean quit()
+    {
+        return true;
+    }
+
+    // TODO: Accept other player's challenge
+    public boolean acceptChallenge()
+    {
+        return true;
+    }
+
+    // TODO: Challenge other player
+    public boolean challenge(String player)
+    {
+        return true;
+    }
+
+    // TODO: Get the list of players
+    public List<String> getPlayerList()
+    {
+        ArrayList list = new ArrayList();
+
+        list.add("Gert");
+        list.add("Albert");
+        list.add("Frederik");
+
+        return list;
+    }
+
+    // TODO: Get list of supported games
+    public List<String> getGameList()
+    {
+        ArrayList list = new ArrayList();
+
+        list.add("Mens-erger-je-wel");
+        list.add("Botsauto's");
+
+        return list;
+    }
+
+    // TODO: Forfeit the game
+    public boolean forfeit()
+    {
+        return true;
+    }
+
+    // TODO: Make a move
+    public boolean makeMove(int move)
+    {
+        return true;
+    }
 
     // TODO: Return if it is your turn
     public boolean isTurn() {
@@ -16,7 +81,10 @@ public class GameManager
     }
 
     // TODO: Reset game
-    public void reset() {}
+    public boolean reset()
+    {
+        return true;
+    }
 
     // TODO: Check if move is valid
     public boolean isValid(Field f) {
