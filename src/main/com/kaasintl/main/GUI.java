@@ -1,4 +1,4 @@
-package nl.kaasintl.main;
+package main.com.kaasintl.main;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

@@ -1,6 +1,6 @@
-package nl.kaasintl.reversi;
+package main.com.kaasintl.reversi;
 
-import nl.kaasintl.api.GameBoard;
+import main.com.kaasintl.api.GameBoard;
 
 /**
  * Created by Kevin on 9-4-2015.

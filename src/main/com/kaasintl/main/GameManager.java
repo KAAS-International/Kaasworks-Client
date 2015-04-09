@@ -1,6 +1,6 @@
-package nl.kaasintl.main;
+package main.com.kaasintl.main;
 
-import nl.kaasintl.api.Field;
+import main.com.kaasintl.api.Field;
 
 import java.util.ArrayList;
 import java.util.Collections;

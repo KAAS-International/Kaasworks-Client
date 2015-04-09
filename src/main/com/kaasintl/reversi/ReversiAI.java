@@ -1,13 +1,14 @@
-package nl.kaasintl.reversi;
+package main.com.kaasintl.reversi;
 
-import nl.kaasintl.api.AI;
-import nl.kaasintl.api.Field;
-import nl.kaasintl.api.GameBoard;
+import main.com.kaasintl.api.AI;
+import main.com.kaasintl.api.Field;
+import main.com.kaasintl.api.GameBoard;
 
 /**
  * Created by Kevin on 9-4-2015.
  */
-public class ReversiAI extends AI {
+public class ReversiAI extends AI
+{
     public int[] moves;
 
     @Override

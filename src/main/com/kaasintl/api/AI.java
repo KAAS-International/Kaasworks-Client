@@ -1,4 +1,4 @@
-package nl.kaasintl.api;
+package main.com.kaasintl.api;
 
 /**
  * Created by Kevin on 4-4-2015.

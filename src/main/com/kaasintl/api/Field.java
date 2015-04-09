@@ -1,6 +1,4 @@
-package nl.kaasintl.api;
-
-import java.lang.Object;
+package main.com.kaasintl.api;
 
 /**
  * Created by Kevin on 4-4-2015.
