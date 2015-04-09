@@ -7,6 +7,7 @@ import java.lang.Object;
  */
 public abstract class Field {
     public int value = 0;
+    public int coordinate = 0;
     public boolean empty = true;
 
     public int getValue() {
@@ -15,8 +16,5 @@ public abstract class Field {
 
     public boolean isEmpty() { return empty; }
 
-    public int getNumber()
-    {
-        return 0;
-    }
+    public int getCoordinate() { return coordinate; }
 }
