@@ -25,7 +25,9 @@
             <preferred-size width="200" height="200"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <tabPlacement value="2"/>
+        </properties>
         <border type="none"/>
         <children>
           <grid id="f9a78" binding="lobbyView" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -36,9 +38,9 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="1ad1b" class="javax.swing.JTable" binding="lobbyTable">
+              <component id="97d8a" class="javax.swing.JList" binding="playerList">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="50"/>
                   </grid>
                 </constraints>
