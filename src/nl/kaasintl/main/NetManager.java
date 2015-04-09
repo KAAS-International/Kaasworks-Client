@@ -1,4 +1,6 @@
 package nl.kaasintl.main;
+import sun.nio.ch.Net;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -33,7 +35,6 @@ public class NetManager extends Thread {
 
         try {
             Socket sock = new Socket("localhost", 7789);
-
             out = new PrintWriter(sock.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
             stdIn = new BufferedReader(new InputStreamReader(System.in));
@@ -41,30 +42,26 @@ public class NetManager extends Thread {
             e.printStackTrace();
         }
 
-        out.println("[Server] Connected");
-        out.flush();
-
         while (working) {
             try {
                 line = in.readLine();
 
                 try {
-
                     if (line.equals("close")) {
-                        out.println(""); // Zet hier tekens in die server verwacht volgens protocol om verbinding te stoppen. TODO: Teken invullen om verbinding te verbreken.
+                        out.println("exit"); // Zet hier tekens in die server verwacht volgens protocol om verbinding te stoppen. TODO: Teken invullen om verbinding te verbreken.
                         out.flush();
-
                         in.close();
                         out.close();
-                        working = false;
+                        // working = false; TODO: Create method to stop program from running
                     } else {
-                        out.println(""); // Dit gooit ie naar server iedere X tijd, wordt omgezet naar protocol straks. TODO: Aanvullen met informatie uit protocol en omzetten naar werkende code
+                        out.println(line);
                         out.flush();
+                        this.wait();
                     }
 
                 } catch (UnknownHostException e) {
 
-                    out.println(""); // TODO: Verbinding verbreken met server, zelfde als line 51.
+                    out.println("exit");
                     out.flush();
 
                     in.close();
@@ -73,13 +70,17 @@ public class NetManager extends Thread {
 
                     e.printStackTrace();
 
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
 
             } catch (IOException e) {
-
                 e.printStackTrace();
-
             }
         }
     }
+
+    /* public void setLine(String s) { TODO: Instead of using out.readline() use this method to send message to server
+        line = s;
+    } */
 }
