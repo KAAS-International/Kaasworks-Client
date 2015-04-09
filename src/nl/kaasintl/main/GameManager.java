@@ -3,6 +3,7 @@ package nl.kaasintl.main;
 import nl.kaasintl.api.Field;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -48,6 +49,10 @@ public class GameManager
         list.add("Gert");
         list.add("Albert");
         list.add("Frederik");
+
+        long seed = System.nanoTime();
+
+        Collections.shuffle(list);
 
         return list;
     }
