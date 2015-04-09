@@ -7,32 +7,34 @@ import javax.swing.*;
  */
 public class GUI {
 
-    private JPanel mainPanel;
-    private JTabbedPane tabbedPane;
-    private JPanel statusPanel;
-    private JPanel lobbyView;
-    private JPanel boardView;
-    private JButton doMove;
-    private JTextField move;
-    private JTextArea gameHistory;
-    private JProgressBar timeLeft;
-    private JTable lobbyTable;
+    private GameManager gameManager;
 
-    public static void main(String[] args) {
+    private JPanel       mainPanel;
+    private JTabbedPane  tabbedPane;
+    private JPanel       statusPanel;
+    private JPanel       lobbyView;
+    private JPanel       boardView;
+    private JButton      doMove;
+    private JTextField   move;
+    private JTextArea    gameHistory;
+    private JProgressBar timeLeft;
+    private JTable       lobbyTable;
+    private JTable       gameBoard;
+
+    public static void main(String[] args)
+    {
         JFrame frame = new JFrame("GUI");
 
-        /*
         try {
-            for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
         } catch (Exception e) {
             // If Nimbus is not available, you can set the GUI to another look and feel.
         }
-        */
         
         frame.setContentPane(new GUI().mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

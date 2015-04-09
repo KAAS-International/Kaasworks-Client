@@ -14,4 +14,9 @@ public abstract class Field {
     }
 
     public boolean isEmpty() { return empty; }
+
+    public int getNumber()
+    {
+        return 0;
+    }
 }
