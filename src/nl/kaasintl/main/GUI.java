@@ -1,6 +1,8 @@
 package nl.kaasintl.main;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
@@ -20,12 +22,24 @@ public class GUI {
     private JTextArea    gameHistory;
     private JProgressBar timeLeft;
     private JTable       gameBoard;
-    private JList playerList;
+    private JList   lobbyPlayerList;
+    private JButton lobbyRefreshButton;
 
     public GUI()
     {
         this.gameManager = new GameManager();
 
+        //Add action listeners
+        lobbyRefreshButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                updateLobby();
+            }
+        });
+
+
+        //Initialize Data into view
         updateLobby();
     }
 
@@ -72,7 +86,7 @@ public class GUI {
             newListModel.addElement(s);
         }
 
-        playerList.setModel(newListModel);
-        playerList.updateUI();
+        lobbyPlayerList.setModel(newListModel);
+        lobbyPlayerList.updateUI();
     }
 }
