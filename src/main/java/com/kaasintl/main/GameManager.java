@@ -1,8 +1,9 @@
-package nl.kaasintl.main;
+package main.java.com.kaasintl.main;
 
-import nl.kaasintl.api.Field;
+import main.java.com.kaasintl.api.Field;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -10,10 +11,13 @@ import java.util.List;
  */
 public class GameManager
 {
-    private NetManager netManager;
+    private Thread netManager;
 
     // Constructor
-    public GameManager() {}
+    public GameManager() {
+        netManager = new NetManager();
+        netManager.start();
+    }
 
     // TODO: Subscribe to Gametype
     public boolean subscribe(String game)
@@ -48,6 +52,10 @@ public class GameManager
         list.add("Gert");
         list.add("Albert");
         list.add("Frederik");
+
+        long seed = System.nanoTime();
+
+        Collections.shuffle(list);
 
         return list;
     }
