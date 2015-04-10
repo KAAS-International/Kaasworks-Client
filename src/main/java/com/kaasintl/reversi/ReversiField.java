@@ -1,6 +1,6 @@
-package main.com.kaasintl.reversi;
+package main.java.com.kaasintl.reversi;
 
-import main.com.kaasintl.api.Field;
+import main.java.com.kaasintl.api.Field;
 
 /**
  * Created by Kevin on 9-4-2015.

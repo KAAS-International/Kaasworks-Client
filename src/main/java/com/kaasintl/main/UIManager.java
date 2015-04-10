@@ -1,4 +1,4 @@
-package main.com.kaasintl.main;
+package main.java.com.kaasintl.main;
 
 /**
  * Created by David on 4-4-2015.
