@@ -24,6 +24,7 @@ public class GUI {
     private JTable       gameBoard;
     private JList   lobbyPlayerList;
     private JButton lobbyRefreshButton;
+    private JButton forfeitButton;
 
     public GUI()
     {
