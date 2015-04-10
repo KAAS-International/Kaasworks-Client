@@ -1,6 +1,7 @@
 package main.java.com.kaasintl.main;
 
 import main.java.com.kaasintl.api.Field;
+import main.java.com.kaasintl.api.GameBoard;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -86,6 +87,12 @@ public class GameManager
     // TODO: Return if it is your turn
     public boolean isTurn() {
         return true;
+    }
+
+    // TODO: Return the game's board
+    public GameBoard getGameboard()
+    {
+        return null;
     }
 
     // TODO: Reset game
