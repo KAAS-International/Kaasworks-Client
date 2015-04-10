@@ -1,8 +1,8 @@
-package main.com.kaasintl.reversi;
+package main.java.com.kaasintl.reversi;
 
-import main.com.kaasintl.api.AI;
-import main.com.kaasintl.api.Field;
-import main.com.kaasintl.api.GameBoard;
+import main.java.com.kaasintl.api.AI;
+import main.java.com.kaasintl.api.Field;
+import main.java.com.kaasintl.api.GameBoard;
 
 /**
  * Created by Kevin on 9-4-2015.

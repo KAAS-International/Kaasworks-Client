@@ -1,4 +1,4 @@
-package main.com.kaasintl.api;
+package main.java.com.kaasintl.api;
 
 
 import java.util.ArrayList;

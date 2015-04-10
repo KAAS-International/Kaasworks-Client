@@ -1,4 +1,4 @@
-package main.com.kaasintl.api;
+package main.java.com.kaasintl.api;
 
 /**
  * Created by David on 4-4-2015.
