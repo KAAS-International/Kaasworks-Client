@@ -11,10 +11,13 @@ import java.util.List;
  */
 public class GameManager
 {
-    private NetManager netManager;
+    private Thread netManager;
 
     // Constructor
-    public GameManager() {}
+    public GameManager() {
+        netManager = new NetManager();
+        netManager.start();
+    }
 
     // TODO: Subscribe to Gametype
     public boolean subscribe(String game)

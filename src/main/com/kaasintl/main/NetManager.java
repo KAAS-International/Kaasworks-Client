@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
+import java.util.LinkedList;
 
 
 /**
@@ -22,11 +22,7 @@ public class NetManager extends Thread {
     private BufferedReader stdIn;
     private PrintWriter out;
     private String line;
-    private String message;
-
-    public static void main(String[] args) {
-        new Thread(new NetManager()).start();
-    }
+    private LinkedList<String> queue = new LinkedList<String>();
 
     @Override
     public void run() {
@@ -41,28 +37,47 @@ public class NetManager extends Thread {
             e.printStackTrace();
         }
 
+        login("kees");
+        out.println("get playerlist");
+
         while (working) {
             try {
-                if (message != null) {
-                    out.println(message);
-                    out.flush();
-                }
-
                 line = in.readLine();
-                System.out.println(line);
-
+                parser(line);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
         }
     }
 
-    public void sendMessage(String s) {
-        message = s;
+    public void parser(String s) {
+        if (s.equals("OK")) {
+            // Roep iets aan
+        } else if (s.substring(0, 2).equals("ERR")) {
+            // Doe iets anders
+        } else if (s.substring(0, 2).equals("SVR")) {
+
+            if (s.substring(3,6).equals("HEL")) {
+
+            } else if (s.substring(3,6).equals("GAM")) {
+                
+            } else {
+                // Kill a goat
+            }
+
+        } else {
+            // Kill a kitten
+        }
     }
 
     public void login(String s) {
         out.println("login " + s);
+        out.flush();
+    }
+
+    public void sendMessage(String s) {
+        out.println(s);
         out.flush();
     }
 }
