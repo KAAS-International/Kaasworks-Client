@@ -22,8 +22,9 @@ public class NetManager extends Thread {
     private BufferedReader stdIn;
     private PrintWriter out;
     private String line;
+    private String message;
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         new Thread(new NetManager()).start();
     }
 
@@ -42,43 +43,26 @@ public class NetManager extends Thread {
 
         while (working) {
             try {
-                line = in.readLine();
-
-                try {
-                    if (line.equals("close")) {
-                        out.println("exit"); // Zet hier tekens in die server verwacht volgens protocol om verbinding te stoppen. TODO: Teken invullen om verbinding te verbreken.
-                        out.flush();
-                        in.close();
-                        out.close();
-                        // working = false; TODO: Create method to stop program from running
-                    } else {
-                        out.println(line);
-                        out.flush();
-                        this.wait();
-                    }
-
-                } catch (UnknownHostException e) {
-
-                    out.println("exit");
+                if (message != null) {
+                    out.println(message);
                     out.flush();
-
-                    in.close();
-                    out.close();
-                    working = false;
-
-                    e.printStackTrace();
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
 
-            } catch (IOException e) {
+                line = in.readLine();
+                System.out.println(line);
+
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    /* public void setLine(String s) { TODO: Instead of using out.readline() use this method to send message to server
-        line = s;
-    } */
+    public void sendMessage(String s) {
+        message = s;
+    }
+
+    public void login(String s) {
+        out.println("login " + s);
+        out.flush();
+    }
 }
