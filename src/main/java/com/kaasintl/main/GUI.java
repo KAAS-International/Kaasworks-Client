@@ -25,6 +25,7 @@ public class GUI {
     private JList   lobbyPlayerList;
     private JButton lobbyRefreshButton;
     private JButton forfeitButton;
+    private JButton challengeButton;
 
     public GUI()
     {
@@ -38,7 +39,51 @@ public class GUI {
                 updateLobby();
             }
         });
-
+        forfeitButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                if (gameManager.forfeit())
+                {
+                    gameHistory.setText(gameHistory.getText() + "\n You forfeited");
+                } else
+                {
+                    JOptionPane.showMessageDialog(null, "[ERROR] Failed to perform action: forfeit", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        doMove.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                try
+                {
+                    if (gameManager.makeMove(Integer.parseInt(move.getText())))
+                    {
+                        gameHistory.setText(gameHistory.getText() + "\n You made move :" + move.getText());
+                    } else
+                    {
+                        JOptionPane.showMessageDialog(null, "[ERROR] Failed to perform action: move " + move.getText(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (NumberFormatException ex)
+                {
+                    gameHistory.setText(gameHistory.getText() + "\n Invalid move :" + move.getText());
+                }
+            }
+        });
+        challengeButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                if (gameManager.challenge((String) lobbyPlayerList.getSelectedValue()))
+                {
+                    gameHistory.setText(gameHistory.getText() + "\n You challenged " + lobbyPlayerList.getSelectedValue() + " to a game");
+                } else
+                {
+                    JOptionPane.showMessageDialog(null, "[ERROR] Failed to perform action: challenge " + lobbyPlayerList.getSelectedValue(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
 
         //Initialize Data into view
         updateLobby();
@@ -73,16 +118,16 @@ public class GUI {
         // get list of players
         ArrayList<String> players = (ArrayList<String>) gameManager.getPlayerList();
 
-        String[] listdata = new String[players.size()];
+        String[] listData = new String[players.size()];
 
         for (int i = 0; i < players.size(); i++)
         {
-            listdata[i] = players.get(i);
+            listData[i] = players.get(i);
         }
 
         DefaultListModel<String> newListModel = new DefaultListModel<String>();
 
-        for (String s : listdata)
+        for (String s : listData)
         {
             newListModel.addElement(s);
         }
