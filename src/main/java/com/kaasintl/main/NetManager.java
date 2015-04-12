@@ -84,8 +84,9 @@ public class NetManager extends Thread {
                         //iets
                         break;
                     case "GAMELIST":
+                        temp = "";
                         while(sc.hasNext()) {
-                            temp = temp + " " + sc.next();
+                            temp = temp + sc.next();
                         }
                         System.out.println(temp);
                         parsedList = parseList(temp);
@@ -101,7 +102,13 @@ public class NetManager extends Thread {
      * @return ArrayList with usable sub-strings.
      */
     public ArrayList<String> parseList(String s) {
-
+        s = s.substring(1,(s.length()-1));
+        Scanner scanner = new Scanner(s).useDelimiter(",");
+        while(scanner.hasNext()) {
+            s = scanner.next();
+            s = s.substring(1,s.length()-1);
+            System.out.println(s);
+        }
         return parsedList;
     }
 
