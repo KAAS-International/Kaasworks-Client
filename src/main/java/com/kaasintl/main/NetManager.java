@@ -21,8 +21,8 @@ public class NetManager extends Thread {
     private BufferedReader stdIn;
     private PrintWriter out;
     private String line;
-    private LinkedList<String> queue = new LinkedList<>();
-    private ArrayList<String> parsedList = new ArrayList<>();
+    private LinkedList<String> queue = new LinkedList();
+    private ArrayList<String> parsedList = new ArrayList();
 
     /**
      * Method implementation of the thread that listens continuously to the server socket.
