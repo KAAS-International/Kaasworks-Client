@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -22,7 +21,7 @@ public class NetManager extends Thread {
     private BufferedReader stdIn;
     private PrintWriter out;
     private String line;
-    private LinkedList<String> queue = new LinkedList<String>();
+    private LinkedList<String> queue = new LinkedList<>();
     private ArrayList<String> parsedList = new ArrayList<>();
 
     /**
@@ -50,7 +49,7 @@ public class NetManager extends Thread {
         while (working) {
             try {
                 line = in.readLine();
-                //parser(line);
+                parser(line);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -61,39 +60,40 @@ public class NetManager extends Thread {
      * Parses the messages the server can send to the client
      * @param s the server message received by the socket
      */
-//    public void parser(String s) {
-//        boolean done = false;
-//        Scanner sc = new Scanner(s);
-//        while(!done && sc.hasNext()) {
-//            String temp = sc.next();
-//
-//            switch(temp) {
-//                case "OK":
-//                    done = true;
-//                    break;
-//                case "ERR":
-//                    done = true;
-//                    break;
-//                case "SVR":
-//                    temp = sc.next();
-//
-//                switch(temp) {
-//                    case "HELP":
-//                        done = true;
-//                        break;
-//                    case "GAME":
-//                        //iets
-//                        break;
-//                    case "GAMELIST":
-//                        while(sc.hasNext()) {
-//                            temp = temp + sc.next();
-//                        }
-//                        parsedList = parseList(temp);
-//                        break;
-//                }
-//            }
-//        }
-//    }
+    public void parser(String s) {
+        boolean done = false;
+        Scanner sc = new Scanner(s);
+        while(!done && sc.hasNext()) {
+            String temp = sc.next();
+
+            switch(temp) {
+                case "OK":
+                    done = true;
+                    break;
+                case "ERR":
+                    done = true;
+                    break;
+                case "SVR":
+                    temp = sc.next();
+
+                switch(temp) {
+                    case "HELP":
+                        done = true;
+                        break;
+                    case "GAME":
+                        //iets
+                        break;
+                    case "GAMELIST":
+                        while(sc.hasNext()) {
+                            temp = temp + " " + sc.next();
+                        }
+                        System.out.println(temp);
+                        parsedList = parseList(temp);
+                        break;
+                }
+            }
+        }
+    }
 
     /**
      * Receives a String and cuts it into usable pieces.
