@@ -14,6 +14,8 @@ public class GameManager
 {
     private Thread netManager;
     private GUI gui;
+    ArrayList<String> playerList;
+    ArrayList<String> gameList;
 
 
     /**
@@ -22,10 +24,13 @@ public class GameManager
     public GameManager() {
         netManager = new NetManager(this);
         netManager.start();
+        playerList = new ArrayList<>();
+        gameList = new ArrayList<>();
 
         gui = new GUI();
     }
 
+    /**
     /**
      * Creates an instance of the GameManager, with the provided GUI object as it's gui
      *
@@ -36,6 +41,22 @@ public class GameManager
         this.gui = new GUI();
         netManager = new NetManager(this);
         netManager.start();
+        playerList = new ArrayList<>();
+        gameList = new ArrayList<>();
+    }
+
+    public void receive(String s) {
+
+    }
+
+    public void receive(ArrayList<String> a) {
+        if(a.get(0).equals("playerList")) {
+            a.remove(0);
+            playerList = a;
+        } else if(a.get(0).equals("gameList")) {
+            a.remove(0);
+            gameList = a;
+        }
     }
 
     // TODO: Subscribe to Gametype
@@ -64,19 +85,10 @@ public class GameManager
     }
 
     // TODO: Get the list of players
-    public List<String> getPlayerList()
+    public ArrayList<String> getPlayerList()
     {
-        ArrayList list = new ArrayList();
-
-        list.add("Gert");
-        list.add("Albert");
-        list.add("Frederik");
-
-        long seed = System.nanoTime();
-
-        Collections.shuffle(list);
-
-        return list;
+        //netManager.getPlayerList();
+        return playerList;
     }
 
     // TODO: Get list of supported games
