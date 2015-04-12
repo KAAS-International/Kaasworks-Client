@@ -17,12 +17,18 @@ import java.util.Scanner;
  */
 
 public class NetManager extends Thread {
+    private GameManager gameManager;
     private BufferedReader in;
     private BufferedReader stdIn;
     private PrintWriter out;
     private String line;
     private LinkedList<String> queue = new LinkedList();
     private ArrayList<String> parsedList = new ArrayList();
+
+    public NetManager(GameManager g) {
+        super();
+        this.gameManager = g;
+    }
 
     /**
      * Method implementation of the thread that listens continuously to the server socket.

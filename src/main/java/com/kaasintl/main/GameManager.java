@@ -20,7 +20,7 @@ public class GameManager
      * Creates an instance of the GameManager, with no GUI provided. This will cause it to make a GUI itself
      */
     public GameManager() {
-        netManager = new NetManager();
+        netManager = new NetManager(this);
         netManager.start();
 
         gui = new GUI();
@@ -34,7 +34,7 @@ public class GameManager
     public GameManager(GUI gui)
     {
         this.gui = new GUI();
-        netManager = new NetManager();
+        netManager = new NetManager(this);
         netManager.start();
     }
 
