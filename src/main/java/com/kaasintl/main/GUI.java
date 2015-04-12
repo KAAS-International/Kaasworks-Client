@@ -29,7 +29,7 @@ public class GUI {
 
     public GUI()
     {
-        this.gameManager = new GameManager();
+        this.gameManager = new GameManager(this);
 
         //Add action listeners
         lobbyRefreshButton.addActionListener(new ActionListener()
@@ -89,6 +89,11 @@ public class GUI {
         updateLobby();
     }
 
+    /**
+     * Runs the main program
+     *
+     * @param args The arguments received from the CLI
+     */
     public static void main(String[] args)
     {
         //Game UI
@@ -113,6 +118,9 @@ public class GUI {
         frame.setVisible(true);
     }
 
+    /**
+     * Updates the lobby list
+     */
     private void updateLobby()
     {
         // get list of players

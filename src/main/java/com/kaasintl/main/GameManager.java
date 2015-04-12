@@ -13,9 +13,27 @@ import java.util.List;
 public class GameManager
 {
     private Thread netManager;
+    private GUI gui;
 
-    // Constructor
+
+    /**
+     * Creates an instance of the GameManager, with no GUI provided. This will cause it to make a GUI itself
+     */
     public GameManager() {
+        netManager = new NetManager();
+        netManager.start();
+
+        gui = new GUI();
+    }
+
+    /**
+     * Creates an instance of the GameManager, with the provided GUI object as it's gui
+     *
+     * @param gui The GUI
+     */
+    public GameManager(GUI gui)
+    {
+        this.gui = new GUI();
         netManager = new NetManager();
         netManager.start();
     }
