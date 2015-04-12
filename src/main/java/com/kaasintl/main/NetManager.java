@@ -1,12 +1,13 @@
-package main.com.kaasintl.main;
+package main.java.com.kaasintl.main;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.LinkedList;
-
+import java.util.Scanner;
 
 /**
  * Connects to a telnet client with a password and username.
@@ -16,14 +17,18 @@ import java.util.LinkedList;
  * Only 1 cheese suffered from injury
  */
 
-
 public class NetManager extends Thread {
     private BufferedReader in;
     private BufferedReader stdIn;
     private PrintWriter out;
     private String line;
     private LinkedList<String> queue = new LinkedList<String>();
+    private ArrayList<String> parsedList = new ArrayList<>();
 
+    /**
+     * Method implementation of the thread that listens continuously to the server socket.
+     * Creates the connection when started
+     */
     @Override
     public void run() {
         boolean working = true;
@@ -37,45 +42,82 @@ public class NetManager extends Thread {
             e.printStackTrace();
         }
 
+        // demo code
         login("kees");
         out.println("get playerlist");
+        //end demo code
 
         while (working) {
             try {
                 line = in.readLine();
-                parser(line);
+                //parser(line);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
     }
 
-    public void parser(String s) {
-        if (s.equals("OK")) {
-            // Roep iets aan
-        } else if (s.substring(0, 2).equals("ERR")) {
-            // Doe iets anders
-        } else if (s.substring(0, 2).equals("SVR")) {
+    /**
+     * Parses the messages the server can send to the client
+     * @param s the server message received by the socket
+     */
+//    public void parser(String s) {
+//        boolean done = false;
+//        Scanner sc = new Scanner(s);
+//        while(!done && sc.hasNext()) {
+//            String temp = sc.next();
+//
+//            switch(temp) {
+//                case "OK":
+//                    done = true;
+//                    break;
+//                case "ERR":
+//                    done = true;
+//                    break;
+//                case "SVR":
+//                    temp = sc.next();
+//
+//                switch(temp) {
+//                    case "HELP":
+//                        done = true;
+//                        break;
+//                    case "GAME":
+//                        //iets
+//                        break;
+//                    case "GAMELIST":
+//                        while(sc.hasNext()) {
+//                            temp = temp + sc.next();
+//                        }
+//                        parsedList = parseList(temp);
+//                        break;
+//                }
+//            }
+//        }
+//    }
 
-            if (s.substring(3,6).equals("HEL")) {
+    /**
+     * Receives a String and cuts it into usable pieces.
+     * @param s String to be parsed
+     * @return ArrayList with usable sub-strings.
+     */
+    public ArrayList<String> parseList(String s) {
 
-            } else if (s.substring(3,6).equals("GAM")) {
-                
-            } else {
-                // Kill a goat
-            }
-
-        } else {
-            // Kill a kitten
-        }
+        return parsedList;
     }
 
+    /**
+     * Log the user in to the server
+     * @param s the desired username
+     */
     public void login(String s) {
         out.println("login " + s);
         out.flush();
     }
 
+    /**
+     * Called by the game manager, sends a message to the server
+     * @param s the desired message
+     */
     public void sendMessage(String s) {
         out.println(s);
         out.flush();
