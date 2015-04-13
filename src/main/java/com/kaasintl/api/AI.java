@@ -10,6 +10,6 @@ public abstract class AI {
 
     public int[] minimax(int i) { return null; }
 
-    public int[] backtrack() { return null; }
+    public int backtrack() { return 0; }
 
 }

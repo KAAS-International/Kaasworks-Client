@@ -11,16 +11,17 @@ import main.java.com.kaasintl.api.RuleManager;
 public class ReversiAI extends AI
 {
     public int[] moves;
+    public int best;
 
     @Override
     public int nextMove() {
         for (Field field : GameBoard.board) {
             if (0 == 0) { // TODO: This should call RuleManager to verify if field is valid
-                minimax(field.getCoordinate());
+                best = backtrack(minimax(field.getCoordinate()));
             }
         }
 
-        return 0; // Return best possible move
+        return best; // Return best possible move
     }
 
     // TODO: This method only includes fields with a positive value, needs to be extended with backtracking to include possible bad moves
@@ -41,16 +42,16 @@ public class ReversiAI extends AI
     }
 
     // TODO: Backtrack 10 moves forward in time
-    public int[] backtrack() {
+    public int backtrack(int[] x) {
 
         for (int i = 0; i < 10; i++) {
 
-            for (int move : moves) {
-                minimax(move);
+            for (int y : x) {
+                minimax(y);
             }
 
         }
 
-        return moves;
+        return 0;
     }
 }
