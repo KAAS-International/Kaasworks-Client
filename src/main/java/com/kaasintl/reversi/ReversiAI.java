@@ -3,53 +3,47 @@ package main.java.com.kaasintl.reversi;
 import main.java.com.kaasintl.api.AI;
 import main.java.com.kaasintl.api.Field;
 import main.java.com.kaasintl.api.GameBoard;
-import main.java.com.kaasintl.api.RuleManager;
+import java.util.Map;
 
 /**
  * Created by Kevin on 9-4-2015.
  */
 public class ReversiAI extends AI
 {
-    public int[] moves;
     public int best;
+    public int bestValue;
+    public Map<Field, Integer> moves; // Field, Value (using .getValue() method)
+    public Map<Field, Integer> possibilities; // Field, moveValue (using math)
 
     @Override
     public int nextMove() {
-        for (Field field : GameBoard.board) {
-            if (0 == 0) { // TODO: This should call RuleManager to verify if field is valid
-                best = backtrack(minimax(field.getCoordinate()));
+
+        // TODO: Call minimax() method here
+
+        for (Map.Entry<Field, Integer> possibility : possibilities.entrySet()) {
+            if (possibility.getKey().getValue() > bestValue) {
+                bestValue = possibility.getValue();
+                best = possibility.getKey().getCoordinate();
             }
         }
-
-        return best; // Return best possible move
+        return best;
     }
 
-    // TODO: This method only includes fields with a positive value, needs to be extended with backtracking to include possible bad moves
-    public int[] minimax(int i) {
+    public Map minimax() {
         for (Field field : GameBoard.board) {
-            if (field.getValue() > 0) {
-                moves[moves.length] = field.getCoordinate();
-            }
+            moves.put(field, field.getValue()); // TODO: Add minimax to this method
         }
 
-        if (moves.length == 0) {
-            for (Field field : GameBoard.board) {
-                moves[moves.length] = field.getCoordinate();
-            }
+        for (Map.Entry<Field, Integer> move : moves.entrySet()) {
+            backtrack(move.getKey().getCoordinate());
         }
 
         return moves;
     }
 
-    // TODO: Backtrack 10 moves forward in time
-    public int backtrack(int[] x) {
-
-        for (int i = 0; i < 10; i++) {
-
-            for (int y : x) {
-                minimax(y);
-            }
-
+    public int backtrack(int i) {
+        for (Map.Entry<Field, Integer> possilibity : possibilities.entrySet()) {
+            // TODO: Check moveValue
         }
 
         return 0;
