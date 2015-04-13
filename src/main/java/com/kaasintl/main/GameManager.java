@@ -15,7 +15,6 @@ public class GameManager
     private Thread netManager;
     private GUI gui;
 
-
     /**
      * Creates an instance of the GameManager, with no GUI provided. This will cause it to make a GUI itself
      */
@@ -97,6 +96,18 @@ public class GameManager
     public void setPlayerList(ArrayList<String> playerList)
     {
         this.playerList = playerList;
+    }
+
+    /**
+     * Ends the game with a certain result
+     * @param winloss 1 means win, 0 means draw, -1 means loss
+     * @param player1Score
+     * @param player2Score
+     * @param message
+     */
+    public void endGame(int winloss, int player1Score, int player2Score, String message)
+    {
+
     }
 
     // TODO: Get list of supported games
