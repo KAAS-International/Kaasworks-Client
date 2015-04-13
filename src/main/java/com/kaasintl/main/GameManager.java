@@ -16,6 +16,7 @@ public class GameManager
     RuleManager ruleManager;
     private Thread netManager;
     private GUI gui;
+    private String opponent;
 
     /**
      * Creates an instance of the GameManager, with no GUI provided. This will cause it to make a GUI itself
@@ -119,6 +120,20 @@ public class GameManager
         }
     }
 
+    /**
+     * Notify gameManager when new game starts
+     * TODO: notify GUI of new game and move
+     * @param playerToMove
+     * @param gameType
+     * @param opponent
+     */
+    public void setMatch(String playerToMove, String gameType, String opponent) {
+        setOpponent(opponent);
+        if(!playerToMove.equals(opponent)) {
+
+        }
+    }
+
     // TODO: Get list of supported games
     public ArrayList<String> getGameList()
     {
@@ -168,5 +183,21 @@ public class GameManager
     public boolean isValid(Field f) {
         if (f == f) return true;
         return false;
+    }
+
+    /**
+     * Gets opponent name
+     * @return String - opponent
+     */
+    public String getOpponent() {
+        return opponent;
+    }
+
+    /**
+     * Sets opponent name
+     * @param opponent
+     */
+    public void setOpponent(String opponent) {
+        this.opponent = opponent;
     }
 }

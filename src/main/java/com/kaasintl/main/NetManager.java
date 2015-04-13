@@ -108,7 +108,7 @@ public class NetManager extends Thread {
                                         temp = temp + sc.next();
                                     }
                                     parsedMap = parseMap(temp);
-                                    //gameManager.setMatch(parsedMap);
+                                    gameManager.setMatch(parsedMap.get("PLAYERTOMOVE"), parsedMap.get("GAMETYPE"), parsedMap.get("OPPONENT"));
                                     break;
                                 case "YOURTURN":
                                     temp = "";
@@ -200,8 +200,17 @@ public class NetManager extends Thread {
 
     public HashMap<String,String> parseMap(String s) {
         HashMap<String,String> m = new HashMap<>();
-
-
+        String key;
+        String value;
+        s = s.substring(1,(s.length()-1));
+        Scanner scanner = new Scanner(s).useDelimiter(",|:");
+        while(scanner.hasNext()) {
+            s = scanner.next();
+            key = s;
+            s = scanner.next();
+            value = s.substring(1,s.length()-1);
+            m.put(key,value);
+        }
         return m;
     }
 
