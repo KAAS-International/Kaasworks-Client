@@ -2,6 +2,7 @@ package main.java.com.kaasintl.main;
 
 import main.java.com.kaasintl.api.Field;
 import main.java.com.kaasintl.api.GameBoard;
+import main.java.com.kaasintl.api.RuleManager;
 
 import java.util.ArrayList;
 
@@ -12,6 +13,7 @@ public class GameManager
 {
     ArrayList<String> playerList;
     ArrayList<String> gameList;
+    RuleManager ruleManager;
     private Thread netManager;
     private GUI gui;
 
@@ -85,6 +87,25 @@ public class GameManager
     }
 
     /**
+     * Gets the current rulemanager
+     * @return the current RuleManager
+     */
+    public RuleManager getRuleManager()
+    {
+        return ruleManager;
+    }
+
+    /**
+     * Sets the rulemanager
+     *
+     * @param ruleManager
+     */
+    public void setRuleManager(RuleManager ruleManager)
+    {
+        this.ruleManager = ruleManager;
+    }
+
+    /**
      * Ends the game with a certain result
      * @param winloss 1 means win, 0 means draw, -1 means loss
      * @param player1Score
@@ -93,7 +114,10 @@ public class GameManager
      */
     public void endGame(int winloss, int player1Score, int player2Score, String message)
     {
+        switch (winloss)
+        {
 
+        }
     }
 
     // TODO: Get list of supported games
