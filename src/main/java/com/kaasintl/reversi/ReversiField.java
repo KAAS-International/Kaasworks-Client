@@ -7,12 +7,5 @@ import main.java.com.kaasintl.api.Field;
  */
 public class ReversiField extends Field
 {
-    public enum STATE {
-        Open,
-        Enemy,
-        Friendly
-    }
-
-    public STATE state;
 
 }
