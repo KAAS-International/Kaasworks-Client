@@ -4,15 +4,16 @@ import main.java.com.kaasintl.api.Field;
 import main.java.com.kaasintl.api.GameBoard;
 
 import java.util.ArrayList;
+
 /**
  * Created by David on 4-4-2015.
  */
 public class GameManager
 {
-    private Thread netManager;
-    private GUI gui;
     ArrayList<String> playerList;
     ArrayList<String> gameList;
+    private Thread netManager;
+    private GUI gui;
 
 
     /**
@@ -35,7 +36,7 @@ public class GameManager
      */
     public GameManager(GUI gui)
     {
-        this.gui = new GUI();
+        this.gui = gui;
         netManager = new NetManager(this);
         netManager.start();
         playerList = new ArrayList<>();

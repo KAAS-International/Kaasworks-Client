@@ -6,8 +6,10 @@ package main.java.com.kaasintl.api;
 public abstract class AI {
     public int[] moves;
 
-    public int nextMove() {
-        return 0;
-    }
+    public int nextMove() { return 0; }
+
+    public int[] minimax(int i) { return null; }
+
+    public int backtrack() { return 0; }
 
 }
