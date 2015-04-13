@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Connects to a telnet client with a password and username.
@@ -23,7 +21,7 @@ public class NetManager extends Thread {
     private PrintWriter out;
     private String line;
     private LinkedList<String> queue = new LinkedList<>();
-    private ArrayList<String> parsedList = new ArrayList<>();
+    private Map<String,String> parsedMap = new HashMap<>();
 
     public NetManager() {}
     public NetManager(GameManager g) {
@@ -39,8 +37,8 @@ public class NetManager extends Thread {
         }
 
         // demo code
-        login("kees");
-        out.println("get playerlist");
+        //login("kees");
+        //out.println("get playerlist");
         //end demo code
     }
 
@@ -68,16 +66,18 @@ public class NetManager extends Thread {
      */
     public void parser(String s) {
         boolean done = false;
+        ArrayList<String> parsedList;
         Scanner sc = new Scanner(s);
         while(!done && sc.hasNext()) {
             String temp = sc.next();
 
             switch(temp) {
                 case "OK":
-                    //gameManager.receive("ok");
+                    gameManager.receive("ok");
                     done = true;
                     break;
                 case "ERR":
+                    gameManager.receive("err");
                     done = true;
                     break;
                 case "SVR":
@@ -88,36 +88,64 @@ public class NetManager extends Thread {
                             done = true;
                             break;
                         case "GAME":
-                            //iets
+                            temp = sc.next();
+                            switch(temp) {
+                                case "MATCH":
+                                    temp = sc.next();
+                                    parsedMap = parseMap(temp, "match");
+                                    break;
+                                case "YOURTURN":
+                                    temp = sc.next();
+                                    parsedMap = parseMap(temp, "youturn");
+                                    break;
+                                case "MOVE":
+                                    temp = sc.next();
+                                    parsedMap = parseMap(temp, "move");
+                                    break;
+                                case "CHALLENGE":
+                                    temp = sc.next();
+                                    parsedMap = parseMap(temp, "challenge");
+                                    break;
+                                case "WIN":
+                                    break;
+                                case "LOSS":
+                                    break;
+                                case "DRAW":
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                         case "GAMELIST":
-                            temp = sc.next();
-                            temp = temp.substring(1);
-                            temp = "\"gameList\"," + temp;
+                            temp = "";
                             while(sc.hasNext()) {
                                 temp = temp + sc.next();
                             }
                             System.out.println(temp);
-                            parsedList = parseList(temp);
-                            gameManager.receive(parsedList);
+                            parsedList = parseList(temp, "\"gameList\",");
+                            //gameManager.setGameList(parsedList);
+                            parsedList.clear();
+                            done = true;
                             break;
                         case "PLAYERLIST":
-                            temp = sc.next();
-                            temp = temp.substring(1);
-                            temp = "\"playerList\"," + temp;
+                            temp = "";
                             while(sc.hasNext()) {
                                 temp = temp + sc.next();
                             }
                             System.out.println(temp);
-                            parsedList = parseList(temp);
-                            gameManager.receive(parsedList);
+                            parsedList = parseList(temp, "\"playerList\",");
+                            //gameManager.setPlayerList(parsedList);
+                            parsedList.clear();
+                            done = true;
                             break;
                         default:
                             break;
                     }
+                    break;
                 default:
                     break;
             }
+
         }
     }
 
@@ -126,9 +154,12 @@ public class NetManager extends Thread {
      * @param s String to be parsed
      * @return ArrayList with usable sub-strings.
      */
-    public ArrayList<String> parseList(String s) {
+    public ArrayList<String> parseList(String s, String type) {
         ArrayList<String> a = new ArrayList<>();
-        s = s.substring(0,(s.length()-1));
+        //a.add(type);
+        s = s.substring(1,(s.length()-1));
+        s = type + s;
+        System.out.println(s);
         Scanner scanner = new Scanner(s).useDelimiter(",");
         while(scanner.hasNext()) {
             s = scanner.next();
@@ -137,6 +168,13 @@ public class NetManager extends Thread {
             System.out.println(s);
         }
         return a;
+    }
+
+    public HashMap<String,String> parseMap(String s, String type) {
+        HashMap<String,String> m = new HashMap<>();
+
+
+        return m;
     }
 
     /**
