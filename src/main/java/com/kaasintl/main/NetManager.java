@@ -23,7 +23,19 @@ public class NetManager extends Thread {
     private LinkedList<String> queue = new LinkedList<>();
     private Map<String,String> parsedMap = new HashMap<>();
 
-    public NetManager() {}
+    public NetManager() {
+        try {
+            Socket sock = new Socket("localhost", 7789);
+            out = new PrintWriter(sock.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+            stdIn = new BufferedReader(new InputStreamReader(System.in));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        gameManager = new GameManager();
+    }
+
     public NetManager(GameManager g) {
         super();
         this.gameManager = g;
@@ -92,25 +104,31 @@ public class NetManager extends Thread {
                             switch(temp) {
                                 case "MATCH":
                                     temp = sc.next();
-                                    parsedMap = parseMap(temp, "match");
+                                    parsedMap = parseMap(temp);
                                     break;
                                 case "YOURTURN":
                                     temp = sc.next();
-                                    parsedMap = parseMap(temp, "youturn");
+                                    parsedMap = parseMap(temp);
                                     break;
                                 case "MOVE":
                                     temp = sc.next();
-                                    parsedMap = parseMap(temp, "move");
+                                    parsedMap = parseMap(temp);
                                     break;
                                 case "CHALLENGE":
                                     temp = sc.next();
-                                    parsedMap = parseMap(temp, "challenge");
+                                    parsedMap = parseMap(temp);
                                     break;
                                 case "WIN":
+                                    temp = sc.next();
+                                    parsedMap = parseMap(temp);
                                     break;
                                 case "LOSS":
+                                    temp = sc.next();
+                                    parsedMap = parseMap(temp);
                                     break;
                                 case "DRAW":
+                                    temp = sc.next();
+                                    parsedMap = parseMap(temp);
                                     break;
                                 default:
                                     break;
@@ -122,8 +140,8 @@ public class NetManager extends Thread {
                                 temp = temp + sc.next();
                             }
                             System.out.println(temp);
-                            parsedList = parseList(temp, "\"gameList\",");
-                            //gameManager.setGameList(parsedList);
+                            parsedList = parseList(temp);
+                            gameManager.setGameList(parsedList);
                             parsedList.clear();
                             done = true;
                             break;
@@ -133,8 +151,8 @@ public class NetManager extends Thread {
                                 temp = temp + sc.next();
                             }
                             System.out.println(temp);
-                            parsedList = parseList(temp, "\"playerList\",");
-                            //gameManager.setPlayerList(parsedList);
+                            parsedList = parseList(temp);
+                            gameManager.setPlayerList(parsedList);
                             parsedList.clear();
                             done = true;
                             break;
@@ -154,11 +172,10 @@ public class NetManager extends Thread {
      * @param s String to be parsed
      * @return ArrayList with usable sub-strings.
      */
-    public ArrayList<String> parseList(String s, String type) {
+    public ArrayList<String> parseList(String s) {
         ArrayList<String> a = new ArrayList<>();
         //a.add(type);
         s = s.substring(1,(s.length()-1));
-        s = type + s;
         System.out.println(s);
         Scanner scanner = new Scanner(s).useDelimiter(",");
         while(scanner.hasNext()) {
@@ -170,7 +187,7 @@ public class NetManager extends Thread {
         return a;
     }
 
-    public HashMap<String,String> parseMap(String s, String type) {
+    public HashMap<String,String> parseMap(String s) {
         HashMap<String,String> m = new HashMap<>();
 
 
