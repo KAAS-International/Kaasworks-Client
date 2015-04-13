@@ -13,6 +13,7 @@ public class NetManagerTest extends TestCase{
             NetManager netManager = new NetManager();
 
             netManager.parser("SVR GAMELIST [\"Guess Game\", \"Guess Game Deluxe\", \"Ultra Guess Game\"]");
+            netManager.parser("SVR PLAYERLIST [\"Niek\", \"Tanja\", \"Kevin\", \"David\"]");
         } catch(Exception e) {
             fail();
         }

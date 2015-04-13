@@ -22,9 +22,10 @@ public class NetManager extends Thread {
     private BufferedReader stdIn;
     private PrintWriter out;
     private String line;
-    private LinkedList<String> queue = new LinkedList();
-    private ArrayList<String> parsedList = new ArrayList();
+    private LinkedList<String> queue = new LinkedList<>();
+    private ArrayList<String> parsedList = new ArrayList<>();
 
+    public NetManager() {}
     public NetManager(GameManager g) {
         super();
         this.gameManager = g;
@@ -74,6 +75,7 @@ public class NetManager extends Thread {
 
             switch(temp) {
                 case "OK":
+                    //gameManager.receive("ok");
                     done = true;
                     break;
                 case "ERR":
@@ -90,12 +92,25 @@ public class NetManager extends Thread {
                         //iets
                         break;
                     case "GAMELIST":
-                        temp = "";
+                        temp = sc.next();
+                        temp = temp.substring(1);
+                        temp = "\"gameList\"," + temp;
                         while(sc.hasNext()) {
                             temp = temp + sc.next();
                         }
                         System.out.println(temp);
                         parsedList = parseList(temp);
+                        break;
+                    case "PLAYERLIST":
+                        temp = sc.next();
+                        temp = temp.substring(1);
+                        temp = "\"playerList\"," + temp;
+                        while(sc.hasNext()) {
+                            temp = temp + sc.next();
+                        }
+                        System.out.println(temp);
+                        parsedList = parseList(temp);
+                        //gameManager.receive(parsedList);
                         break;
                 }
             }
@@ -108,14 +123,16 @@ public class NetManager extends Thread {
      * @return ArrayList with usable sub-strings.
      */
     public ArrayList<String> parseList(String s) {
-        s = s.substring(1,(s.length()-1));
+        ArrayList<String> a = new ArrayList<>();
+        s = s.substring(0,(s.length()-1));
         Scanner scanner = new Scanner(s).useDelimiter(",");
         while(scanner.hasNext()) {
             s = scanner.next();
             s = s.substring(1,s.length()-1);
+            a.add(s);
             System.out.println(s);
         }
-        return parsedList;
+        return a;
     }
 
     /**
@@ -127,12 +144,8 @@ public class NetManager extends Thread {
         out.flush();
     }
 
-    /**
-     * Called by the game manager, sends a message to the server
-     * @param s the desired message
-     */
-    public void sendMessage(String s) {
-        out.println(s);
+    public void getPlayerlist() {
+        out.println("get playerlist");
         out.flush();
     }
 }
