@@ -1,6 +1,10 @@
 package main.java.com.kaasintl.main;
 
+import main.java.com.kaasintl.api.GameBoard;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -142,5 +146,25 @@ public class GUI {
 
         lobbyPlayerList.setModel(newListModel);
         lobbyPlayerList.updateUI();
+    }
+
+    /**
+     * Updates the gameboard
+     */
+    public void updateGameboard()
+    {
+        GameBoard gb = gameManager.getGameboard();
+        int boardSize = (int) Math.sqrt(gb.getBoard().size());
+        TableModel tableModel = new DefaultTableModel(boardSize, boardSize);
+
+        for (int i = 0; i < gb.getBoard().size(); i++)
+        {
+            tableModel.setValueAt(gb.getBoard().get(i), i / boardSize, i % boardSize);
+        }
+
+        gameBoard.setModel(tableModel);
+        gameBoard.updateUI();
+
+        return;
     }
 }
