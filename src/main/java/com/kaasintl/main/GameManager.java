@@ -89,10 +89,30 @@ public class GameManager
         return playerList;
     }
 
+    /**
+     * Sets the playerlist field
+     *
+     * @param playerList
+     */
+    public void setPlayerList(ArrayList<String> playerList)
+    {
+        this.playerList = playerList;
+    }
+
     // TODO: Get list of supported games
     public ArrayList<String> getGameList()
     {
         return gameList;
+    }
+
+    /**
+     * Sets the gameList variable
+     *
+     * @param gameList
+     */
+    public void setGameList(ArrayList<String> gameList)
+    {
+        this.gameList = gameList;
     }
 
     // TODO: Forfeit the game
@@ -129,5 +149,4 @@ public class GameManager
         if (f == f) return true;
         return false;
     }
-
 }

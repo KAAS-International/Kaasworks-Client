@@ -1,15 +1,24 @@
 package main.java.com.kaasintl.api;
 
+import java.util.Map;
+
 /**
  * Created by Kevin on 4-4-2015.
  */
 public abstract class AI {
-    public int[] moves;
+    public int best;
+    public Map<Field, Integer> moves;
 
-    public int nextMove() { return 0; }
+    public int nextMove() {
+        return best;
+    }
 
-    public int[] minimax(int i) { return null; }
+    public Map minimax() {
+        return moves;
+    }
 
-    public int backtrack() { return 0; }
+    public int backtrack(int i) {
+        return 0;
+    }
 
 }
