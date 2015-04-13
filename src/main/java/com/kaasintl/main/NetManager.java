@@ -85,11 +85,11 @@ public class NetManager extends Thread {
 
             switch(temp) {
                 case "OK":
-                    gameManager.receive("ok");
+                    //gameManager.receive("ok");
                     done = true;
                     break;
                 case "ERR":
-                    gameManager.receive("err");
+                    //gameManager.receive("err");
                     done = true;
                     break;
                 case "SVR":
@@ -103,32 +103,48 @@ public class NetManager extends Thread {
                             temp = sc.next();
                             switch(temp) {
                                 case "MATCH":
-                                    temp = sc.next();
+                                    temp = "";
+                                    while(sc.hasNext()) {
+                                        temp = temp + sc.next();
+                                    }
                                     parsedMap = parseMap(temp);
+                                    //gameManager.setMatch(parsedMap);
                                     break;
                                 case "YOURTURN":
-                                    temp = sc.next();
-                                    parsedMap = parseMap(temp);
+                                    temp = "";
+                                    while(sc.hasNext()) {
+                                        temp = temp + sc.next();
+                                    }
                                     break;
                                 case "MOVE":
-                                    temp = sc.next();
-                                    parsedMap = parseMap(temp);
+                                    temp = "";
+                                    while(sc.hasNext()) {
+                                        temp = temp + sc.next();
+                                    }
                                     break;
                                 case "CHALLENGE":
-                                    temp = sc.next();
-                                    parsedMap = parseMap(temp);
+                                    temp = "";
+                                    while(sc.hasNext()) {
+                                        temp = temp + sc.next();
+                                    }
                                     break;
                                 case "WIN":
-                                    temp = sc.next();
-                                    parsedMap = parseMap(temp);
+                                    temp = "";
+                                    while(sc.hasNext()) {
+                                        temp = temp + sc.next();
+                                    }
                                     break;
                                 case "LOSS":
-                                    temp = sc.next();
-                                    parsedMap = parseMap(temp);
+                                    temp = "";
+                                    while(sc.hasNext()) {
+                                        temp = temp + sc.next();
+                                    }
                                     break;
                                 case "DRAW":
-                                    temp = sc.next();
-                                    parsedMap = parseMap(temp);
+                                    temp = "";
+                                    while(sc.hasNext()) {
+                                        temp = temp + sc.next();
+                                    }
                                     break;
                                 default:
                                     break;
@@ -142,7 +158,6 @@ public class NetManager extends Thread {
                             System.out.println(temp);
                             parsedList = parseList(temp);
                             gameManager.setGameList(parsedList);
-                            parsedList.clear();
                             done = true;
                             break;
                         case "PLAYERLIST":
@@ -153,7 +168,6 @@ public class NetManager extends Thread {
                             System.out.println(temp);
                             parsedList = parseList(temp);
                             gameManager.setPlayerList(parsedList);
-                            parsedList.clear();
                             done = true;
                             break;
                         default:
@@ -174,15 +188,12 @@ public class NetManager extends Thread {
      */
     public ArrayList<String> parseList(String s) {
         ArrayList<String> a = new ArrayList<>();
-        //a.add(type);
         s = s.substring(1,(s.length()-1));
-        System.out.println(s);
         Scanner scanner = new Scanner(s).useDelimiter(",");
         while(scanner.hasNext()) {
             s = scanner.next();
             s = s.substring(1,s.length()-1);
             a.add(s);
-            System.out.println(s);
         }
         return a;
     }
