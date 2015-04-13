@@ -48,7 +48,6 @@ public class GameManager
         return true;
     }
 
-
     // TODO: Quit the game
     public boolean quit()
     {

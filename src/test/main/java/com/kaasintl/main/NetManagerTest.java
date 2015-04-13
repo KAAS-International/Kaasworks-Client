@@ -11,14 +11,10 @@ public class NetManagerTest extends TestCase{
     @Test
     public void testParser() {
         try{
-            //GameManager g = new GameManager();
-            NetManager netManager = new NetManager(/*g*/);
+            NetManager netManager = new NetManager();
 
-            //critically fails if there is no gamemanager to sens parsed data to, but also critically fails
-            //if there is a gamemanager, because that has to have a server to connect to
-            //hint: NULLPOINTER NULLPOINTER NULLPOINTER... ... ...
-            //netManager.parser("SVR GAMELIST [\"Guess Game\", \"Guess Game Deluxe\", \"Ultra Guess Game\"]");
-            //netManager.parser("SVR PLAYERLIST [\"Niek\", \"Tanja\", \"Kevin\", \"David\"]");
+            netManager.parser("SVR GAMELIST [\"Guess Game\", \"Guess Game Deluxe\", \"Ultra Guess Game\"]");
+            netManager.parser("SVR PLAYERLIST [\"Niek\", \"Tanja\", \"Kevin\", \"David\"]");
         } catch(Exception e) {
             //e.printStackTrace();
             fail();
