@@ -42,20 +42,6 @@ public class GameManager
         gameList = new ArrayList<>();
     }
 
-    public synchronized void receive(String s) {
-
-    }
-
-    public synchronized void receive(ArrayList<String> a) {
-        if(a.get(0).equals("playerList")) {
-            a.remove(0);
-            playerList = a;
-        } else if(a.get(0).equals("gameList")) {
-            a.remove(0);
-            gameList = a;
-        }
-    }
-
     // TODO: Subscribe to Gametype
     public boolean subscribe(String game)
     {
