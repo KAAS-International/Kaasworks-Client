@@ -9,14 +9,23 @@ public class ReversiRuleManager extends RuleManager {
 
     @Override
     public boolean isValid(int i) {
+        ReversiField move = null;
 
         for (ReversiField field : ReversiGameBoard.board) {
-            if (field.getState() == 0) { // TODO: This does not work yet, check if field is adjacent to field with state 2. Also, check if that field has our field in a line. THIS IS CRAP. JUST SAYING.
-                return true;
+            if (field.getCoordinate() == i) {
+                move = field;
             }
         }
 
-        return true;
+        // TODO: Replace "== 0" with field+x.getState() == 2
+        // TODO: This will only check for adjacent opponent fields, not yet if a piece of ours is on the same line. because fuck that. its difficult.
+        if ((move.getCoordinate()-1) == 0 && (move.getCoordinate()+1) == 0 && (move.getCoordinate()-8) == 0
+                && (move.getCoordinate()-9) == 0 && (move.getCoordinate()-7) == 0 && (move.getCoordinate()+8) == 0
+                && (move.getCoordinate()+7) == 0 && (move.getCoordinate()+9) ==0) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override
