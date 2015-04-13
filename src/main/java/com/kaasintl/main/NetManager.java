@@ -29,16 +29,6 @@ public class NetManager extends Thread {
     public NetManager(GameManager g) {
         super();
         this.gameManager = g;
-    }
-
-    /**
-     * Method implementation of the thread that listens continuously to the server socket.
-     * Creates the connection when started
-     */
-    @Override
-    public void run() {
-        boolean working = true;
-
         try {
             Socket sock = new Socket("localhost", 7789);
             out = new PrintWriter(sock.getOutputStream(), true);
@@ -52,6 +42,15 @@ public class NetManager extends Thread {
         login("kees");
         out.println("get playerlist");
         //end demo code
+    }
+
+    /**
+     * Run-method implementation of the thread that listens continuously to the server socket.
+     * Creates the connection when started
+     */
+    @Override
+    public void run() {
+        boolean working = true;
 
         while (working) {
             try {
@@ -84,35 +83,40 @@ public class NetManager extends Thread {
                 case "SVR":
                     temp = sc.next();
 
-                switch(temp) {
-                    case "HELP":
-                        done = true;
-                        break;
-                    case "GAME":
-                        //iets
-                        break;
-                    case "GAMELIST":
-                        temp = sc.next();
-                        temp = temp.substring(1);
-                        temp = "\"gameList\"," + temp;
-                        while(sc.hasNext()) {
-                            temp = temp + sc.next();
-                        }
-                        System.out.println(temp);
-                        parsedList = parseList(temp);
-                        break;
-                    case "PLAYERLIST":
-                        temp = sc.next();
-                        temp = temp.substring(1);
-                        temp = "\"playerList\"," + temp;
-                        while(sc.hasNext()) {
-                            temp = temp + sc.next();
-                        }
-                        System.out.println(temp);
-                        parsedList = parseList(temp);
-                        //gameManager.receive(parsedList);
-                        break;
-                }
+                    switch(temp) {
+                        case "HELP":
+                            done = true;
+                            break;
+                        case "GAME":
+                            //iets
+                            break;
+                        case "GAMELIST":
+                            temp = sc.next();
+                            temp = temp.substring(1);
+                            temp = "\"gameList\"," + temp;
+                            while(sc.hasNext()) {
+                                temp = temp + sc.next();
+                            }
+                            System.out.println(temp);
+                            parsedList = parseList(temp);
+                            gameManager.receive(parsedList);
+                            break;
+                        case "PLAYERLIST":
+                            temp = sc.next();
+                            temp = temp.substring(1);
+                            temp = "\"playerList\"," + temp;
+                            while(sc.hasNext()) {
+                                temp = temp + sc.next();
+                            }
+                            System.out.println(temp);
+                            parsedList = parseList(temp);
+                            gameManager.receive(parsedList);
+                            break;
+                        default:
+                            break;
+                    }
+                default:
+                    break;
             }
         }
     }

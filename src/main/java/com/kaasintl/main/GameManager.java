@@ -4,9 +4,6 @@ import main.java.com.kaasintl.api.Field;
 import main.java.com.kaasintl.api.GameBoard;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Created by David on 4-4-2015.
  */
@@ -45,11 +42,11 @@ public class GameManager
         gameList = new ArrayList<>();
     }
 
-    public void receive(String s) {
+    public synchronized void receive(String s) {
 
     }
 
-    public void receive(ArrayList<String> a) {
+    public synchronized void receive(ArrayList<String> a) {
         if(a.get(0).equals("playerList")) {
             a.remove(0);
             playerList = a;
@@ -92,14 +89,9 @@ public class GameManager
     }
 
     // TODO: Get list of supported games
-    public List<String> getGameList()
+    public ArrayList<String> getGameList()
     {
-        ArrayList list = new ArrayList();
-
-        list.add("Mens-erger-je-wel");
-        list.add("Botsauto's");
-
-        return list;
+        return gameList;
     }
 
     // TODO: Forfeit the game
