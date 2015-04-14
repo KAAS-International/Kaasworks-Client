@@ -64,7 +64,7 @@ public class GameManager
     }
 
     // TODO: Challenge other player
-    public boolean challenge(String player)
+    public boolean challenge(String player, String game)
     {
         return true;
     }
