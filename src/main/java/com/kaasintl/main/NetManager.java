@@ -19,8 +19,7 @@ public class NetManager {
     private Thread receiver;
     private BufferedReader in;
     private PrintWriter out;
-    private String line;
-    private ArrayList<Object> queue = new ArrayList<>();
+    private ArrayList<String> queue = new ArrayList<>();
     private Map<String,String> parsedMap = new HashMap<>();
 
     public NetManager() {
@@ -88,7 +87,7 @@ public class NetManager {
                                         temp = temp + sc.next();
                                     }
                                     parsedMap = parseMap(temp);
-                                    gameManager.setMatch(parsedMap.get("PLAYERTOMOVE"), parsedMap.get("GAMETYPE"), parsedMap.get("OPPONENT"));
+                                    //gameManager.setMatch(parsedMap.get("PLAYERTOMOVE"), parsedMap.get("GAMETYPE"), parsedMap.get("OPPONENT"));
                                     done = true;
                                     break;
                                 case "YOURTURN":
@@ -97,7 +96,7 @@ public class NetManager {
                                         temp = temp + sc.next();
                                     }
                                     parsedMap = parseMap(temp);
-                                    gameManager.setTurn(parsedMap.get("TURNMESSAGE"));
+                                    //gameManager.setTurn(parsedMap.get("TURNMESSAGE"));
                                     done = true;
                                     break;
                                 case "MOVE":
@@ -106,7 +105,7 @@ public class NetManager {
                                         temp = temp + sc.next();
                                     }
                                     parsedMap = parseMap(temp);
-                                    gameManager.setMove(parsedMap.get("PLAYER"), Integer.parseInt(parsedMap.get("MOVE")), parsedMap.get("DETAILS"));
+                                    //gameManager.setMove(parsedMap.get("PLAYER"), Integer.parseInt(parsedMap.get("MOVE")), parsedMap.get("DETAILS"));
                                     done = true;
                                     break;
                                 case "CHALLENGE":
@@ -115,7 +114,7 @@ public class NetManager {
                                         temp = temp + sc.next();
                                     }
                                     parsedMap = parseMap(temp);
-                                    gameManager.setMove(parsedMap.get("CHALLENGER"), Integer.parseInt(parsedMap.get("CHALLENGENUMBER")), parsedMap.get("GAMETYPE"));
+                                    //gameManager.setMove(parsedMap.get("CHALLENGER"), Integer.parseInt(parsedMap.get("CHALLENGENUMBER")), parsedMap.get("GAMETYPE"));
                                     done = true;
                                     break;
                                 case "WIN":
@@ -124,7 +123,7 @@ public class NetManager {
                                         temp = temp + sc.next();
                                     }
                                     parsedMap = parseMap(temp);
-                                    gameManager.endGame(1, Integer.parseInt(parsedMap.get("PLAYERONESCORE")), Integer.parseInt(parsedMap.get("PLAYERTWOSCORE")), parsedMap.get("COMMENT"));
+                                    //gameManager.endGame(1, Integer.parseInt(parsedMap.get("PLAYERONESCORE")), Integer.parseInt(parsedMap.get("PLAYERTWOSCORE")), parsedMap.get("COMMENT"));
                                     done = true;
                                     break;
                                 case "LOSS":
@@ -133,7 +132,7 @@ public class NetManager {
                                         temp = temp + sc.next();
                                     }
                                     parsedMap = parseMap(temp);
-                                    gameManager.endGame(-1, Integer.parseInt(parsedMap.get("PLAYERONESCORE")), Integer.parseInt(parsedMap.get("PLAYERTWOSCORE")), parsedMap.get("COMMENT"));
+                                    //gameManager.endGame(-1, Integer.parseInt(parsedMap.get("PLAYERONESCORE")), Integer.parseInt(parsedMap.get("PLAYERTWOSCORE")), parsedMap.get("COMMENT"));
                                     done = true;
                                     break;
                                 case "DRAW":
@@ -142,7 +141,7 @@ public class NetManager {
                                         temp = temp + sc.next();
                                     }
                                     parsedMap = parseMap(temp);
-                                    gameManager.endGame(0, Integer.parseInt(parsedMap.get("PLAYERONESCORE")), Integer.parseInt(parsedMap.get("PLAYERTWOSCORE")), parsedMap.get("COMMENT"));
+                                    //gameManager.endGame(0, Integer.parseInt(parsedMap.get("PLAYERONESCORE")), Integer.parseInt(parsedMap.get("PLAYERTWOSCORE")), parsedMap.get("COMMENT"));
                                     done = true;
                                     break;
                                 default:
@@ -248,14 +247,14 @@ public class NetManager {
          */
         @Override
         public void run() {
+            String line;
             boolean working = true;
-
 
             while (working) {
                 try {
                     line = in.readLine();
                     if(line != null) {
-                        Thread Handler = new Thread(new Handler(line, netManager));
+                        queue.add(line);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -264,17 +263,50 @@ public class NetManager {
         }
     }
 
-    private class Handler implements Runnable {
-        String line;
-        NetManager netManager;
+    public class Message {
+        public String type;
+        public Object content;
 
-        public Handler(String line, NetManager netManager) {
-            this.line = line;
-            this.netManager = netManager;
+        /**
+         * constructor
+         * @param type
+         * @param content
+         */
+        public Message(String type, Object content) {
+            setType(type);
+            setContent(content);
         }
 
-        public void run() {
-            netManager.parser(line);
+        /**
+         * Get the value of type
+         * @return String type
+         */
+        public String getType() {
+            return type;
+        }
+
+        /**
+         * Set the type of the message
+         * @param type
+         */
+        private void setType(String type) {
+            this.type = type;
+        }
+
+        /**
+         * Get the content of the message
+         * @return Object content
+         */
+        public Object getContent() {
+            return content;
+        }
+
+        /**
+         * Set the content of the message
+         * @param content
+         */
+        private void setContent(Object content) {
+            this.content = content;
         }
     }
 }
