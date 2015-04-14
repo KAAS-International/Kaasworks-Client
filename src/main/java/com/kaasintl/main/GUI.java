@@ -31,6 +31,8 @@ public class GUI {
     private JButton forfeitButton;
     private JButton challengeButton;
 
+    private String currentGame = "Tic-tac-toe";
+
     public GUI()
     {
         this.gameManager = new GameManager(this);
@@ -79,7 +81,7 @@ public class GUI {
         {
             public void actionPerformed(ActionEvent e)
             {
-                if (gameManager.challenge((String) lobbyPlayerList.getSelectedValue()))
+                if (gameManager.challenge((String) lobbyPlayerList.getSelectedValue(),currentGame))
                 {
                     gameHistory.setText(gameHistory.getText() + "\n You challenged " + lobbyPlayerList.getSelectedValue() + " to a game");
                 } else
