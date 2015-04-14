@@ -11,11 +11,11 @@ public class ReversiRuleManager extends RuleManager {
     public boolean isValid(int i) {
         ReversiField move = null;
 
-        for (ReversiField field : ReversiGameBoard.board) {
+        /* for (ReversiField field : ReversiGameBoard.board) {
             if (field.getCoordinate() == i) {
                 move = field;
             }
-        }
+        } */
 
         // TODO: Replace "== 0" with field+x.getState() == 2
         // TODO: This will only check for adjacent opponent fields, not yet if a piece of ours is on the same line. because fuck that. its difficult.

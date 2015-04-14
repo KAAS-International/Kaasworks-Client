@@ -14,10 +14,11 @@ import java.util.*;
  * Only 1 cheese suffered from injury
  */
 
-public class NetManager extends Thread {
+public class NetManager {
     private GameManager gameManager;
+    private Thread receiver;
     private BufferedReader in;
-    private BufferedReader stdIn;
+    //private BufferedReader stdIn;
     private PrintWriter out;
     private String line;
     private LinkedList<String> queue = new LinkedList<>();
@@ -28,7 +29,9 @@ public class NetManager extends Thread {
             Socket sock = new Socket("localhost", 7789);
             out = new PrintWriter(sock.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-            stdIn = new BufferedReader(new InputStreamReader(System.in));
+            receiver = new Thread(new Reciever(this));
+            receiver.start();
+            //stdIn = new BufferedReader(new InputStreamReader(System.in));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -39,11 +42,14 @@ public class NetManager extends Thread {
     public NetManager(GameManager g) {
         super();
         this.gameManager = g;
+
         try {
             Socket sock = new Socket("localhost", 7789);
             out = new PrintWriter(sock.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-            stdIn = new BufferedReader(new InputStreamReader(System.in));
+            receiver = new Thread(new Reciever(this));
+            receiver.start();
+            //stdIn = new BufferedReader(new InputStreamReader(System.in));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,24 +58,6 @@ public class NetManager extends Thread {
         //login("kees");
         //out.println("get playerlist");
         //end demo code
-    }
-
-    /**
-     * Run-method implementation of the thread that listens continuously to the server socket.
-     * Creates the connection when started
-     */
-    @Override
-    public void run() {
-        boolean working = true;
-
-        while (working) {
-            try {
-                line = in.readLine();
-                parser(line);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     /**
@@ -85,11 +73,11 @@ public class NetManager extends Thread {
 
             switch(temp) {
                 case "OK":
-                    //gameManager.receive("ok");
+                    gameManager.setValidation("ok");
                     done = true;
                     break;
                 case "ERR":
-                    //gameManager.receive("err");
+                    gameManager.setValidation("err");
                     done = true;
                     break;
                 case "SVR":
@@ -109,42 +97,61 @@ public class NetManager extends Thread {
                                     }
                                     parsedMap = parseMap(temp);
                                     gameManager.setMatch(parsedMap.get("PLAYERTOMOVE"), parsedMap.get("GAMETYPE"), parsedMap.get("OPPONENT"));
+                                    done = true;
                                     break;
                                 case "YOURTURN":
                                     temp = "";
                                     while(sc.hasNext()) {
                                         temp = temp + sc.next();
                                     }
+                                    parsedMap = parseMap(temp);
+                                    gameManager.setTurn(parsedMap.get("TURNMESSAGE"));
+                                    done = true;
                                     break;
                                 case "MOVE":
                                     temp = "";
                                     while(sc.hasNext()) {
                                         temp = temp + sc.next();
                                     }
+                                    parsedMap = parseMap(temp);
+                                    gameManager.setMove(parsedMap.get("PLAYER"), Integer.parseInt(parsedMap.get("MOVE")), parsedMap.get("DETAILS"));
+                                    done = true;
                                     break;
                                 case "CHALLENGE":
                                     temp = "";
                                     while(sc.hasNext()) {
                                         temp = temp + sc.next();
                                     }
+                                    parsedMap = parseMap(temp);
+                                    gameManager.setMove(parsedMap.get("CHALLENGER"), Integer.parseInt(parsedMap.get("CHALLENGENUMBER")), parsedMap.get("GAMETYPE"));
+                                    done = true;
                                     break;
                                 case "WIN":
                                     temp = "";
                                     while(sc.hasNext()) {
                                         temp = temp + sc.next();
                                     }
+                                    parsedMap = parseMap(temp);
+                                    gameManager.endGame(1, Integer.parseInt(parsedMap.get("PLAYERONESCORE")), Integer.parseInt(parsedMap.get("PLAYERTWOSCORE")), parsedMap.get("COMMENT"));
+                                    done = true;
                                     break;
                                 case "LOSS":
                                     temp = "";
                                     while(sc.hasNext()) {
                                         temp = temp + sc.next();
                                     }
+                                    parsedMap = parseMap(temp);
+                                    gameManager.endGame(-1, Integer.parseInt(parsedMap.get("PLAYERONESCORE")), Integer.parseInt(parsedMap.get("PLAYERTWOSCORE")), parsedMap.get("COMMENT"));
+                                    done = true;
                                     break;
                                 case "DRAW":
                                     temp = "";
                                     while(sc.hasNext()) {
                                         temp = temp + sc.next();
                                     }
+                                    parsedMap = parseMap(temp);
+                                    gameManager.endGame(0, Integer.parseInt(parsedMap.get("PLAYERONESCORE")), Integer.parseInt(parsedMap.get("PLAYERTWOSCORE")), parsedMap.get("COMMENT"));
+                                    done = true;
                                     break;
                                 default:
                                     break;
@@ -208,7 +215,7 @@ public class NetManager extends Thread {
             s = scanner.next();
             key = s;
             s = scanner.next();
-            value = s.substring(1,s.length()-1);
+            value = s.substring(1,s.length() - 1);
             m.put(key,value);
         }
         return m;
@@ -216,15 +223,38 @@ public class NetManager extends Thread {
 
     /**
      * Log the user in to the server
-     * @param s the desired username
+     * @param name the desired username
      */
-    public void login(String s) {
-        out.println("login " + s);
+    public synchronized void login(String name) {
+        out.println("login " + name);
         out.flush();
     }
 
     public void getPlayerlist() {
         out.println("get playerlist");
         out.flush();
+    }
+
+    private class Reciever implements Runnable {
+        NetManager netManager;
+        public Reciever(NetManager netManager) {
+            this.netManager = netManager;
+        }
+        /**
+         * Run-method implementation of the thread that listens continuously to the server socket.
+         */
+        @Override
+        public void run() {
+            boolean working = true;
+
+            while (working) {
+                try {
+                    line = in.readLine();
+                    netManager.parser(line);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

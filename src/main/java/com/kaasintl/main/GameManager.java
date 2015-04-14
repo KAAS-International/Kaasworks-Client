@@ -14,23 +14,25 @@ public class GameManager
     ArrayList<String> playerList;
     ArrayList<String> gameList;
     RuleManager ruleManager;
-    private Thread netManager;
+    private NetManager netManager;
     private GUI gui;
     private String opponent;
+    private String gameType;
+    private boolean isTurn;
+    private String turnMessage;
+    private int isValid = 0;
 
     /**
      * Creates an instance of the GameManager, with no GUI provided. This will cause it to make a GUI itself
      */
     public GameManager() {
         netManager = new NetManager(this);
-        netManager.start();
         playerList = new ArrayList<>();
         gameList = new ArrayList<>();
 
         gui = new GUI();
     }
 
-    /**
     /**
      * Creates an instance of the GameManager, with the provided GUI object as it's gui
      *
@@ -40,9 +42,36 @@ public class GameManager
     {
         this.gui = gui;
         netManager = new NetManager(this);
-        netManager.start();
         playerList = new ArrayList<>();
         gameList = new ArrayList<>();
+    }
+
+    public void login(String name) {
+        netManager.login(name);
+    }
+
+    /**
+     * Validates the
+     * @param val
+     */
+    public void setValidation(String val) {
+        if(val.equals("ok")) {
+            this.isValid = 1;
+        } else {
+            this.isValid = -1;
+        }
+    }
+
+    public boolean getValidation() {
+        boolean val = false;
+        if(this.isValid == 0) {
+            this.getValidation();
+        } else if(this.isValid == 1) {
+            val = true;
+        } else {
+            val = false;
+        }
+        return val;
     }
 
     // TODO: Subscribe to Gametype
@@ -55,6 +84,16 @@ public class GameManager
     public boolean quit()
     {
         return true;
+    }
+
+    /**
+     * sets the challenge to be accepted
+     * @param challenger
+     * @param challengeNumber
+     * @param gameType
+     */
+    public void setChallenge(String challenger, int challengeNumber, String gameType) {
+
     }
 
     // TODO: Accept other player's challenge
@@ -162,9 +201,15 @@ public class GameManager
         return true;
     }
 
+    public void setTurn(String s) {
+        this.turnMessage = s;
+        // TODO: set isTurn false somewhere
+        this.isTurn = true;
+    }
+
     // TODO: Return if it is your turn
     public boolean isTurn() {
-        return true;
+        return isTurn;
     }
 
     // TODO: Return the game's board
@@ -199,5 +244,31 @@ public class GameManager
      */
     public void setOpponent(String opponent) {
         this.opponent = opponent;
+    }
+
+    /**
+     * Returns the current game type
+     * @return
+     */
+    public String getGameType() {
+        return gameType;
+    }
+
+    /**
+     * Sets the current game type
+     * @param gameType
+     */
+    public void setGameType(String gameType) {
+        this.gameType = gameType;
+    }
+
+    /**
+     * processes the move just played
+     * @param player
+     * @param move
+     * @param details
+     */
+    public void setMove(String player, int move, String details) {
+
     }
 }
