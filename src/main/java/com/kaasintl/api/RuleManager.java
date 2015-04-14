@@ -11,7 +11,7 @@ public abstract class RuleManager {
     // Validate if a move is within the game board borders
     // TODO: This method essentially is the same as isEmpty() in field, we should consider removing it
     public boolean isOccupied(int i) {
-        if (GameBoard.board.get(i).isEmpty()) return false;
+        /* if (GameBoard.board.get(i).isEmpty()) return false; */
 
         return true;
     }
@@ -19,7 +19,7 @@ public abstract class RuleManager {
     // Validate if a move conflicts with an already occupied field
     public boolean isReal(int i) {
         if (i < 0) return false;
-        if (i > GameBoard.board.size()-1) return false;
+        /* if (i > GameBoard.board.size()-1) return false; */
 
         return true;
     }
