@@ -14,8 +14,9 @@ import java.util.*;
  * Only 1 cheese suffered from injury
  */
 
-public class NetManager extends Thread {
+public class NetManager {
     private GameManager gameManager;
+    private Thread receiver;
     private BufferedReader in;
     //private BufferedReader stdIn;
     private PrintWriter out;
@@ -28,6 +29,8 @@ public class NetManager extends Thread {
             Socket sock = new Socket("localhost", 7789);
             out = new PrintWriter(sock.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+            receiver = new Thread(new Reciever(this));
+            receiver.start();
             //stdIn = new BufferedReader(new InputStreamReader(System.in));
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,10 +42,13 @@ public class NetManager extends Thread {
     public NetManager(GameManager g) {
         super();
         this.gameManager = g;
+
         try {
             Socket sock = new Socket("localhost", 7789);
             out = new PrintWriter(sock.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+            receiver = new Thread(new Reciever(this));
+            receiver.start();
             //stdIn = new BufferedReader(new InputStreamReader(System.in));
         } catch (IOException e) {
             e.printStackTrace();
@@ -52,23 +58,6 @@ public class NetManager extends Thread {
         //login("kees");
         //out.println("get playerlist");
         //end demo code
-    }
-
-    /**
-     * Run-method implementation of the thread that listens continuously to the server socket.
-     */
-    @Override
-    public void run() {
-        boolean working = true;
-
-        while (working) {
-            try {
-                line = in.readLine();
-                parser(line);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     /**
@@ -246,5 +235,26 @@ public class NetManager extends Thread {
         out.flush();
     }
 
-    
+    private class Reciever implements Runnable {
+        NetManager netManager;
+        public Reciever(NetManager netManager) {
+            this.netManager = netManager;
+        }
+        /**
+         * Run-method implementation of the thread that listens continuously to the server socket.
+         */
+        @Override
+        public void run() {
+            boolean working = true;
+
+            while (working) {
+                try {
+                    line = in.readLine();
+                    netManager.parser(line);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }

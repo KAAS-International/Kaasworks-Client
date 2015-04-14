@@ -14,7 +14,7 @@ public class GameManager
     ArrayList<String> playerList;
     ArrayList<String> gameList;
     RuleManager ruleManager;
-    private Thread netManager;
+    private NetManager netManager;
     private GUI gui;
     private String opponent;
     private String gameType;
@@ -27,14 +27,12 @@ public class GameManager
      */
     public GameManager() {
         netManager = new NetManager(this);
-        netManager.start();
         playerList = new ArrayList<>();
         gameList = new ArrayList<>();
 
         gui = new GUI();
     }
 
-    /**
     /**
      * Creates an instance of the GameManager, with the provided GUI object as it's gui
      *
@@ -44,13 +42,12 @@ public class GameManager
     {
         this.gui = gui;
         netManager = new NetManager(this);
-        netManager.start();
         playerList = new ArrayList<>();
         gameList = new ArrayList<>();
     }
 
     public void login(String name) {
-        //netManager.login(name);
+        netManager.login(name);
     }
 
     /**
