@@ -74,6 +74,10 @@ public class GameManager
         netManager.login(name);
     }
 
+    /**
+     * gets Server validation
+     * @return
+     */
     public boolean getValidation() {
         boolean val = false;
 
@@ -135,11 +139,12 @@ public class GameManager
         return true;
     }
 
-    // TODO: Get the list of players
-    public ArrayList<String> getPlayerList()
+    /**
+     * Fetches current playerList
+     */
+    public void fetchPlayerList()
     {
-        //netManager.getPlayerList();
-        return playerList;
+        netManager.fetchPlayerList();
     }
 
     /**
@@ -200,10 +205,12 @@ public class GameManager
         }
     }
 
-    // TODO: Get list of supported games
-    public ArrayList<String> getGameList()
+    /**
+     * fetches the gameList
+     */
+    public void getGameList()
     {
-        return gameList;
+        netManager.fetchGameList();
     }
 
     /**
@@ -219,6 +226,7 @@ public class GameManager
     // TODO: Forfeit the game
     public boolean forfeit()
     {
+        netManager.forfeit();
         return true;
     }
 

@@ -20,7 +20,7 @@ public class NetManager {
     private BufferedReader in;
     private PrintWriter out;
     private String line;
-    private LinkedList<String> queue = new LinkedList<>();
+    private ArrayList<Object> queue = new ArrayList<>();
     private Map<String,String> parsedMap = new HashMap<>();
 
     public NetManager() {
@@ -216,21 +216,33 @@ public class NetManager {
      * Log the user in to the server
      * @param name the desired username
      */
-    public synchronized void login(String name) {
+    public void login(String name) {
         out.println("login " + name);
         out.flush();
     }
 
-    public void getPlayerlist() {
+    public void fetchPlayerList() {
         out.println("get playerlist");
+        out.flush();
+    }
+
+    public void fetchGameList() {
+        out.println("get gamelist");
+        out.flush();
+    }
+
+    public void forfeit() {
+        out.println("get gamelist");
         out.flush();
     }
 
     private class Reciever implements Runnable {
         NetManager netManager;
+
         public Reciever(NetManager netManager) {
             this.netManager = netManager;
         }
+
         /**
          * Run-method implementation of the thread that listens continuously to the server socket.
          */
@@ -255,10 +267,12 @@ public class NetManager {
     private class Handler implements Runnable {
         String line;
         NetManager netManager;
+
         public Handler(String line, NetManager netManager) {
             this.line = line;
             this.netManager = netManager;
         }
+
         public void run() {
             netManager.parser(line);
         }
