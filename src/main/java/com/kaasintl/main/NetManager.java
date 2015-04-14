@@ -24,7 +24,7 @@ public class NetManager {
     private BufferedReader in;
     private PrintWriter out;
     private ArrayList<String> queue = new ArrayList<>();
-    public ArrayList<Object> parsedQueue = new ArrayList<>();
+    public ArrayList<Message> parsedQueue = new ArrayList<>();
     private Map<String,String> parsedMap = new HashMap<>();
 
     public NetManager() {
@@ -160,7 +160,7 @@ public class NetManager {
                             }
                             System.out.println(temp);
                             parsedList = parseList(temp);
-                            gameManager.setGameList(parsedList);
+                            parsedQueue.add(new Message("gameList", parsedList));
                             done = true;
                             break;
                         case "PLAYERLIST":
@@ -170,7 +170,7 @@ public class NetManager {
                             }
                             System.out.println(temp);
                             parsedList = parseList(temp);
-                            gameManager.setPlayerList(parsedList);
+                            parsedQueue.add(new Message("playerList", parsedList));
                             done = true;
                             break;
                         default:
@@ -228,6 +228,7 @@ public class NetManager {
     public void fetchPlayerList() {
         out.println("get playerlist");
         out.flush();
+        System.out.println("sent");
     }
 
     public void fetchGameList() {
@@ -260,6 +261,7 @@ public class NetManager {
                     line = in.readLine();
                     if(line != null) {
                         queue.add(line);
+                        System.out.println("read " + line);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

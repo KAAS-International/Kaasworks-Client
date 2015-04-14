@@ -5,6 +5,7 @@ import main.java.com.kaasintl.api.GameBoard;
 import main.java.com.kaasintl.api.RuleManager;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by David on 4-4-2015.
@@ -98,7 +99,7 @@ public class GameManager
      * gets Server validation
      * @return
      */
-    public boolean getValidation() {
+    public boolean getResponse() {
         boolean val = false;
 
         while (this.isValid == 0) {
@@ -165,8 +166,27 @@ public class GameManager
      */
     public ArrayList<String> getPlayerList()
     {
+        // TODO: haal OK uit de queue voor latere check (dus check voor oke achter elke server aanroep.
         netManager.fetchPlayerList();
-        return new ArrayList<String>(); // TODO:Make netmanager return ArrayList<String>
+        System.out.println("hmmmmm");
+
+        boolean working = true;
+        while(working) {
+            if(netManager.parsedQueue.size() != 0) {
+                int i = 0;
+                while (i < netManager.parsedQueue.size()) {
+                    NetManager.Message m = netManager.parsedQueue.get(i);
+                    System.out.println("m.getType()");
+                    if (m.getType().equals("playerList")) {
+                        this.playerList = (ArrayList<String>) m.getContent();
+                        working = false;
+                        break;
+                    }
+                }
+            }
+            //System.out.println("ops");
+        }
+        return this.playerList;
     }
 
     /**
