@@ -31,10 +31,15 @@ public class GUI {
     private JButton forfeitButton;
     private JButton challengeButton;
 
+    private String userName = null;
     private String currentGame = "Tic-tac-toe";
 
     public GUI()
     {
+        while (userName == null) {
+            showLogin();
+        }
+
         this.gameManager = new GameManager(this);
 
         //Add action listeners
@@ -130,7 +135,7 @@ public class GUI {
     private void updateLobby()
     {
         // get list of players
-        ArrayList<String> players = (ArrayList<String>) gameManager.getPlayerList();
+        ArrayList<String> players = gameManager.getPlayerList();
 
         String[] listData = new String[players.size()];
 
@@ -168,5 +173,14 @@ public class GUI {
         gameBoard.updateUI();
 
         return;
+    }
+
+    public void showLogin() {
+        JFrame frame = new JFrame("Login");
+
+        frame.setContentPane(new LoginWindow().getMainPanel());
+        frame.pack();
+
+        frame.setVisible(true);
     }
 }

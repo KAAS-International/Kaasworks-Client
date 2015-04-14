@@ -101,7 +101,8 @@ public class GameManager
     public boolean getValidation() {
         boolean val = false;
 
-        while(this.isValid == 0) {;}
+        while (this.isValid == 0) {
+        }
 
         if(this.isValid == 1) {
             val = true;
@@ -162,9 +163,10 @@ public class GameManager
     /**
      * Fetches current playerList
      */
-    public void fetchPlayerList()
+    public ArrayList<String> getPlayerList()
     {
         netManager.fetchPlayerList();
+        return new ArrayList<String>(); // TODO:Make netmanager return ArrayList<String>
     }
 
     /**
