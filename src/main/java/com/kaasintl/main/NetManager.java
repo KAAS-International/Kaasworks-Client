@@ -1,10 +1,14 @@
 package main.java.com.kaasintl.main;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 /**
  * Connects to a telnet client with a password and username.
@@ -218,7 +222,7 @@ public class NetManager {
      * @param name the desired username
      */
     public void login(String name) {
-        out.println("login " + name);
+        out.println("login " + name + "\n");
         out.flush();
     }
 
