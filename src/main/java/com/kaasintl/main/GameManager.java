@@ -21,6 +21,7 @@ public class GameManager
     private boolean isTurn;
     private String turnMessage;
     private int isValid = 0;
+    private GameBoard gameBoard;
 
     /**
      * Creates an instance of the GameManager, with no GUI provided. This will cause it to make a GUI itself
@@ -46,8 +47,46 @@ public class GameManager
         gameList = new ArrayList<>();
     }
 
+    /**
+     * Returns the current game's gameboard
+     *
+     * @return
+     */
+    public GameBoard getGameBoard() {
+        return gameBoard;
+    }
+
+    /**
+     * Sets the current game's gameboard to the provided Gameboard
+     *
+     * @param gameBoard
+     */
+    public void setGameBoard(GameBoard gameBoard) {
+        this.gameBoard = gameBoard;
+    }
+
+    /**
+     * Log into server with a specific name
+     *
+     * @param name
+     */
     public void login(String name) {
         netManager.login(name);
+    }
+
+    public boolean getValidation() {
+        boolean val = false;
+
+        while(this.isValid == 0) {;}
+
+        if(this.isValid == 1) {
+            val = true;
+            this.isValid = 0;
+        } else {
+            val = false;
+            this.isValid = 0;
+        }
+        return val;
     }
 
     /**
@@ -60,20 +99,6 @@ public class GameManager
         } else {
             this.isValid = -1;
         }
-    }
-
-    public boolean getValidation() {
-        boolean val = false;
-        while(this.isValid == 0) {;}
-
-        if(this.isValid == 1) {
-            val = true;
-            this.isValid = 0;
-        } else {
-            val = false;
-            this.isValid = 0;
-        }
-        return val;
     }
 
     // TODO: Subscribe to Gametype
@@ -203,15 +228,15 @@ public class GameManager
         return true;
     }
 
+    // TODO: Return if it is your turn
+    public boolean isTurn() {
+        return isTurn;
+    }
+
     public void setTurn(String s) {
         this.turnMessage = s;
         // TODO: set isTurn false somewhere
         this.isTurn = true;
-    }
-
-    // TODO: Return if it is your turn
-    public boolean isTurn() {
-        return isTurn;
     }
 
     // TODO: Return the game's board

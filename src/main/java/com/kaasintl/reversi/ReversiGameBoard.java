@@ -9,7 +9,11 @@ import java.util.ArrayList;
  * Created by Kevin on 9-4-2015.
  */
 public class ReversiGameBoard extends GameBoard {
-    public ArrayList<Field> board = new ArrayList<Field>();
+    public ArrayList<Field> board;
+
+    public ReversiGameBoard() {
+        board = new ArrayList<Field>();
+    }
 
     public ArrayList<Field> getBoard()
     {
