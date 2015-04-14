@@ -18,7 +18,6 @@ public class NetManager {
     private GameManager gameManager;
     private Thread receiver;
     private BufferedReader in;
-    //private BufferedReader stdIn;
     private PrintWriter out;
     private String line;
     private LinkedList<String> queue = new LinkedList<>();
@@ -31,7 +30,6 @@ public class NetManager {
             in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
             receiver = new Thread(new Reciever(this));
             receiver.start();
-            //stdIn = new BufferedReader(new InputStreamReader(System.in));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -49,22 +47,16 @@ public class NetManager {
             in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
             receiver = new Thread(new Reciever(this));
             receiver.start();
-            //stdIn = new BufferedReader(new InputStreamReader(System.in));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        // demo code
-        //login("kees");
-        //out.println("get playerlist");
-        //end demo code
     }
 
     /**
      * Parses the messages the server can send to the client
      * @param s the server message received by the socket
      */
-    public void parser(String s) {
+    public synchronized void parser(String s) {
         boolean done = false;
         ArrayList<String> parsedList;
         Scanner sc = new Scanner(s);
@@ -184,7 +176,6 @@ public class NetManager {
                 default:
                     break;
             }
-
         }
     }
 
@@ -247,14 +238,29 @@ public class NetManager {
         public void run() {
             boolean working = true;
 
+
             while (working) {
                 try {
                     line = in.readLine();
-                    netManager.parser(line);
+                    if(line != null) {
+                        Thread Handler = new Thread(new Handler(line, netManager));
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    private class Handler implements Runnable {
+        String line;
+        NetManager netManager;
+        public Handler(String line, NetManager netManager) {
+            this.line = line;
+            this.netManager = netManager;
+        }
+        public void run() {
+            netManager.parser(line);
         }
     }
 }
