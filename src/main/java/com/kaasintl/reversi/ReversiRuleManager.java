@@ -1,6 +1,7 @@
 package main.java.com.kaasintl.reversi;
 
 import main.java.com.kaasintl.api.RuleManager;
+import main.java.com.kaasintl.main.GameManager;
 
 /**
  * Created by Kevin on 9-4-2015.
@@ -11,7 +12,7 @@ public class ReversiRuleManager extends RuleManager {
     public boolean isValid(int i) {
         ReversiField move = null;
 
-        /* for (ReversiField field : ReversiGameBoard.board) {
+        /* for (ReversiField field : GameManager.getGameBoard().getBoard().board) {
             if (field.getCoordinate() == i) {
                 move = field;
             }
