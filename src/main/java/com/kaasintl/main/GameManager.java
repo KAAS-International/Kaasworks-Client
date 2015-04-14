@@ -14,13 +14,16 @@ public class GameManager
     ArrayList<String> playerList;
     ArrayList<String> gameList;
     RuleManager ruleManager;
+    // Connections to other game-components
     private NetManager netManager;
     private GUI gui;
+    // local variables
     private String opponent;
     private String gameType;
     private boolean isTurn;
     private String turnMessage;
     private int isValid = 0;
+    // Game Components
     private GameBoard gameBoard;
 
     /**
@@ -49,7 +52,6 @@ public class GameManager
 
     /**
      * Returns the current game's gameboard
-     *
      * @return
      */
     public GameBoard getGameBoard() {
@@ -58,12 +60,30 @@ public class GameManager
 
     /**
      * Sets the current game's gameboard to the provided Gameboard
-     *
      * @param gameBoard
      */
     public void setGameBoard(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
     }
+
+    /**
+     * Returns the netmanager
+     *
+     * @return
+     */
+    public NetManager getNetManager() {
+        return netManager;
+    }
+
+    /**
+     * Sets the netmanager
+     *
+     * @param netManager
+     */
+    public void setNetManager(NetManager netManager) {
+        this.netManager = netManager;
+    }
+
 
     /**
      * Log into server with a specific name
