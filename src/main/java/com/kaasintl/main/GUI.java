@@ -14,8 +14,8 @@ import java.util.ArrayList;
  */
 public class GUI {
 
-    private GameManager gameManager;
-
+    public GameManager gameManager;
+    public String userName = null;
     private JPanel       mainPanel;
     private JTabbedPane  tabbedPane;
     private JPanel       statusPanel;
@@ -30,74 +30,13 @@ public class GUI {
     private JButton lobbyRefreshButton;
     private JButton forfeitButton;
     private JButton challengeButton;
-
-    private String userName = null;
     private String currentGame = "Tic-tac-toe";
+    private JFrame loginWindow;
 
     public GUI()
     {
-        while (userName == null) {
-            showLogin();
-        }
-
-        this.gameManager = new GameManager(this);
-
-        //Add action listeners
-        lobbyRefreshButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                updateLobby();
-            }
-        });
-        forfeitButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                if (gameManager.forfeit())
-                {
-                    gameHistory.setText(gameHistory.getText() + "\n You forfeited");
-                } else
-                {
-                    JOptionPane.showMessageDialog(null, "[ERROR] Failed to perform action: forfeit", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
-        doMove.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                try
-                {
-                    if (gameManager.makeMove(Integer.parseInt(move.getText())))
-                    {
-                        gameHistory.setText(gameHistory.getText() + "\n You made move :" + move.getText());
-                    } else
-                    {
-                        JOptionPane.showMessageDialog(null, "[ERROR] Failed to perform action: move " + move.getText(), "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                } catch (NumberFormatException ex)
-                {
-                    gameHistory.setText(gameHistory.getText() + "\n Invalid move :" + move.getText());
-                }
-            }
-        });
-        challengeButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                if (gameManager.challenge((String) lobbyPlayerList.getSelectedValue(),currentGame))
-                {
-                    gameHistory.setText(gameHistory.getText() + "\n You challenged " + lobbyPlayerList.getSelectedValue() + " to a game");
-                } else
-                {
-                    JOptionPane.showMessageDialog(null, "[ERROR] Failed to perform action: challenge " + lobbyPlayerList.getSelectedValue(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
-
-        //Initialize Data into view
-        updateLobby();
+        gameManager = new GameManager();
+        showLogin(this);
     }
 
     /**
@@ -126,7 +65,40 @@ public class GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.pack();
-        frame.setVisible(true);
+    }
+
+    public void showMainGUI() {
+        JFrame topframe = (JFrame) SwingUtilities.getWindowAncestor(mainPanel);
+
+        topframe.setVisible(true);
+
+        loginWindow.setVisible(false);
+
+        doMove.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (gameManager.makeMove(Integer.parseInt(move.getText()))) {
+                        gameHistory.setText(gameHistory.getText() + "\n You made move :" + move.getText());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "[ERROR] Failed to perform action: move " + move.getText(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (NumberFormatException ex) {
+                    gameHistory.setText(gameHistory.getText() + "\n Invalid move :" + move.getText());
+                }
+            }
+        });
+        challengeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (gameManager.challenge((String) lobbyPlayerList.getSelectedValue(), currentGame)) {
+                    gameHistory.setText(gameHistory.getText() + "\n You challenged " + lobbyPlayerList.getSelectedValue() + " to a game");
+                } else {
+                    JOptionPane.showMessageDialog(null, "[ERROR] Failed to perform action: challenge " + lobbyPlayerList.getSelectedValue(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        //Initialize Data into view
+        updateLobby();
     }
 
     /**
@@ -175,12 +147,33 @@ public class GUI {
         return;
     }
 
-    public void showLogin() {
+    public void showLogin(GUI gui) {
         JFrame frame = new JFrame("Login");
 
-        frame.setContentPane(new LoginWindow().getMainPanel());
+        frame.setContentPane(new LoginWindow(gui).getMainPanel());
         frame.pack();
 
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        this.loginWindow = frame;
+
         frame.setVisible(true);
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        gameManager.login(userName);
+        this.userName = userName;
+    }
+
+    public String getCurrentGame() {
+        return currentGame;
+    }
+
+    public void setCurrentGame(String currentGame) {
+        this.currentGame = currentGame;
     }
 }
