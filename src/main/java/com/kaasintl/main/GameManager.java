@@ -64,12 +64,14 @@ public class GameManager
 
     public boolean getValidation() {
         boolean val = false;
-        if(this.isValid == 0) {
-            this.getValidation();
-        } else if(this.isValid == 1) {
+        while(this.isValid == 0) {;}
+
+        if(this.isValid == 1) {
             val = true;
+            this.isValid = 0;
         } else {
             val = false;
+            this.isValid = 0;
         }
         return val;
     }
