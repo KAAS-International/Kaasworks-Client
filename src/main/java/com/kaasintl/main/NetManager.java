@@ -20,6 +20,7 @@ public class NetManager {
     private BufferedReader in;
     private PrintWriter out;
     private ArrayList<String> queue = new ArrayList<>();
+    public ArrayList<Object> parsedQueue = new ArrayList<>();
     private Map<String,String> parsedMap = new HashMap<>();
 
     public NetManager() {
@@ -52,7 +53,8 @@ public class NetManager {
     }
 
     /**
-     * Parses the messages the server can send to the client
+     * Parses the messages the server sends to the client, makes them
+     * into Message Objects and puts them into the parsedQueue
      * @param s the server message received by the socket
      */
     public synchronized void parser(String s) {
@@ -64,11 +66,11 @@ public class NetManager {
 
             switch(temp) {
                 case "OK":
-                    gameManager.setValidation("ok");
+                    parsedQueue.add(new Message("response", "ok"));
                     done = true;
                     break;
                 case "ERR":
-                    gameManager.setValidation("err");
+                    parsedQueue.add(new Message("response", "err"));
                     done = true;
                     break;
                 case "SVR":
@@ -87,7 +89,7 @@ public class NetManager {
                                         temp = temp + sc.next();
                                     }
                                     parsedMap = parseMap(temp);
-                                    //gameManager.setMatch(parsedMap.get("PLAYERTOMOVE"), parsedMap.get("GAMETYPE"), parsedMap.get("OPPONENT"));
+                                    parsedQueue.add(new Message("match", parsedMap));
                                     done = true;
                                     break;
                                 case "YOURTURN":
@@ -96,7 +98,7 @@ public class NetManager {
                                         temp = temp + sc.next();
                                     }
                                     parsedMap = parseMap(temp);
-                                    //gameManager.setTurn(parsedMap.get("TURNMESSAGE"));
+                                    parsedQueue.add(new Message("yourTurn", parsedMap));
                                     done = true;
                                     break;
                                 case "MOVE":
@@ -105,7 +107,7 @@ public class NetManager {
                                         temp = temp + sc.next();
                                     }
                                     parsedMap = parseMap(temp);
-                                    //gameManager.setMove(parsedMap.get("PLAYER"), Integer.parseInt(parsedMap.get("MOVE")), parsedMap.get("DETAILS"));
+                                    parsedQueue.add(new Message("move", parsedMap));
                                     done = true;
                                     break;
                                 case "CHALLENGE":
@@ -114,7 +116,7 @@ public class NetManager {
                                         temp = temp + sc.next();
                                     }
                                     parsedMap = parseMap(temp);
-                                    //gameManager.setMove(parsedMap.get("CHALLENGER"), Integer.parseInt(parsedMap.get("CHALLENGENUMBER")), parsedMap.get("GAMETYPE"));
+                                    parsedQueue.add(new Message("challenge", parsedMap));
                                     done = true;
                                     break;
                                 case "WIN":
@@ -123,7 +125,7 @@ public class NetManager {
                                         temp = temp + sc.next();
                                     }
                                     parsedMap = parseMap(temp);
-                                    //gameManager.endGame(1, Integer.parseInt(parsedMap.get("PLAYERONESCORE")), Integer.parseInt(parsedMap.get("PLAYERTWOSCORE")), parsedMap.get("COMMENT"));
+                                    parsedQueue.add(new Message("win", parsedMap));
                                     done = true;
                                     break;
                                 case "LOSS":
@@ -132,7 +134,7 @@ public class NetManager {
                                         temp = temp + sc.next();
                                     }
                                     parsedMap = parseMap(temp);
-                                    //gameManager.endGame(-1, Integer.parseInt(parsedMap.get("PLAYERONESCORE")), Integer.parseInt(parsedMap.get("PLAYERTWOSCORE")), parsedMap.get("COMMENT"));
+                                    parsedQueue.add(new Message("loss", parsedMap));
                                     done = true;
                                     break;
                                 case "DRAW":
@@ -141,7 +143,7 @@ public class NetManager {
                                         temp = temp + sc.next();
                                     }
                                     parsedMap = parseMap(temp);
-                                    //gameManager.endGame(0, Integer.parseInt(parsedMap.get("PLAYERONESCORE")), Integer.parseInt(parsedMap.get("PLAYERTWOSCORE")), parsedMap.get("COMMENT"));
+                                    parsedQueue.add(new Message("draw", parsedMap));
                                     done = true;
                                     break;
                                 default:
