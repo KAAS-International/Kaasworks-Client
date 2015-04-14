@@ -35,7 +35,7 @@ public class GUI {
 
     public GUI()
     {
-        gameManager = new GameManager();
+        gameManager = new GameManager(this);
         showLogin(this);
     }
 

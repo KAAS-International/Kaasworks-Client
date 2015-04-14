@@ -42,7 +42,6 @@ public class NetManager {
     }
 
     public NetManager(GameManager g) {
-        super();
         this.gameManager = g;
 
         try {
