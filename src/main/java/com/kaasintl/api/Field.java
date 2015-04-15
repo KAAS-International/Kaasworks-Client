@@ -17,14 +17,10 @@ public abstract class Field {
     public STATE state;
 
     public STATE getState() { return state; }
-
-    public String toString() {
-        return state.toString();
-    }
-
-    public int getValue() {
-        return value;
-    }
-
+    public String toString() { return state.toString(); }
+    public int getValue() { return value; }
     public int getCoordinate() { return coordinate; }
+    public void setState(STATE s) { state = s; }
+    public void setValue(int i) { value = i; }
+    public void setCoordinate(int i) { coordinate = i; }
 }
