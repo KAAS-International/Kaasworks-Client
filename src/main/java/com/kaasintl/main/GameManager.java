@@ -5,7 +5,6 @@ import main.java.com.kaasintl.api.GameBoard;
 import main.java.com.kaasintl.api.RuleManager;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Created by David on 4-4-2015.
@@ -122,7 +121,15 @@ public class GameManager
         return true;
     }
 
-    // TODO: Challenge other player
+    /**
+     * TODO: Implement feature
+     * Challenges a player to a game
+     *
+     * @param player The player to challenge
+     * @param game   The game to be played
+     *
+     * @return If successful, returns true
+     */
     public boolean challenge(String player, String game)
     {
         return true;

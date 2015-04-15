@@ -26,10 +26,14 @@ public class GUI {
     private JTextArea    gameHistory;
     private JProgressBar timeLeft;
     private JTable       gameBoard;
-    private JList   lobbyPlayerList;
-    private JButton lobbyRefreshButton;
-    private JButton forfeitButton;
-    private JButton challengeButton;
+    private JList     lobbyPlayerList;
+    private JButton   lobbyRefreshButton;
+    private JButton   forfeitButton;
+    private JButton   challengeButton;
+    private JPanel    gameList;
+    private JList     list1;
+    private JComboBox gameSelector;
+    private JButton   subscribeButton;
     private String currentGame = "Tic-tac-toe";
     private JFrame loginWindow;
 
