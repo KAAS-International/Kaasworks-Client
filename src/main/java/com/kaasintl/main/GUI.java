@@ -21,7 +21,7 @@ public class GUI {
     private JPanel       statusPanel;
     private JPanel       lobbyView;
     private JPanel       boardView;
-    private JButton      doMove;
+    private JButton   playMoveButton;
     private JTextField   move;
     private JTextArea    gameHistory;
     private JProgressBar timeLeft;
@@ -77,12 +77,14 @@ public class GUI {
     public void showMainGUI() {
         JFrame topframe = (JFrame) SwingUtilities.getWindowAncestor(mainPanel);
 
+        setMovementEnabled(false);
+
         topframe.setVisible(true);
         loginWindow.setVisible(false);
 
         updateGameList();
 
-        doMove.addActionListener(new ActionListener()
+        playMoveButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
@@ -91,6 +93,7 @@ public class GUI {
                     if (gameManager.makeMove(Integer.parseInt(move.getText())))
                     {
                         gameHistory.setText(gameHistory.getText() + "\n You made move :" + move.getText());
+                        setMovementEnabled(false);
                     } else
                     {
                         JOptionPane.showMessageDialog(null, "[ERROR] Failed to perform action: move " + move.getText(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -153,13 +156,16 @@ public class GUI {
         ArrayList<String> gList = gameManager.getGameList();
 
         DefaultListModel listModel = new DefaultListModel<String>();
+        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
 
         for (String s : gList)
         {
             listModel.addElement(s);
+            comboBoxModel.addElement(s);
         }
 
         gameList.setModel(listModel);
+        gameSelector.setModel(comboBoxModel);
     }
 
     /**
@@ -182,14 +188,29 @@ public class GUI {
         return;
     }
 
+    /**
+     * Called when the game starts to make the GUI update the view
+     */
+    public void startGame()
+    {
+        updateGameboard();
+        tabbedPane.setSelectedIndex(1);
+        setMovementEnabled(true);
+    }
+
+    public void setMovementEnabled(boolean b)
+    {
+        move.setEnabled(b);
+        playMoveButton.setEnabled(b);
+    }
+
     public void showLogin(GUI gui) {
         JFrame frame = new JFrame("Login");
 
         frame.setContentPane(new LoginWindow(gui).getMainPanel());
         frame.pack();
 
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.loginWindow = frame;
 
         frame.setVisible(true);
