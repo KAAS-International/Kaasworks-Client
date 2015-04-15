@@ -7,6 +7,7 @@ import main.java.com.kaasintl.api.RuleManager;
  */
 public class TicTacRuleManager extends RuleManager {
 
+    private int [ ] [ ] board = new int[ 3 ][ 3 ];
     @Override
     public boolean isValid(int i){
 

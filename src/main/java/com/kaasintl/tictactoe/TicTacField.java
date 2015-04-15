@@ -7,7 +7,18 @@ import main.java.com.kaasintl.api.Field;
  */
 public class TicTacField extends Field {
 
-   public int getValue(){
-       return value;
-   }
+    int row;
+    int column;
+    int val;
+
+    public TicTacField( int v ) {
+        this( v, 0, 0 );
+    }
+
+    public TicTacField( int v, int r, int c ){
+        val = v;
+        row = r;
+        column = c;
+    }
+
 }

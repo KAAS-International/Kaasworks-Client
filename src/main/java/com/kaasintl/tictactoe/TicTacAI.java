@@ -1,5 +1,7 @@
 package main.java.com.kaasintl.tictactoe;
 
+import main.java.com.kaasintl.api.Field;
+
 /**
  * Created by Niek on 15-4-2015.
  */
@@ -17,57 +19,58 @@ public class TicTacAI {
     TicTacRuleManager ruleManager;
 
     public TicTacAI(){
-        clearBoard( );
+        clearBoard();
     }
-    @Override
-    public Best nextMove( int side) {
-        int opp;              // The other side
-        Best reply;           // Opponent's best reply
-        int simpleEval;       // Result of an immediate evaluation
-        int bestRow = 0;
-        int bestColumn = 0;
-        int value;
-
-        if( ( simpleEval = positionValue( ) ) != UNCLEAR )
-            return new Best(simpleEval);
-
-        if(side == OPPONENT) {
-            value = COMPUTER_WIN;
-            opp = COMPUTER;
-        } else {
-            value = OPPONENT_WIN;
-            opp = OPPONENT;
-        }
-
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (squareIsEmpty(i, j)) {
-
-                    place(i, j, side);
-                    if (side == OPPONENT) {
-                        reply = nextMove(opp);
-                        place(i,j,EMPTY);
-                        if (reply.val < value) {
-                            bestRow = i;
-                            bestColumn = j;
-                            value = reply.val;
-                        }
-                    } else {
-                        reply = nextMove(opp);
-                        place(i,j,EMPTY);
-                        if (reply.val > value) {
-                            bestRow = i;
-                            bestColumn = j;
-                            value = reply.val;
-                        }
-                    }
-                }
-            }
-        }
-
-        return new Best(value, bestRow, bestColumn);
-
-    }
+//    @Override
+//    public int nextMove( int side) {
+//        int opp;              // The other side
+//        TicTacField reply;           // Opponent's best reply
+//        int simpleEval;       // Result of an immediate evaluation
+//        int bestRow = 0;
+//        int bestColumn = 0;
+//        int value;
+//
+//        if( ( simpleEval = positionValue( ) ) != UNCLEAR )
+//     //       return new TicTacAI(simpleEval);
+//
+//        if(side == OPPONENT) {
+//            value = COMPUTER_WIN;
+//            opp = COMPUTER;
+//        } else {
+//            value = OPPONENT_WIN;
+//            opp = OPPONENT;
+//        }
+//
+//        for (int i = 0; i < 3; i++) {
+//            for (int j = 0; j < 3; j++) {
+//                if (squareIsEmpty(i, j)) {
+//
+//                    place(i, j, side);
+//                    if (side == OPPONENT) {
+//                        reply = nextMove(opp);
+//                        place(i,j,EMPTY);
+//                        if (reply.val < value) {
+//                            bestRow = i;
+//                            bestColumn = j;
+//                            value = reply.val;
+//                        }
+//                    } else {
+//        //                reply = nextMove(opp);
+//                        place(i,j,EMPTY);
+//                        if (reply.val > value) {
+//                            bestRow = i;
+//                            bestColumn = j;
+//                            value = reply.val;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//
+//   //    return new TicTacField(value, bestRow, bestColumn);
+//
+//        return
+//   }
 
     // Compute static value of current position (win, draw, etc.)
     public int positionValue( )
@@ -117,16 +120,5 @@ public class TicTacAI {
     }
 
 
-    private class Best
-    {
-        int row;
-        int column;
-        int val;
 
-        public Best( int v )
-        { this( v, 0, 0 ); }
-
-        public Best( int v, int r, int c )
-        { val = v; row = r; column = c; }
-    }
 }
