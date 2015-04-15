@@ -3,6 +3,8 @@ package main.java.com.kaasintl.main;
 import main.java.com.kaasintl.api.Field;
 import main.java.com.kaasintl.api.GameBoard;
 import main.java.com.kaasintl.api.RuleManager;
+import main.java.com.kaasintl.tictactoe.TicTacBoard;
+import main.java.com.kaasintl.tictactoe.TicTacRuleManager;
 
 import java.util.ArrayList;
 
@@ -35,7 +37,10 @@ public class GameManager
         playerList = new ArrayList<>();
         gameList = new ArrayList<>();
 
-        //gui = new GUI();
+        //TODO: load different games dynamically
+        ruleManager = new TicTacRuleManager();
+        gameBoard = new TicTacBoard(ruleManager);
+
     }
 
     /**
