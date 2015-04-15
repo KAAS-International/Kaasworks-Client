@@ -1,7 +1,6 @@
 package main.java.com.kaasintl.reversi;
 
 import main.java.com.kaasintl.api.RuleManager;
-import main.java.com.kaasintl.main.GameManager;
 
 /**
  * Created by Kevin on 9-4-2015.
@@ -20,13 +19,10 @@ public class ReversiRuleManager extends RuleManager {
 
         // TODO: Replace "== 0" with field+x.getState() == 2
         // TODO: This will only check for adjacent opponent fields, not yet if a piece of ours is on the same line. because fuck that. its difficult.
-        if ((move.getCoordinate()-1) == 0 && (move.getCoordinate()+1) == 0 && (move.getCoordinate()-8) == 0
-                && (move.getCoordinate()-9) == 0 && (move.getCoordinate()-7) == 0 && (move.getCoordinate()+8) == 0
-                && (move.getCoordinate()+7) == 0 && (move.getCoordinate()+9) ==0) {
-            return true;
-        }
+        return (move.getCoordinate() - 1) == 0 && (move.getCoordinate() + 1) == 0 && (move.getCoordinate() - 8) == 0
+                && (move.getCoordinate() - 9) == 0 && (move.getCoordinate() - 7) == 0 && (move.getCoordinate() + 8) == 0
+                && (move.getCoordinate() + 7) == 0 && (move.getCoordinate() + 9) == 0;
 
-        return false;
     }
 
     @Override
