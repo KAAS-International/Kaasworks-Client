@@ -1,14 +1,13 @@
 package main.java.com.kaasintl.tictactoe;
 
-import main.java.com.kaasintl.api.AI;
+import main.java.com.kaasintl.api.Field;
 
 /**
  * Created by Niek on 15-4-2015.
  */
-public class TicTacField extends AI{
-    public int best;
+public class TicTacField extends Field {
 
-    public int nextMove() {
-        return best;
-    }
+   public int getValue(){
+       return value;
+   }
 }
