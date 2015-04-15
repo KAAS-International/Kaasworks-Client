@@ -1,13 +1,14 @@
 package main.java.com.kaasintl.api;
 
+import java.util.Map;
+
 /**
  * Created by Kevin on 4-4-2015.
  */
 public abstract class AI {
-    public int[] moves;
+    public int best;
 
     public int nextMove() {
-        return 0;
+        return best;
     }
-
 }

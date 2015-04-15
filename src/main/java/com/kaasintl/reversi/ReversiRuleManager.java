@@ -9,7 +9,20 @@ public class ReversiRuleManager extends RuleManager {
 
     @Override
     public boolean isValid(int i) {
-        return true;
+        ReversiField move = null;
+
+        /* for (ReversiField field : GameManager.getGameBoard().getBoard().board) {
+            if (field.getCoordinate() == i) {
+                move = field;
+            }
+        } */
+
+        // TODO: Replace "== 0" with field+x.getState() == 2
+        // TODO: This will only check for adjacent opponent fields, not yet if a piece of ours is on the same line. because fuck that. its difficult.
+        return (move.getCoordinate() - 1) == 0 && (move.getCoordinate() + 1) == 0 && (move.getCoordinate() - 8) == 0
+                && (move.getCoordinate() - 9) == 0 && (move.getCoordinate() - 7) == 0 && (move.getCoordinate() + 8) == 0
+                && (move.getCoordinate() + 7) == 0 && (move.getCoordinate() + 9) == 0;
+
     }
 
     @Override
