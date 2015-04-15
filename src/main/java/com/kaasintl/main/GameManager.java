@@ -65,6 +65,7 @@ public class GameManager
      */
     public void setGameBoard(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
+        gui.updateGameboard();
     }
 
     /**
