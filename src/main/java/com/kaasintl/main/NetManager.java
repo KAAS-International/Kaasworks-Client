@@ -305,7 +305,7 @@ public class NetManager {
                             case "PLAYERLIST":
                                 temp = "";
                                 while(sc.hasNext()) {
-                                    temp = temp + sc.next();
+                                    temp = temp + " " + sc.next();
                                 }
                                 parsedList = parseList(temp);
                                 netManager.parsedQueue.add(new Message("playerList", parsedList));
