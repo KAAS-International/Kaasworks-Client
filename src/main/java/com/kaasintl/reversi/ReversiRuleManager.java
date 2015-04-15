@@ -8,6 +8,8 @@ import main.java.com.kaasintl.main.GameManager;
  * Created by Kevin on 9-4-2015.
  */
 public class ReversiRuleManager extends RuleManager {
+    private int coordinate;
+    private int[] row;
 
     @Override
     public boolean isValid(int i) {
@@ -38,6 +40,23 @@ public class ReversiRuleManager extends RuleManager {
     }
 
     public boolean isValidN(Field f) {
+        coordinate = f.getCoordinate();
+
+        for (int i = 0; i < 0; i++) { // TODO: Instead of < 0 validate length of row
+            row[i] = f.getCoordinate()-8;
+        }
+
+        /* TODO: This is pseudo code
+            for each (ReversiField f in ReversiGameBoard) {
+                if (f.getSTATE == friendly) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+         */
+
         return true;
     }
 
