@@ -11,4 +11,5 @@ public abstract class AI {
     public Field nextMove() {
         return best;
     }
+
 }

@@ -67,6 +67,46 @@ public class NetManager {
         out.flush();
     }
 
+    public boolean challengePlayer(String player, String game)
+    {
+        out.println("challenge " + "\"" + player + "\" \"" + game + "\"");
+
+        String response = null;
+        boolean working = true;
+        while (working)
+        {
+            if (parsedQueue.size() > 0)
+            {
+
+                for (int i = 0; i < parsedQueue.size(); i++)
+                {
+                    Message m = parsedQueue.get(i);
+                    if (m.getType().equals("response"))
+                    {
+                        response = (String) m.getContent();
+                        parsedQueue.remove(i);
+                        working = false;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (response.equalsIgnoreCase("OK"))
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+
+    }
+
+    /**
+     * Fetches the playerlist from the server
+     *
+     * @return The playerlist from the server
+     */
     public ArrayList<String> fetchPlayerList() {
         out.println("get playerlist");
         out.flush();

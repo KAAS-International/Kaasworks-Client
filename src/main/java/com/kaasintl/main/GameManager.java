@@ -65,6 +65,7 @@ public class GameManager
      */
     public void setGameBoard(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
+        gui.updateGameboard();
     }
 
     /**
@@ -123,7 +124,6 @@ public class GameManager
     }
 
     /**
-     * TODO: Implement feature
      * Challenges a player to a game
      *
      * @param player The player to challenge
@@ -133,7 +133,7 @@ public class GameManager
      */
     public boolean challenge(String player, String game)
     {
-        return true;
+        return netManager.challengePlayer(player, game);
     }
 
     /**

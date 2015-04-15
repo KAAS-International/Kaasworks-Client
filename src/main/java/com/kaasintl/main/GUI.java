@@ -7,7 +7,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by david on 8-4-15.
@@ -108,13 +110,21 @@ public class GUI {
         {
             public void actionPerformed(ActionEvent e)
             {
-                if (gameManager.challenge((String) lobbyPlayerList.getSelectedValue(), currentGame))
+                if (gameManager.challenge((String) lobbyPlayerList.getSelectedValue(), gameSelector.getSelectedItem().toString()))
                 {
-                    gameHistory.setText(gameHistory.getText() + "\n You challenged " + lobbyPlayerList.getSelectedValue() + " to a game");
+                    gameHistory.setText(gameHistory.getText() + "\n You challenged " + lobbyPlayerList.getSelectedValue() + " to a game of " + gameSelector.getSelectedItem().toString());
                 } else
                 {
                     JOptionPane.showMessageDialog(null, "[ERROR] Failed to perform action: challenge " + lobbyPlayerList.getSelectedValue(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
+            }
+        });
+        lobbyRefreshButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                updateLobby();
             }
         });
 
@@ -146,6 +156,10 @@ public class GUI {
 
         lobbyPlayerList.setModel(newListModel);
         lobbyPlayerList.updateUI();
+
+        String timeStamp = new SimpleDateFormat("HHmmss").format(Calendar.getInstance().getTime());
+
+        playerListLabel.setText("Lobby (last updated:  " + timeStamp + ")");
     }
 
     /**
@@ -198,12 +212,31 @@ public class GUI {
         setMovementEnabled(true);
     }
 
+    /**
+     * Enables, or disables the ability to enter moves by the player
+     *
+     * @param b
+     */
     public void setMovementEnabled(boolean b)
     {
         move.setEnabled(b);
         playMoveButton.setEnabled(b);
+        forfeitButton.setEnabled(b);
     }
 
+    /**
+     * Sets to this players turn
+     */
+    public void setPlayersTurn()
+    {
+        setMovementEnabled(true);
+        updateGameboard();
+    }
+
+    /**
+     * Shows the login window
+     * @param gui
+     */
     public void showLogin(GUI gui) {
         JFrame frame = new JFrame("Login");
 
