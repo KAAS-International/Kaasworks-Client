@@ -7,8 +7,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by david on 8-4-15.
@@ -156,7 +157,9 @@ public class GUI {
         lobbyPlayerList.setModel(newListModel);
         lobbyPlayerList.updateUI();
 
-        playerListLabel.setText("Lobby (last updated:  " + LocalDateTime.now() + ")");
+        String timeStamp = new SimpleDateFormat("HHmmss").format(Calendar.getInstance().getTime());
+
+        playerListLabel.setText("Lobby (last updated:  " + timeStamp + ")");
     }
 
     /**
