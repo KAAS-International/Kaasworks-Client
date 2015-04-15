@@ -333,7 +333,8 @@ public class NetManager {
             Scanner scanner = new Scanner(s).useDelimiter(",");
             while(scanner.hasNext()) {
                 s = scanner.next();
-                s = s.substring(1,s.length()-1);
+                s = s.substring(1, s.length() - 1);
+                s = s.replace("\"", "");
                 a.add(s);
             }
             return a;
