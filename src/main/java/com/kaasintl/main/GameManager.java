@@ -133,7 +133,7 @@ public class GameManager
      */
     public boolean challenge(String player, String game)
     {
-        return true;
+        return netManager.challengePlayer(player, game);
     }
 
     /**
