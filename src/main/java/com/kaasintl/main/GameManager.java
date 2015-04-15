@@ -85,7 +85,6 @@ public class GameManager
         this.netManager = netManager;
     }
 
-
     /**
      * Log into server with a specific name
      *
@@ -93,38 +92,6 @@ public class GameManager
      */
     public void login(String name) {
         netManager.login(name);
-    }
-
-    /**
-     * gets Server validation
-     * @return
-     */
-    public boolean getResponse() {
-        boolean val = false;
-
-        while (this.isValid == 0) {
-        }
-
-        if(this.isValid == 1) {
-            val = true;
-            this.isValid = 0;
-        } else {
-            val = false;
-            this.isValid = 0;
-        }
-        return val;
-    }
-
-    /**
-     * Validates the
-     * @param val
-     */
-    public void setValidation(String val) {
-        if(val.equals("ok")) {
-            this.isValid = 1;
-        } else {
-            this.isValid = -1;
-        }
     }
 
     // TODO: Subscribe to Gametype
@@ -230,9 +197,9 @@ public class GameManager
     /**
      * fetches the gameList
      */
-    public void getGameList()
+    public ArrayList<String> getGameList()
     {
-        netManager.fetchGameList();
+        return netManager.fetchGameList();
     }
 
     /**

@@ -70,7 +70,6 @@ public class NetManager {
     public ArrayList<String> fetchPlayerList() {
         out.println("get playerlist");
         out.flush();
-        System.out.println("sent");
 
         ArrayList<String> list = new ArrayList<>();
         boolean working = true;
@@ -111,9 +110,27 @@ public class NetManager {
         queue.add(s);
     }
 
-    public void fetchGameList() {
+    public ArrayList<String> fetchGameList() {
         out.println("get gamelist");
         out.flush();
+
+        ArrayList<String> list = new ArrayList<>();
+        boolean working = true;
+        while(working) {
+            if(parsedQueue.size() > 0) {
+
+                for(int i = 0; i < parsedQueue.size(); i++) {
+                    Message m = parsedQueue.get(i);
+                    if (m.getType().equals("gameList")) {
+                        list = (ArrayList<String>) m.getContent();
+                        parsedQueue.remove(i);
+                        working = false;
+                        break;
+                    }
+                }
+            }
+        }
+        return list;
     }
 
     public void forfeit() {
@@ -140,7 +157,6 @@ public class NetManager {
                     line = in.readLine();
                     if(line != null) {
                         netManager.addToQueue(line);
-                        System.out.println("read " + line);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -166,7 +182,6 @@ public class NetManager {
             while (true) {
                 if(netManager.getQueueSize() > 0) {
                     String temp = netManager.getFromQueue(0);
-                    System.out.println("parse " + temp);
                     parser(temp);
                     netManager.removeFromQueue(temp);
                 }
@@ -186,8 +201,6 @@ public class NetManager {
             while(!done && sc.hasNext()) {
 
                 String temp = sc.next();
-
-                System.out.println("parsing " + temp);
 
                 switch(temp) {
                     case "OK":
@@ -283,7 +296,6 @@ public class NetManager {
                                 while(sc.hasNext()) {
                                     temp = temp + sc.next();
                                 }
-                                System.out.println(temp);
                                 parsedList = parseList(temp);
                                 netManager.parsedQueue.add(new Message("gameList", parsedList));
                                 done = true;
@@ -293,7 +305,6 @@ public class NetManager {
                                 while(sc.hasNext()) {
                                     temp = temp + sc.next();
                                 }
-                                System.out.println(temp + "omg");
                                 parsedList = parseList(temp);
                                 netManager.parsedQueue.add(new Message("playerList", parsedList));
                                 done = true;
@@ -303,7 +314,6 @@ public class NetManager {
                         }
                         break;
                     default:
-                        System.out.println("ignored " + temp);
                         done = true;
                         break;
                 }
