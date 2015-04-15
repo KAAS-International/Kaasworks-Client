@@ -52,19 +52,19 @@
                   <text value="Challenge"/>
                 </properties>
               </component>
-              <component id="89e3b" class="javax.swing.JLabel" binding="playerListLabel">
-                <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <text value="Player list (as of NaN)"/>
-                </properties>
-              </component>
               <component id="83d5" class="javax.swing.JComboBox" binding="gameSelector">
                 <constraints>
                   <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
+              </component>
+              <component id="89e3b" class="javax.swing.JLabel" binding="playerListLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Player list (as of NaN)"/>
+                </properties>
               </component>
             </children>
           </grid>
@@ -180,7 +180,9 @@
           </component>
           <component id="d60e0" class="javax.swing.JLabel" binding="nameIndicator">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="198" height="14"/>
+              </grid>
             </constraints>
             <properties>
               <text value="Loggin in as: "/>

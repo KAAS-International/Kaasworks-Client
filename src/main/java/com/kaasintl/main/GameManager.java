@@ -257,8 +257,7 @@ public class GameManager
 
     // TODO: Check if move is valid
     public boolean isValid(Field f) {
-        if (f == f) return true;
-        return false;
+        return f == f;
     }
 
     /**
