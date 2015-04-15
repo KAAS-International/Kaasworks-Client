@@ -11,10 +11,13 @@ public class NetManagerTest extends TestCase{
     @Test
     public void testParser() {
         try{
-            NetManager netManager = new NetManager();
+            GameManager gameManager = new GameManager();
+            gameManager.login("Niek");
+            gameManager.getPlayerList();
+            System.out.println(gameManager.getPlayerList().isEmpty());
 
-            netManager.parser("SVR GAMELIST [\"Guess Game\", \"Guess Game Deluxe\", \"Ultra Guess Game\"]");
-            netManager.parser("SVR PLAYERLIST [\"Niek\", \"Tanja\", \"Kevin\", \"David\"]");
+            //netManager.parser("SVR GAMELIST [\"Guess Game\", \"Guess Game Deluxe\", \"Ultra Guess Game\"]");
+            //netManager.parser("SVR PLAYERLIST [\"Niek\", \"Tanja\", \"Kevin\", \"David\"]");
         } catch(Exception e) {
             //e.printStackTrace();
             fail();

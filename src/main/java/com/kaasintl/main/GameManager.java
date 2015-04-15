@@ -35,7 +35,7 @@ public class GameManager
         playerList = new ArrayList<>();
         gameList = new ArrayList<>();
 
-        gui = new GUI();
+        //gui = new GUI();
     }
 
     /**
@@ -166,27 +166,7 @@ public class GameManager
      */
     public ArrayList<String> getPlayerList()
     {
-        // TODO: haal OK uit de queue voor latere check (dus check voor oke achter elke server aanroep.
-        netManager.fetchPlayerList();
-        System.out.println("hmmmmm");
-
-        boolean working = true;
-        while(working) {
-            if(netManager.parsedQueue.size() != 0) {
-                int i = 0;
-                while (i < netManager.parsedQueue.size()) {
-                    NetManager.Message m = netManager.parsedQueue.get(i);
-                    System.out.println("m.getType()");
-                    if (m.getType().equals("playerList")) {
-                        this.playerList = (ArrayList<String>) m.getContent();
-                        working = false;
-                        break;
-                    }
-                }
-            }
-            //System.out.println("ops");
-        }
-        return this.playerList;
+        return netManager.fetchPlayerList();
     }
 
     /**
