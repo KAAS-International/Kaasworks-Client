@@ -18,20 +18,20 @@ import java.util.Scanner;
  */
 
 public class NetManager {
+    public ArrayList<String>  queue       = new ArrayList<>();
+    public ArrayList<Message> parsedQueue = new ArrayList<>();
     private GameManager gameManager;
     private Thread receiver;
     private Thread parser;
     private BufferedReader in;
     private PrintWriter out;
-    public ArrayList<String> queue = new ArrayList<>();
-    public ArrayList<Message> parsedQueue = new ArrayList<>();
 
     public NetManager() {
         try {
             Socket sock = new Socket("localhost", 7789);
             out = new PrintWriter(sock.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-            receiver = new Thread(new Reciever(this));
+            receiver = new Thread(new Receiver(this));
             receiver.start();
             parser = new Thread(new Parser(this));
             parser.start();
@@ -49,7 +49,7 @@ public class NetManager {
             Socket sock = new Socket("localhost", 7789);
             out = new PrintWriter(sock.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-            receiver = new Thread(new Reciever(this));
+            receiver = new Thread(new Receiver(this));
             receiver.start();
             parser = new Thread(new Parser(this));
             parser.start();
@@ -67,6 +67,46 @@ public class NetManager {
         out.flush();
     }
 
+    public boolean challengePlayer(String player, String game)
+    {
+        out.println("challenge " + "\"" + player + "\" \"" + game + "\"");
+
+        String response = null;
+        boolean working = true;
+        while (working)
+        {
+            if (parsedQueue.size() > 0)
+            {
+
+                for (int i = 0; i < parsedQueue.size(); i++)
+                {
+                    Message m = parsedQueue.get(i);
+                    if (m.getType().equals("response"))
+                    {
+                        response = (String) m.getContent();
+                        parsedQueue.remove(i);
+                        working = false;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (response.equalsIgnoreCase("OK"))
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+
+    }
+
+    /**
+     * Fetches the playerlist from the server
+     *
+     * @return The playerlist from the server
+     */
     public ArrayList<String> fetchPlayerList() {
         out.println("get playerlist");
         out.flush();
@@ -138,10 +178,12 @@ public class NetManager {
         out.flush();
     }
 
-    private class Reciever implements Runnable {
+    private class Receiver implements Runnable
+    {
         NetManager netManager;
 
-        public Reciever(NetManager netManager) {
+        public Receiver(NetManager netManager)
+        {
             this.netManager = netManager;
         }
 
@@ -303,7 +345,7 @@ public class NetManager {
                             case "PLAYERLIST":
                                 temp = "";
                                 while(sc.hasNext()) {
-                                    temp = temp + sc.next();
+                                    temp = temp + " " + sc.next();
                                 }
                                 parsedList = parseList(temp);
                                 netManager.parsedQueue.add(new Message("playerList", parsedList));
@@ -331,7 +373,8 @@ public class NetManager {
             Scanner scanner = new Scanner(s).useDelimiter(",");
             while(scanner.hasNext()) {
                 s = scanner.next();
-                s = s.substring(1,s.length()-1);
+                s = s.substring(1, s.length() - 1);
+                s = s.replace("\"", "");
                 a.add(s);
             }
             return a;

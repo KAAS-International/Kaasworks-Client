@@ -25,7 +25,8 @@ public class GameManager
     private int isValid = 0;
     // Game Components
     private GameBoard gameBoard;
-
+    private String currentGame;
+    
     /**
      * Creates an instance of the GameManager, with no GUI provided. This will cause it to make a GUI itself
      */
@@ -64,6 +65,7 @@ public class GameManager
      */
     public void setGameBoard(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
+        gui.updateGameboard();
     }
 
     /**
@@ -122,7 +124,6 @@ public class GameManager
     }
 
     /**
-     * TODO: Implement feature
      * Challenges a player to a game
      *
      * @param player The player to challenge
@@ -132,7 +133,7 @@ public class GameManager
      */
     public boolean challenge(String player, String game)
     {
-        return true;
+        return netManager.challengePlayer(player, game);
     }
 
     /**
