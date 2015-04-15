@@ -1,5 +1,6 @@
 package main.java.com.kaasintl.reversi;
 
+import main.java.com.kaasintl.api.Field;
 import main.java.com.kaasintl.api.RuleManager;
 import main.java.com.kaasintl.main.GameManager;
 
@@ -33,6 +34,38 @@ public class ReversiRuleManager extends RuleManager {
 
     @Override
     public boolean isDraw(String player) {
+        return true;
+    }
+
+    public boolean isValidN(Field f) {
+        return true;
+    }
+
+    public boolean isValidNE(Field f) {
+        return true;
+    }
+
+    public boolean isValidE(Field f) {
+        return true;
+    }
+
+    public boolean isValidSE(Field f) {
+        return true;
+    }
+
+    public boolean isValidS(Field f) {
+        return true;
+    }
+
+    public boolean isValidSW(Field f) {
+        return true;
+    }
+
+    public boolean isValidW(Field f) {
+        return true;
+    }
+
+    public boolean isValidNW(Field f) {
         return true;
     }
 }
