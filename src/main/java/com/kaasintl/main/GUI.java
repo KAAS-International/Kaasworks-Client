@@ -34,6 +34,9 @@ public class GUI {
     private JList     list1;
     private JComboBox gameSelector;
     private JButton   subscribeButton;
+    private JLabel    nameIndicator;
+    private JLabel    supportedGamesLabel;
+    private JLabel    playerListLabel;
     private String currentGame = "Tic-tac-toe";
     private JFrame loginWindow;
 
