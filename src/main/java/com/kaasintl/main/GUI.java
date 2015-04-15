@@ -30,14 +30,14 @@ public class GUI {
     private JButton   lobbyRefreshButton;
     private JButton   forfeitButton;
     private JButton   challengeButton;
-    private JPanel    gameList;
-    private JList     list1;
+    private JPanel    gameListPanel;
+    private JList     gameList;
     private JComboBox gameSelector;
     private JButton   subscribeButton;
     private JLabel    nameIndicator;
     private JLabel    supportedGamesLabel;
     private JLabel    playerListLabel;
-    private String currentGame = "Tic-tac-toe";
+    private String currentGame = "";
     private JFrame loginWindow;
 
     public GUI()
@@ -78,27 +78,38 @@ public class GUI {
         JFrame topframe = (JFrame) SwingUtilities.getWindowAncestor(mainPanel);
 
         topframe.setVisible(true);
-
         loginWindow.setVisible(false);
 
-        doMove.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    if (gameManager.makeMove(Integer.parseInt(move.getText()))) {
+        updateGameList();
+
+        doMove.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                try
+                {
+                    if (gameManager.makeMove(Integer.parseInt(move.getText())))
+                    {
                         gameHistory.setText(gameHistory.getText() + "\n You made move :" + move.getText());
-                    } else {
+                    } else
+                    {
                         JOptionPane.showMessageDialog(null, "[ERROR] Failed to perform action: move " + move.getText(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
-                } catch (NumberFormatException ex) {
+                } catch (NumberFormatException ex)
+                {
                     gameHistory.setText(gameHistory.getText() + "\n Invalid move :" + move.getText());
                 }
             }
         });
-        challengeButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (gameManager.challenge((String) lobbyPlayerList.getSelectedValue(), currentGame)) {
+        challengeButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                if (gameManager.challenge((String) lobbyPlayerList.getSelectedValue(), currentGame))
+                {
                     gameHistory.setText(gameHistory.getText() + "\n You challenged " + lobbyPlayerList.getSelectedValue() + " to a game");
-                } else {
+                } else
+                {
                     JOptionPane.showMessageDialog(null, "[ERROR] Failed to perform action: challenge " + lobbyPlayerList.getSelectedValue(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -132,6 +143,23 @@ public class GUI {
 
         lobbyPlayerList.setModel(newListModel);
         lobbyPlayerList.updateUI();
+    }
+
+    /**
+     * Updates the gamelist
+     */
+    private void updateGameList()
+    {
+        ArrayList<String> gList = gameManager.getGameList();
+
+        DefaultListModel listModel = new DefaultListModel<String>();
+
+        for (String s : gList)
+        {
+            listModel.addElement(s);
+        }
+
+        gameList.setModel(listModel);
     }
 
     /**

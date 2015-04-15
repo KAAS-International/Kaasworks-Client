@@ -18,20 +18,20 @@ import java.util.Scanner;
  */
 
 public class NetManager {
+    public ArrayList<String>  queue       = new ArrayList<>();
+    public ArrayList<Message> parsedQueue = new ArrayList<>();
     private GameManager gameManager;
     private Thread receiver;
     private Thread parser;
     private BufferedReader in;
     private PrintWriter out;
-    public ArrayList<String> queue = new ArrayList<>();
-    public ArrayList<Message> parsedQueue = new ArrayList<>();
 
     public NetManager() {
         try {
             Socket sock = new Socket("localhost", 7789);
             out = new PrintWriter(sock.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-            receiver = new Thread(new Reciever(this));
+            receiver = new Thread(new Receiver(this));
             receiver.start();
             parser = new Thread(new Parser(this));
             parser.start();
@@ -49,7 +49,7 @@ public class NetManager {
             Socket sock = new Socket("localhost", 7789);
             out = new PrintWriter(sock.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-            receiver = new Thread(new Reciever(this));
+            receiver = new Thread(new Receiver(this));
             receiver.start();
             parser = new Thread(new Parser(this));
             parser.start();
@@ -138,10 +138,12 @@ public class NetManager {
         out.flush();
     }
 
-    private class Reciever implements Runnable {
+    private class Receiver implements Runnable
+    {
         NetManager netManager;
 
-        public Reciever(NetManager netManager) {
+        public Receiver(NetManager netManager)
+        {
             this.netManager = netManager;
         }
 
