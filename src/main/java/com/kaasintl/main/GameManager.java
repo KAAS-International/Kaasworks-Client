@@ -123,7 +123,6 @@ public class GameManager
     }
 
     /**
-     * TODO: Implement feature
      * Challenges a player to a game
      *
      * @param player The player to challenge
