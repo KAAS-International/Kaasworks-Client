@@ -45,7 +45,7 @@ public class GameManager
 		gameList = new ArrayList<>();
 
 		//TODO: load different games dynamically
-		ruleManager = new TicTacRuleManager();
+		ruleManager = new TicTacRuleManager(this);
 		gameBoard = new TicTacBoard(ruleManager);
         ai = new TicTacAI(ruleManager);
         this.aiPlays = true;
@@ -65,7 +65,7 @@ public class GameManager
 		gameList = new ArrayList<>();
 
 		//TODO: load different games dynamically
-		ruleManager = new TicTacRuleManager();
+		ruleManager = new TicTacRuleManager(this);
 		gameBoard = new TicTacBoard(ruleManager);
 	}
 
@@ -175,7 +175,7 @@ public class GameManager
 			switch (game) {
 				case "Tic-tac-toe":
 					this.setGameType("Tic-tac-toe");
-					this.setRuleManager(new TicTacRuleManager());
+					this.setRuleManager(new TicTacRuleManager(this));
 					this.setGameBoard(new TicTacBoard(this.getRuleManager()));
 
 					break;

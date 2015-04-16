@@ -26,4 +26,8 @@ public class TicTacBoard extends GameBoard {
     }
 
     public ArrayList<Field> getBoard() { return board; }
+
+    public Field getField(int index) {
+        return board.get(index);
+    }
 }
