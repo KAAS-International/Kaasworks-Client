@@ -11,13 +11,10 @@ import java.util.ArrayList;
  */
 public class TicTacBoard extends GameBoard {
 
-    public RuleManager ruleManager;
-
-    public ArrayList<Field> board = new ArrayList<Field>();
-
     public TicTacBoard(RuleManager ruleManager) {
         super(ruleManager);
         this.ruleManager = ruleManager;
+	    boardHeight = 3;
 
 	    //populate board
 	    for (int i = 0; i < 9; i++) {
@@ -26,4 +23,8 @@ public class TicTacBoard extends GameBoard {
     }
 
     public ArrayList<Field> getBoard() { return board; }
+
+    public Field getField(int index) {
+        return board.get(index);
+    }
 }

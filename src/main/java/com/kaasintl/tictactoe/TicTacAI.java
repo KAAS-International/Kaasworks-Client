@@ -73,7 +73,7 @@ public class TicTacAI extends AI {
 
     public void place( int row, int column, int piece )
     {
-        ruleManager.board[ row ][ column ] = piece;
+	    //ruleManager.board[ row ][ column ] = piece;
     }
 
 }

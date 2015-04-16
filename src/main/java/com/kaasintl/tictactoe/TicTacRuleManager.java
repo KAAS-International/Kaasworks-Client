@@ -1,6 +1,7 @@
 package main.java.com.kaasintl.tictactoe;
 
 import main.java.com.kaasintl.api.RuleManager;
+import main.java.com.kaasintl.main.GameManager;
 
 /**
  * Created by Niek on 15-4-2015.
@@ -14,41 +15,39 @@ public class TicTacRuleManager extends RuleManager {
     public static final int DRAW         = 1;
     public static final int UNCLEAR      = 2;
     public static final int COMPUTER_WIN = 3;
-    public int [ ] [ ] board = new int[ 3 ][ 3 ];
+    private GameManager gameManager;
+
+    public TicTacRuleManager(GameManager g) {
+        this.gameManager = g;
+    }
 
     @Override
     public boolean isValid(int i){
-        boolean isValid = true;
         for(i = 0; i < 10; i++){
-            if(i>9 || i < 0){
-                isValid= false;
-            }else{
-                isValid= true;
+            if(i > 9 || i < 0){
+                return false;
             }
         }
-
-        return isValid;
+        return true;
     }
 
     public boolean isAWin( int side )
     {
-        for(int i = 0; i < 3; i++) {
-            if((board[i][0] == side) && (board[i][1] == side) && (board[i][2] == side)) {
-                return true;
-            }
-        }
-
-        for(int j = 0; j < 3; j++) {
-            if((board[0][j] == side) && (board[1][j] == side) && (board[2][j] == side)) {
-                return true;
-            }
-        }
-
-        if((side == board[0][0]) && (side == board[1][1]) && (side == board[2][2])) {
-            return true;
-        } else if((side == board[2][0]) && (side == board[1][1]) && (side == board[0][2])) {
-            return true;
-        }
+//        if((gameManager.getGameBoard().getField(0) == side) && (board[i][1] == side) && (board[i][2] == side)) {
+//            return true;
+//        }
+//
+//        for(int j = 0; j < 3; j++) {
+//            if((board[0][j] == side) && (board[1][j] == side) && (board[2][j] == side)) {
+//                return true;
+//            }
+//        }
+//
+//        if((side == board[0][0]) && (side == board[1][1]) && (side == board[2][2])) {
+//            return true;
+//        } else if((side == board[2][0]) && (side == board[1][1]) && (side == board[0][2])) {
+//            return true;
+//        }
 
         return false;
     }
@@ -56,10 +55,10 @@ public class TicTacRuleManager extends RuleManager {
     // Simple supporting routines
     public void clearBoard( )
     {
-        for(int i = 0; i < 3; i++) {
-            board[0][i] = 2;
-            board[1][i] = 2;
-            board[2][i] = 2;
+        for(int i = 0; i < 8; i++) {
+//            board[0][i] = 2;
+//            board[1][i] = 2;
+//            board[2][i] = 2;
         }
     }
 
@@ -91,6 +90,7 @@ public class TicTacRuleManager extends RuleManager {
 
     public boolean squareIsEmpty( int row, int column )
     {
-        return board[ row ][ column ] == EMPTY;
+        //return board[ row ][ column ] == EMPTY;
+        return true;
     }
 }
