@@ -253,10 +253,8 @@ public class GameManager
 	 */
 	public void endGame(int winloss, int player1Score, int player2Score, String message)
 	{
-		switch (winloss) {
-
-		}
-	}
+        gui.endGame(winloss, player1Score, player2Score, message);
+    }
 
 	/**
 	 * Notify gameManager when new game starts
