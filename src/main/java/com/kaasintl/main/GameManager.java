@@ -57,6 +57,37 @@ public class GameManager
     }
 
     /**
+     * TODO: zorg dat het speelveld wordt geupdate voordat AI move mag doen
+     * TODO: zorg dat SVR YOURTURN de ai laat weten dat het zijn beurt is (via variabele isTurn?)
+     * TODO: zorg dat AI weet wanneer game over is (variabele gameOver?)
+     */
+//    public void playHandler()
+//    {
+//        while (!gameOver)
+//        {
+//            if(isTurn) {
+//                //makeMove(ai.nextMove())
+//            }
+//        }
+//    }
+//
+//    private int move()
+//    {
+//        if (ai.computerPlays())
+//        {
+//            int compMove=ai.chooseMove();
+//            //System.out.println("Computer Move = " + compMove);
+//            return compMove;
+//        }
+//        else
+//        {
+//            int opponentMove;
+//
+//            return opponentMove;
+//        }
+//    }
+
+    /**
      * Returns the current game's gameboard
      * @return
      */
