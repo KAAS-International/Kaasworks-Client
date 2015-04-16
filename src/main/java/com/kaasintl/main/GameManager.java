@@ -314,6 +314,7 @@ public class GameManager
 
 	public boolean makeMove(int move)
 	{
+        System.out.println("AIMove: " + move);
         return netManager.sendMove(move);
 	}
 

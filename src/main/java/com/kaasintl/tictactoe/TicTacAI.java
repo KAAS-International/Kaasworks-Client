@@ -21,8 +21,7 @@ public class TicTacAI extends AI {
 
     @Override
     public Field nextMove(){
-	    TicTacField best = (TicTacField) nextMove(TicTacRuleManager.COMPUTER);
-	    return best;
+	    return nextMove(TicTacRuleManager.COMPUTER);
     }
 
     public Field nextMove( int side) {
