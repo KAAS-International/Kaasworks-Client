@@ -23,8 +23,8 @@ public class challengeWindow
 			@Override
 			public void actionPerformed(ActionEvent actionEvent)
 			{
-				gui.gameManager.acceptChallenge(challengeNumber, game);
-				closeWindow();
+                closeWindow();
+                gui.gameManager.acceptChallenge(challengeNumber, game);
 			}
 		});
 

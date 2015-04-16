@@ -473,7 +473,7 @@ public class NetManager
 											temp = temp + sc.next();
 										}
 										parsedMap = parseMap(temp);
-										gameManager.setChallenge(parsedMap.get("CHALLENGER"), Integer.parseInt(parsedMap.get("CHALLENGENUMBER")), parsedMap.get("GAMETYPE "));
+										gameManager.setChallenge(parsedMap.get("CHALLENGER"), Integer.parseInt(parsedMap.get("CHALLENGENUMBER")), parsedMap.get("GAMETYPE"));
 										done = true;
 										break;
 									case "WIN":
