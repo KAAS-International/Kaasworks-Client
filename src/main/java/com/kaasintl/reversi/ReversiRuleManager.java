@@ -28,12 +28,6 @@ public class ReversiRuleManager extends RuleManager {
             }
         }
 
-        /* for (ReversiField field : GameManager.getGameBoard().getBoard().board) {
-            if (field.getCoordinate() == i) {
-                move = field;
-            }
-        } */
-
         // TODO: Replace "== 0" with field+x.getState() == 2
         // TODO: This will only check for adjacent opponent fields, not yet if a piece of ours is on the same line. because fuck that. its difficult.
         return (move.getCoordinate() - 1) == 0 && (move.getCoordinate() + 1) == 0 && (move.getCoordinate() - 8) == 0
@@ -54,63 +48,225 @@ public class ReversiRuleManager extends RuleManager {
 
     public boolean isValidN(Field f) {
         coordinate = f.getCoordinate();
+        int counter = 0;
 
-        for (int i = 0; i < 0; i++) { // TODO: Instead of < 0 validate length of row
+        for (int i = 0; i < 8; i++) {
+            if (f == null) break;
             row[i] = f.getCoordinate()-8;
         }
 
         for (int i : row) {
-            /*
-            for each (Field f in Gameboard.board) {
-                if (f.getNumber() == i) {
-                    moves[i] = f;
-                    break;
+            for (Field field : gm.getGameBoard().getBoard()) {
+                if (field.getCoordinate() == i) {
+                    moves[counter] = (ReversiField) field;
                 }
             }
-             */
         }
 
-        /* TODO: This is pseudo code
-            for each (ReversiField f in moves) {
-                if (f.getSTATE == friendly) {
-                    return true;
-                }
-                else if (f.getSTATE == enemy){
-                }
-                else {
-                    return false;
-                }
+        for (ReversiField move : moves) {
+            if (move.getState() == Field.STATE.Friendly) {
+                return true;
             }
-         */
+            else if (move.getState() == Field.STATE.Enemy) {
+            }
+        }
 
-        return true;
+        return false;
     }
 
     public boolean isValidNE(Field f) {
-        return true;
+        coordinate = f.getCoordinate();
+        int counter = 0;
+
+        for (int i = 0; i < 8; i++) {
+            if (f == null) break;
+            row[i] = f.getCoordinate()-8;
+        }
+
+        for (int i : row) {
+            for (Field field : gm.getGameBoard().getBoard()) {
+                if (field.getCoordinate() == i) {
+                    moves[counter] = (ReversiField) field;
+                }
+            }
+        }
+
+        for (ReversiField move : moves) {
+            if (move.getState() == Field.STATE.Friendly) {
+                return true;
+            }
+            else if (move.getState() == Field.STATE.Enemy) {
+            }
+        }
+
+        return false;
     }
 
     public boolean isValidE(Field f) {
-        return true;
+        coordinate = f.getCoordinate();
+        int counter = 0;
+
+        for (int i = 0; i < 8; i++) {
+            if (f == null) break;
+            row[i] = f.getCoordinate()-8;
+        }
+
+        for (int i : row) {
+            for (Field field : gm.getGameBoard().getBoard()) {
+                if (field.getCoordinate() == i) {
+                    moves[counter] = (ReversiField) field;
+                }
+            }
+        }
+
+        for (ReversiField move : moves) {
+            if (move.getState() == Field.STATE.Friendly) {
+                return true;
+            }
+            else if (move.getState() == Field.STATE.Enemy) {
+            }
+        }
+
+        return false;
     }
 
     public boolean isValidSE(Field f) {
-        return true;
+        coordinate = f.getCoordinate();
+        int counter = 0;
+
+        for (int i = 0; i < 8; i++) {
+            if (f == null) break;
+            row[i] = f.getCoordinate()-8;
+        }
+
+        for (int i : row) {
+            for (Field field : gm.getGameBoard().getBoard()) {
+                if (field.getCoordinate() == i) {
+                    moves[counter] = (ReversiField) field;
+                }
+            }
+        }
+
+        for (ReversiField move : moves) {
+            if (move.getState() == Field.STATE.Friendly) {
+                return true;
+            }
+            else if (move.getState() == Field.STATE.Enemy) {
+            }
+        }
+
+        return false;
     }
 
     public boolean isValidS(Field f) {
-        return true;
+        coordinate = f.getCoordinate();
+        int counter = 0;
+
+        for (int i = 0; i < 8; i++) {
+            if (f == null) break;
+            row[i] = f.getCoordinate()-8;
+        }
+
+        for (int i : row) {
+            for (Field field : gm.getGameBoard().getBoard()) {
+                if (field.getCoordinate() == i) {
+                    moves[counter] = (ReversiField) field;
+                }
+            }
+        }
+
+        for (ReversiField move : moves) {
+            if (move.getState() == Field.STATE.Friendly) {
+                return true;
+            }
+            else if (move.getState() == Field.STATE.Enemy) {
+            }
+        }
+
+        return false;
     }
 
     public boolean isValidSW(Field f) {
-        return true;
+        coordinate = f.getCoordinate();
+        int counter = 0;
+
+        for (int i = 0; i < 8; i++) {
+            if (f == null) break;
+            row[i] = f.getCoordinate()-8;
+        }
+
+        for (int i : row) {
+            for (Field field : gm.getGameBoard().getBoard()) {
+                if (field.getCoordinate() == i) {
+                    moves[counter] = (ReversiField) field;
+                }
+            }
+        }
+
+        for (ReversiField move : moves) {
+            if (move.getState() == Field.STATE.Friendly) {
+                return true;
+            }
+            else if (move.getState() == Field.STATE.Enemy) {
+            }
+        }
+
+        return false;
     }
 
     public boolean isValidW(Field f) {
-        return true;
+        coordinate = f.getCoordinate();
+        int counter = 0;
+
+        for (int i = 0; i < 8; i++) {
+            if (f == null) break;
+            row[i] = f.getCoordinate()-8;
+        }
+
+        for (int i : row) {
+            for (Field field : gm.getGameBoard().getBoard()) {
+                if (field.getCoordinate() == i) {
+                    moves[counter] = (ReversiField) field;
+                }
+            }
+        }
+
+        for (ReversiField move : moves) {
+            if (move.getState() == Field.STATE.Friendly) {
+                return true;
+            }
+            else if (move.getState() == Field.STATE.Enemy) {
+            }
+        }
+
+        return false;
     }
 
     public boolean isValidNW(Field f) {
-        return true;
+        coordinate = f.getCoordinate();
+        int counter = 0;
+
+        for (int i = 0; i < 8; i++) {
+            if (f == null) break;
+            row[i] = f.getCoordinate()-8;
+        }
+
+        for (int i : row) {
+            for (Field field : gm.getGameBoard().getBoard()) {
+                if (field.getCoordinate() == i) {
+                    moves[counter] = (ReversiField) field;
+                }
+            }
+        }
+
+        for (ReversiField move : moves) {
+            if (move.getState() == Field.STATE.Friendly) {
+                return true;
+            }
+            else if (move.getState() == Field.STATE.Enemy) {
+            }
+        }
+
+        return false;
     }
 }
