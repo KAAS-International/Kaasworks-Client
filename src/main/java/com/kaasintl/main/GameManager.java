@@ -1,10 +1,12 @@
 package main.java.com.kaasintl.main;
 
+import main.java.com.kaasintl.api.AI;
 import main.java.com.kaasintl.api.Field;
 import main.java.com.kaasintl.api.GameBoard;
 import main.java.com.kaasintl.api.RuleManager;
 import main.java.com.kaasintl.reversi.ReversiGameBoard;
 import main.java.com.kaasintl.reversi.ReversiRuleManager;
+import main.java.com.kaasintl.tictactoe.TicTacAI;
 import main.java.com.kaasintl.tictactoe.TicTacBoard;
 import main.java.com.kaasintl.tictactoe.TicTacRuleManager;
 
@@ -18,6 +20,7 @@ public class GameManager
 	ArrayList<String> playerList;
 	ArrayList<String> gameList;
 	RuleManager ruleManager;
+    AI ai;
 	// Connections to other game-components
 	private NetManager netManager;
 	private GUI gui;
@@ -25,6 +28,7 @@ public class GameManager
 	private String opponent;
 	private String gameType;
 	private boolean isTurn;
+    private boolean aiPlays;
 	private String turnMessage;
 	private int isValid = 0;
 	// Game Components
@@ -43,6 +47,8 @@ public class GameManager
 		//TODO: load different games dynamically
 		ruleManager = new TicTacRuleManager();
 		gameBoard = new TicTacBoard(ruleManager);
+        ai = new TicTacAI(ruleManager);
+        this.aiPlays = true;
 
 	}
 
@@ -63,36 +69,24 @@ public class GameManager
 		gameBoard = new TicTacBoard(ruleManager);
 	}
 
+    public void yourTurn(String turnMessage) {
+        boolean ok = false;
+        if(aiPlays) {
+            while(!ok) {
+                ok = makeAIPlay();
+            }
+        } else {
+            gui.setPlayersTurn();
+        }
+    }
+
 	/**
 	 * TODO: zorg dat het speelveld wordt geupdate voordat AI move mag doen
-	 * TODO: zorg dat SVR YOURTURN de ai laat weten dat het zijn beurt is (via variabele isTurn?)
-	 * TODO: zorg dat AI weet wanneer game over is (variabele gameOver?)
 	 */
-//    public void playHandler()
-//    {
-//        while (!gameOver)
-//        {
-//            if(isTurn) {
-//                //makeMove(ai.nextMove())
-//            }
-//        }
-//    }
-//
-//    private int move()
-//    {
-//        if (ai.computerPlays())
-//        {
-//            int compMove=ai.chooseMove();
-//            //System.out.println("Computer Move = " + compMove);
-//            return compMove;
-//        }
-//        else
-//        {
-//            int opponentMove;
-//
-//            return opponentMove;
-//        }
-//    }
+    public boolean makeAIPlay()
+    {
+        return makeMove(ai.nextMove().getCoordinate());
+    }
 
 	/**
 	 * Returns the current game's gameboard
@@ -183,6 +177,7 @@ public class GameManager
 					this.setGameType("Tic-tac-toe");
 					this.setRuleManager(new TicTacRuleManager());
 					this.setGameBoard(new TicTacBoard(this.getRuleManager()));
+
 					break;
 				case "Reversi":
 					this.setGameType("Reversi");
@@ -303,10 +298,9 @@ public class GameManager
 		return true;
 	}
 
-	// TODO: Make a move
 	public boolean makeMove(int move)
 	{
-		return true;
+        return netManager.sendMove(move);
 	}
 
 	// TODO: Return if it is your turn

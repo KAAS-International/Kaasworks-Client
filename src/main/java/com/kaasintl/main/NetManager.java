@@ -89,9 +89,38 @@ public class NetManager
 		out.flush();
 	}
 
+    public boolean sendMove(int move) {
+        out.println("move " + move + "\n");
+        out.flush();
+
+        String response = null;
+        boolean working = true;
+        while (working) {
+            if (parsedQueue.size() > 0) {
+
+                for (int i = 0; i < parsedQueue.size(); i++) {
+                    Message m = parsedQueue.get(i);
+                    if (m.getType().equals("response")) {
+                        response = (String) m.getContent();
+                        parsedQueue.remove(i);
+                        working = false;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (response.equalsIgnoreCase("OK")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 	public boolean challengePlayer(String player, String game)
 	{
 		out.println("challenge " + "\"" + player + "\" \"" + game + "\"");
+        out.flush();
 
 		String response = null;
 		boolean working = true;
@@ -121,6 +150,7 @@ public class NetManager
 	public boolean acceptChallenge(int challengeNumber)
 	{
 		out.println("challenge accept " + challengeNumber);
+        out.flush();
 
 		String response = null;
 		boolean working = true;
@@ -340,7 +370,7 @@ public class NetManager
 											temp = temp + sc.next();
 										}
 										parsedMap = parseMap(temp);
-										netManager.parsedQueue.add(new Message("yourTurn", parsedMap));
+                                        gameManager.yourTurn(parsedMap.get("TURNMESSAGE"));
 										done = true;
 										break;
 									case "MOVE":
