@@ -167,7 +167,7 @@ public class GameManager
                     break;
                 case "Reversi":
                     this.setGameType("Reversi");
-                    this.setRuleManager(new ReversiRuleManager());
+                    this.setRuleManager(new ReversiRuleManager(this));
                     this.setGameBoard(new ReversiGameBoard(this.getRuleManager()));
 
                     break;
