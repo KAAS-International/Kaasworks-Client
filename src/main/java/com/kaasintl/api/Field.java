@@ -9,11 +9,6 @@ public abstract class Field {
     public String token;
     public STATE state;
 
-	public toString()
-	{
-		return "X";
-	}
-
     public STATE getState() { return state; }
 
 	public void setState(STATE s)
