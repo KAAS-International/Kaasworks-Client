@@ -14,6 +14,22 @@ public abstract class Field {
 	public void setState(STATE s)
 	{
 		state = s;
+		token = determineToken(s);
+	}
+
+	public String determineToken(STATE state)
+	{
+		switch (state)
+		{
+			case Open:
+				return " ";
+			case Friendly:
+				return "X";
+			case Enemy:
+				return "O";
+			default:
+				return "?";
+		}
 	}
 
     public String toString() { return token; }

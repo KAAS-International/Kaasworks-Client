@@ -131,22 +131,22 @@ public class GUI
 		});
 
 		redrawBoardButton.addActionListener(new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent actionEvent)
-			{
-				updateGameboard();
-			}
-		});
+        {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent)
+            {
+                updateGameboard();
+            }
+        });
 
 		subscribeButton.addActionListener(new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent actionEvent)
-			{
-				gameManager.subscribe(gameList.getSelectedValue().toString());
-			}
-		});
+        {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent)
+            {
+                gameManager.subscribe(gameList.getSelectedValue().toString());
+            }
+        });
 
 		//Initialize Data into view
 		updateLobby();
@@ -292,6 +292,16 @@ public class GUI
 		gameManager.login(userName);
 		this.userName = userName;
 	}
+
+    /**
+     * Appends a new line to the game history
+     *
+     * @param str
+     */
+    public void appendHistory(String str)
+    {
+        gameHistory.setText(gameHistory.getText() + "\n" + str);
+    }
 
 	public String getCurrentGame()
 	{
