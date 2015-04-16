@@ -28,12 +28,8 @@ public class ReversiRuleManager extends RuleManager {
             }
         }
 
-        // TODO: Replace "== 0" with field+x.getState() == 2
-        // TODO: This will only check for adjacent opponent fields, not yet if a piece of ours is on the same line. because fuck that. its difficult.
-        return (move.getCoordinate() - 1) == 0 && (move.getCoordinate() + 1) == 0 && (move.getCoordinate() - 8) == 0
-                && (move.getCoordinate() - 9) == 0 && (move.getCoordinate() - 7) == 0 && (move.getCoordinate() + 8) == 0
-                && (move.getCoordinate() + 7) == 0 && (move.getCoordinate() + 9) == 0;
-
+        if (isValidE(move) || isValidN(move) || isValidNE(move) || isValidNW(move) || isValidS(move) || isValidSE(move) || isValidSW(move) || isValidW(move)) return true;
+        return false;
     }
 
     @Override
@@ -59,6 +55,7 @@ public class ReversiRuleManager extends RuleManager {
             for (Field field : gm.getGameBoard().getBoard()) {
                 if (field.getCoordinate() == i) {
                     moves[counter] = (ReversiField) field;
+                    break;
                 }
             }
         }
@@ -80,13 +77,14 @@ public class ReversiRuleManager extends RuleManager {
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            row[i] = f.getCoordinate()-8;
+            row[i] = f.getCoordinate()-7;
         }
 
         for (int i : row) {
             for (Field field : gm.getGameBoard().getBoard()) {
                 if (field.getCoordinate() == i) {
                     moves[counter] = (ReversiField) field;
+                    break;
                 }
             }
         }
@@ -108,13 +106,14 @@ public class ReversiRuleManager extends RuleManager {
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            row[i] = f.getCoordinate()-8;
+            row[i] = f.getCoordinate()+1;
         }
 
         for (int i : row) {
             for (Field field : gm.getGameBoard().getBoard()) {
                 if (field.getCoordinate() == i) {
                     moves[counter] = (ReversiField) field;
+                    break;
                 }
             }
         }
@@ -136,13 +135,14 @@ public class ReversiRuleManager extends RuleManager {
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            row[i] = f.getCoordinate()-8;
+            row[i] = f.getCoordinate()+9;
         }
 
         for (int i : row) {
             for (Field field : gm.getGameBoard().getBoard()) {
                 if (field.getCoordinate() == i) {
                     moves[counter] = (ReversiField) field;
+                    break;
                 }
             }
         }
@@ -164,13 +164,14 @@ public class ReversiRuleManager extends RuleManager {
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            row[i] = f.getCoordinate()-8;
+            row[i] = f.getCoordinate()+8;
         }
 
         for (int i : row) {
             for (Field field : gm.getGameBoard().getBoard()) {
                 if (field.getCoordinate() == i) {
                     moves[counter] = (ReversiField) field;
+                    break;
                 }
             }
         }
@@ -192,13 +193,14 @@ public class ReversiRuleManager extends RuleManager {
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            row[i] = f.getCoordinate()-8;
+            row[i] = f.getCoordinate()+7;
         }
 
         for (int i : row) {
             for (Field field : gm.getGameBoard().getBoard()) {
                 if (field.getCoordinate() == i) {
                     moves[counter] = (ReversiField) field;
+                    break;
                 }
             }
         }
@@ -220,13 +222,14 @@ public class ReversiRuleManager extends RuleManager {
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            row[i] = f.getCoordinate()-8;
+            row[i] = f.getCoordinate()-1;
         }
 
         for (int i : row) {
             for (Field field : gm.getGameBoard().getBoard()) {
                 if (field.getCoordinate() == i) {
                     moves[counter] = (ReversiField) field;
+                    break;
                 }
             }
         }
@@ -248,13 +251,14 @@ public class ReversiRuleManager extends RuleManager {
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            row[i] = f.getCoordinate()-8;
+            row[i] = f.getCoordinate()-9;
         }
 
         for (int i : row) {
             for (Field field : gm.getGameBoard().getBoard()) {
                 if (field.getCoordinate() == i) {
                     moves[counter] = (ReversiField) field;
+                    break;
                 }
             }
         }
