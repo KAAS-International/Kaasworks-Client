@@ -31,6 +31,7 @@ public class ReversiRuleManager extends RuleManager {
             }
         }
 
+        if (isOccupied(i) == true) return false;
         if (isValidE(move) || isValidN(move) || isValidNE(move) || isValidNW(move) || isValidS(move) || isValidSE(move) || isValidSW(move) || isValidW(move)) return true;
         return false;
     }
