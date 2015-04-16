@@ -193,7 +193,7 @@ public class GUI {
 
         for (int i = 0; i < gb.getBoard().size(); i++)
         {
-            tableModel.setValueAt(gb.getBoard().get(i), i / boardSize, i % boardSize);
+            tableModel.setValueAt(gb.getBoard().get(i).getState(), i / boardSize, i % boardSize);
         }
 
         gameBoard.setModel(tableModel);
