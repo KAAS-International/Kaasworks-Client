@@ -319,7 +319,7 @@ public class GameManager
 	// TODO: Return the game's board
 	public GameBoard getGameboard()
 	{
-		return null;
+		return gameBoard;
 	}
 
 	// TODO: Reset game

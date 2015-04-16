@@ -208,11 +208,11 @@ public class GUI
 	public void updateGameboard()
 	{
 		GameBoard gb = gameManager.getGameboard();
-		int boardSize = (int) Math.sqrt((double) gb.getBoard().size());
+		int boardSize = gb.getBoardHeight();
 		TableModel tableModel = new DefaultTableModel(boardSize, boardSize);
 
 		for (int i = 0; i < gb.getBoard().size(); i++) {
-			tableModel.setValueAt(gb.getBoard().get(i).value, i / boardSize, i % boardSize);
+			tableModel.setValueAt(gb.getBoard().get(i).token, i / boardSize, i % boardSize);
 		}
 
 		gameBoard.setModel(tableModel);

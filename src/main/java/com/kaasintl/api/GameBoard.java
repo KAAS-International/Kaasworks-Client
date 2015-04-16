@@ -8,7 +8,8 @@ import java.util.ArrayList;
  */
 public abstract class GameBoard {
 
-    public RuleManager ruleManager;
+	public int boardHeight = 0;
+	public RuleManager ruleManager;
 
     public ArrayList<Field> board = new ArrayList<Field>();
 
@@ -21,4 +22,14 @@ public abstract class GameBoard {
     {
         return board;
     }
+
+	public int getBoardHeight()
+	{
+		return boardHeight;
+	}
+
+	public void setBoardHeight(int boardHeight)
+	{
+		this.boardHeight = boardHeight;
+	}
 }
