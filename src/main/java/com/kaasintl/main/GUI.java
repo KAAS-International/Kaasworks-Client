@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Random;
 
 /**
  * Created by david on 8-4-15.
@@ -209,21 +208,11 @@ public class GUI
 	public void updateGameboard()
 	{
 		GameBoard gb = gameManager.getGameboard();
-		int boardSize = 8; //(int) Math.sqrt(gb.getBoard().size());
+		int boardSize = (int) Math.sqrt(gb.getBoard().size());
 		TableModel tableModel = new DefaultTableModel(boardSize, boardSize);
 
-		Random r = new Random(System.nanoTime());
-
-		String str;
-
-		for (int i = 0; i < 64; i++) {//gb.getBoard().size(); i++) {
-			if (r.nextBoolean()) {
-				str = "X";
-			} else {
-				str = "O";
-			}
-
-			tableModel.setValueAt(str, i / boardSize, i % boardSize);
+		for (int i = 0; i < gb.getBoard().size(); i++) {
+			tableModel.setValueAt(gb.getBoard().get(i).toString(), i / boardSize, i % boardSize);
 		}
 
 		gameBoard.setModel(tableModel);
