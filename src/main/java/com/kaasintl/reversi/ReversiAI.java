@@ -15,8 +15,7 @@ public class ReversiAI extends AI
 {
     private int best;
     private GameManager gm;
-    private HashMap<Field, Integer> moves = new HashMap<Field, Integer>(); // Stores Field + fieldValue
-    private HashMap<Field, Integer> fields = new HashMap<Field, Integer>(); // Stores Field + coordinate
+    private ArrayList<Field> moves = new ArrayList<Field>(); // Stores Field + fieldValue
     private ArrayList<Field> options = new ArrayList<Field>(); // Stores possible moves determined by minimax()
 
     public ReversiAI(GameManager gm) {
@@ -27,22 +26,13 @@ public class ReversiAI extends AI
     public Field nextMove() {
         for (Field move : gm.getGameBoard().getBoard()) {
             if (gm.getRuleManager().isValid(move.getCoordinate())) {
-                moves.put(move, move.getValue());
-                fields.put(move, move.getCoordinate());
+                moves.add(move);
             }
         }
 
-        Iterator it = moves.entrySet().iterator();
-
-        while (it.hasNext()) {
-            HashMap.Entry pair = (HashMap.Entry) it.next();
-            options.add(minimax((Field) pair.getKey()));
-            it.remove();
+        for (Field move : moves) {
+            options.add(minimax(move));
         }
-
-        /* for (HashMap.Entry<Field, Integer> move : moves.entrySet()) {
-            options.add(minimax(move.getKey()));
-        } */
 
         return options.get(0);
     }
