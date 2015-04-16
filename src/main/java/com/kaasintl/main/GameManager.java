@@ -385,6 +385,15 @@ public class GameManager
 	 */
 	public void setMove(String player, int move, String details)
 	{
+        if (!(player.equals(opponent)))
+        {
+            gameBoard.getBoard().get(move).setState(Field.STATE.Friendly);
+        } else
+        {
+            gameBoard.getBoard().get(move).setState(Field.STATE.Enemy);
+        }
 
-	}
+        gui.appendHistory(player + " made move " + move + " " + details);
+        gui.updateGameboard();
+    }
 }
