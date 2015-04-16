@@ -7,41 +7,50 @@ import java.awt.event.ActionListener;
 /**
  * Created by david on 16-4-15.
  */
-public class challengeWindow {
-    private JButton acceptButton;
-    private JButton declineButton;
-    private JLabel challengeText;
-    private JPanel mainPanel;
+public class challengeWindow
+{
+	private JButton acceptButton;
+	private JButton declineButton;
+	private JLabel challengeText;
+	private JPanel mainPanel;
 
-    public challengeWindow(final GUI gui, final int challengeNumber, final String player, final String game) {
-        challengeText.setText("You have been invited to a game of " + game + " by " + player + "( challenge id: " + challengeNumber + ")");
+	public challengeWindow(final GUI gui, final int challengeNumber, final String player, final String game)
+	{
+		challengeText.setText("You have been invited to a game of " + game + " by " + player + "( challenge id: " + challengeNumber + ")");
 
-        acceptButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                gui.gameManager.acceptChallenge(challengeNumber, game);
-                closeWindow();
-            }
-        });
+		acceptButton.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent actionEvent)
+			{
+				gui.gameManager.acceptChallenge(challengeNumber, game);
+				closeWindow();
+			}
+		});
 
-        declineButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                closeWindow();
-            }
-        });
-    }
+		declineButton.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent actionEvent)
+			{
+				closeWindow();
+			}
+		});
+	}
 
-    public void closeWindow() {
-        JFrame topframe = (JFrame) SwingUtilities.getWindowAncestor(mainPanel);
-        topframe.setVisible(false);
-    }
+	public void closeWindow()
+	{
+		JFrame topframe = (JFrame) SwingUtilities.getWindowAncestor(mainPanel);
+		topframe.setVisible(false);
+	}
 
-    public JPanel getMainPanel() {
-        return mainPanel;
-    }
+	public JPanel getMainPanel()
+	{
+		return mainPanel;
+	}
 
-    public void setMainPanel(JPanel mainPanel) {
-        this.mainPanel = mainPanel;
-    }
+	public void setMainPanel(JPanel mainPanel)
+	{
+		this.mainPanel = mainPanel;
+	}
 }

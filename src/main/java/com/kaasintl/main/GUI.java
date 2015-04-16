@@ -14,269 +14,267 @@ import java.util.Calendar;
 /**
  * Created by david on 8-4-15.
  */
-public class GUI {
+public class GUI
+{
 
-    public GameManager gameManager;
-    public String userName = null;
-    private JPanel       mainPanel;
-    private JTabbedPane  tabbedPane;
-    private JPanel       statusPanel;
-    private JPanel       lobbyView;
-    private JPanel       boardView;
-    private JButton   playMoveButton;
-    private JTextField   move;
-    private JTextArea    gameHistory;
-    private JProgressBar timeLeft;
-    private JTable       gameBoard;
-    private JList     lobbyPlayerList;
-    private JButton   lobbyRefreshButton;
-    private JButton   forfeitButton;
-    private JButton   challengeButton;
-    private JPanel    gameListPanel;
-    private JList     gameList;
-    private JComboBox gameSelector;
-    private JButton   subscribeButton;
-    private JLabel    nameIndicator;
-    private JLabel    supportedGamesLabel;
-    private JLabel    playerListLabel;
-    private String currentGame = "";
-    private JFrame loginWindow;
+	public GameManager gameManager;
+	public String userName = null;
+	private JPanel mainPanel;
+	private JTabbedPane tabbedPane;
+	private JPanel statusPanel;
+	private JPanel lobbyView;
+	private JPanel boardView;
+	private JButton playMoveButton;
+	private JTextField move;
+	private JTextArea gameHistory;
+	private JProgressBar timeLeft;
+	private JTable gameBoard;
+	private JList lobbyPlayerList;
+	private JButton lobbyRefreshButton;
+	private JButton forfeitButton;
+	private JButton challengeButton;
+	private JPanel gameListPanel;
+	private JList gameList;
+	private JComboBox gameSelector;
+	private JButton subscribeButton;
+	private JLabel nameIndicator;
+	private JLabel supportedGamesLabel;
+	private JLabel playerListLabel;
+	private String currentGame = "";
+	private JFrame loginWindow;
 
-    public GUI()
-    {
-        gameManager = new GameManager(this);
-        showLogin(this);
-    }
+	public GUI()
+	{
+		gameManager = new GameManager(this);
+		showLogin(this);
+	}
 
-    /**
-     * Runs the main program
-     *
-     * @param args The arguments received from the CLI
-     */
-    public static void main(String[] args)
-    {
-        //Game UI
-        JFrame frame = new JFrame("GUI");
+	/**
+	 * Runs the main program
+	 *
+	 * @param args The arguments received from the CLI
+	 */
+	public static void main(String[] args)
+	{
+		//Game UI
+		JFrame frame = new JFrame("GUI");
 
-        try
-        {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (Exception e) {
-            // If Nimbus is not available, you can set the GUI to another look and feel.
-        }
+		try {
+			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					javax.swing.UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
+		} catch (Exception e) {
+			// If Nimbus is not available, you can set the GUI to another look and feel.
+		}
 
-        frame.setContentPane(new GUI().mainPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setContentPane(new GUI().mainPanel);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        frame.pack();
-    }
+		frame.pack();
+	}
 
-    public void showMainGUI() {
-        JFrame topframe = (JFrame) SwingUtilities.getWindowAncestor(mainPanel);
+	public void showMainGUI()
+	{
+		JFrame topframe = (JFrame) SwingUtilities.getWindowAncestor(mainPanel);
 
-        setMovementEnabled(false);
+		setMovementEnabled(false);
 
-        mainPanel.setVisible(true);
-        topframe.setVisible(true);
-        topframe.setContentPane(mainPanel);
+		mainPanel.setVisible(true);
+		topframe.setVisible(true);
+		topframe.setContentPane(mainPanel);
 
-        loginWindow.setVisible(false);
+		loginWindow.setVisible(false);
 
-        updateGameList();
+		updateGameList();
 
-        playMoveButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                try
-                {
-                    if (gameManager.makeMove(Integer.parseInt(move.getText())))
-                    {
-                        gameHistory.setText(gameHistory.getText() + "\n You made move :" + move.getText());
-                        setMovementEnabled(false);
-                    } else
-                    {
-                        JOptionPane.showMessageDialog(null, "[ERROR] Failed to perform action: move " + move.getText(), "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                } catch (NumberFormatException ex)
-                {
-                    gameHistory.setText(gameHistory.getText() + "\n Invalid move :" + move.getText());
-                }
-            }
-        });
-        challengeButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                if (gameManager.challenge((String) lobbyPlayerList.getSelectedValue(), gameSelector.getSelectedItem().toString()))
-                {
-                    gameHistory.setText(gameHistory.getText() + "\n You challenged " + lobbyPlayerList.getSelectedValue() + " to a game of " + gameSelector.getSelectedItem().toString());
-                } else
-                {
-                    JOptionPane.showMessageDialog(null, "[ERROR] Failed to perform action: challenge " + lobbyPlayerList.getSelectedValue(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
-        lobbyRefreshButton.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                updateLobby();
-            }
-        });
+		playMoveButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				try {
+					if (gameManager.makeMove(Integer.parseInt(move.getText()))) {
+						gameHistory.setText(gameHistory.getText() + "\n You made move :" + move.getText());
+						setMovementEnabled(false);
+					} else {
+						JOptionPane.showMessageDialog(null, "[ERROR] Failed to perform action: move " + move.getText(), "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				} catch (NumberFormatException ex) {
+					gameHistory.setText(gameHistory.getText() + "\n Invalid move :" + move.getText());
+				}
+			}
+		});
+		challengeButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				if (gameManager.challenge((String) lobbyPlayerList.getSelectedValue(), gameSelector.getSelectedItem().toString())) {
+					gameHistory.setText(gameHistory.getText() + "\n You challenged " + lobbyPlayerList.getSelectedValue() + " to a game of " + gameSelector.getSelectedItem().toString());
+				} else {
+					JOptionPane.showMessageDialog(null, "[ERROR] Failed to perform action: challenge " + lobbyPlayerList.getSelectedValue(), "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		lobbyRefreshButton.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				updateLobby();
+			}
+		});
 
-        //Initialize Data into view
-        updateLobby();
-    }
+		//Initialize Data into view
+		updateLobby();
+	}
 
-    /**
-     * Updates the lobby list
-     */
-    private void updateLobby()
-    {
-        // get list of players
-        ArrayList<String> players = gameManager.getPlayerList();
+	/**
+	 * Updates the lobby list
+	 */
+	private void updateLobby()
+	{
+		// get list of players
+		ArrayList<String> players = gameManager.getPlayerList();
 
-        String[] listData = new String[players.size()];
+		String[] listData = new String[players.size()];
 
-        for (int i = 0; i < players.size(); i++)
-        {
-            listData[i] = players.get(i);
-        }
+		for (int i = 0; i < players.size(); i++) {
+			listData[i] = players.get(i);
+		}
 
-        DefaultListModel<String> newListModel = new DefaultListModel<String>();
+		DefaultListModel<String> newListModel = new DefaultListModel<String>();
 
-        for (String s : listData)
-        {
-            newListModel.addElement(s);
-        }
+		for (String s : listData) {
+			newListModel.addElement(s);
+		}
 
-        lobbyPlayerList.setModel(newListModel);
-        lobbyPlayerList.updateUI();
+		lobbyPlayerList.setModel(newListModel);
+		lobbyPlayerList.updateUI();
 
-        String timeStamp = new SimpleDateFormat("HH-mm-ss").format(Calendar.getInstance().getTime());
+		String timeStamp = new SimpleDateFormat("HH-mm-ss").format(Calendar.getInstance().getTime());
 
-        playerListLabel.setText("Lobby (last updated:  " + timeStamp + ")");
-    }
+		playerListLabel.setText("Lobby (last updated:  " + timeStamp + ")");
+	}
 
-    /**
-     * Updates the gamelist
-     */
-    private void updateGameList()
-    {
-        ArrayList<String> gList = gameManager.getGameList();
+	/**
+	 * Updates the gamelist
+	 */
+	private void updateGameList()
+	{
+		ArrayList<String> gList = gameManager.getGameList();
 
-        DefaultListModel listModel = new DefaultListModel<String>();
-        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
+		DefaultListModel listModel = new DefaultListModel<String>();
+		DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
 
-        for (String s : gList)
-        {
-            listModel.addElement(s);
-            comboBoxModel.addElement(s);
-        }
+		for (String s : gList) {
+			listModel.addElement(s);
+			comboBoxModel.addElement(s);
+		}
 
-        gameList.setModel(listModel);
-        gameSelector.setModel(comboBoxModel);
-    }
+		gameList.setModel(listModel);
+		gameSelector.setModel(comboBoxModel);
+	}
 
-    /**
-     * Updates the gameboard
-     */
-    public void updateGameboard()
-    {
-        GameBoard gb = gameManager.getGameboard();
-        int boardSize = (int) Math.sqrt(gb.getBoard().size());
-        TableModel tableModel = new DefaultTableModel(boardSize, boardSize);
+	/**
+	 * Updates the gameboard
+	 */
+	public void updateGameboard()
+	{
+		GameBoard gb = gameManager.getGameboard();
+		int boardSize = (int) Math.sqrt(gb.getBoard().size());
+		TableModel tableModel = new DefaultTableModel(boardSize, boardSize);
 
-        for (int i = 0; i < gb.getBoard().size(); i++)
-        {
-            tableModel.setValueAt(gb.getBoard().get(i).getState(), i / boardSize, i % boardSize);
-        }
+		for (int i = 0; i < gb.getBoard().size(); i++) {
+			tableModel.setValueAt(gb.getBoard().get(i).getState(), i / boardSize, i % boardSize);
+		}
 
-        gameBoard.setModel(tableModel);
-        gameBoard.updateUI();
+		gameBoard.setModel(tableModel);
+		gameBoard.updateUI();
 
-        return;
-    }
+		return;
+	}
 
-    /**
-     * Called when the game starts to make the GUI update the view
-     */
-    public void startGame()
-    {
-        updateGameboard();
-        tabbedPane.setSelectedIndex(1);
-        setMovementEnabled(true);
-    }
+	/**
+	 * Called when the game starts to make the GUI update the view
+	 */
+	public void startGame()
+	{
+		updateGameboard();
+		tabbedPane.setSelectedIndex(1);
+		setMovementEnabled(true);
+	}
 
-    /**
-     * Enables, or disables the ability to enter moves by the player
-     *
-     * @param b
-     */
-    public void setMovementEnabled(boolean b)
-    {
-        move.setEnabled(b);
-        playMoveButton.setEnabled(b);
-        forfeitButton.setEnabled(b);
-    }
+	/**
+	 * Enables, or disables the ability to enter moves by the player
+	 *
+	 * @param b
+	 */
+	public void setMovementEnabled(boolean b)
+	{
+		move.setEnabled(b);
+		playMoveButton.setEnabled(b);
+		forfeitButton.setEnabled(b);
+	}
 
-    /**
-     * Sets to this players turn
-     */
-    public void setPlayersTurn()
-    {
-        setMovementEnabled(true);
-        updateGameboard();
-    }
+	/**
+	 * Sets to this players turn
+	 */
+	public void setPlayersTurn()
+	{
+		setMovementEnabled(true);
+		updateGameboard();
+	}
 
-    public void showChallengePopup(int challengeNumber, String player, String game) {
-        JFrame frame = new JFrame("You have been challenged");
+	public void showChallengePopup(int challengeNumber, String player, String game)
+	{
+		JFrame frame = new JFrame("You have been challenged");
 
-        frame.setContentPane(new challengeWindow(this, challengeNumber, player, game).getMainPanel());
-        frame.pack();
+		frame.setContentPane(new challengeWindow(this, challengeNumber, player, game).getMainPanel());
+		frame.pack();
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        frame.setVisible(true);
-    }
+		frame.setVisible(true);
+	}
 
-    /**
-     * Shows the login window
-     * @param gui
-     */
-    public void showLogin(GUI gui) {
-        JFrame frame = new JFrame("Login");
+	/**
+	 * Shows the login window
+	 *
+	 * @param gui
+	 */
+	public void showLogin(GUI gui)
+	{
+		JFrame frame = new JFrame("Login");
 
-        frame.setContentPane(new LoginWindow(gui).getMainPanel());
-        frame.pack();
+		frame.setContentPane(new LoginWindow(gui).getMainPanel());
+		frame.pack();
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.loginWindow = frame;
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.loginWindow = frame;
 
-        frame.setVisible(true);
-    }
+		frame.setVisible(true);
+	}
 
-    public String getUserName() {
-        return userName;
-    }
+	public String getUserName()
+	{
+		return userName;
+	}
 
-    public void setUserName(String userName) {
-        gameManager.login(userName);
-        this.userName = userName;
-    }
+	public void setUserName(String userName)
+	{
+		gameManager.login(userName);
+		this.userName = userName;
+	}
 
-    public String getCurrentGame() {
-        return currentGame;
-    }
+	public String getCurrentGame()
+	{
+		return currentGame;
+	}
 
-    public void setCurrentGame(String currentGame) {
-        this.currentGame = currentGame;
-    }
+	public void setCurrentGame(String currentGame)
+	{
+		this.currentGame = currentGame;
+	}
 }
