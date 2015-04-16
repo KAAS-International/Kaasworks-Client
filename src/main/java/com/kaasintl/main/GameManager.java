@@ -47,7 +47,7 @@ public class GameManager
 		//TODO: load different games dynamically
 		ruleManager = new TicTacRuleManager(this);
 		gameBoard = new TicTacBoard(ruleManager);
-        ai = new TicTacAI(ruleManager);
+        ai = new TicTacAI(ruleManager, this);
         this.aiPlays = true;
 
 	}

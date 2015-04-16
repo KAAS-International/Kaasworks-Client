@@ -7,17 +7,15 @@ import main.java.com.kaasintl.api.Field;
  */
 public class TicTacField extends Field {
 
-    int row;
-    int column;
+    int coordinate;
 
     public TicTacField( int v ) {
-        this( v, 0, 0 );
+        this( v, 0);
     }
 
-    public TicTacField( int v, int r, int c ){
+    public TicTacField( int v, int c){
 	    value = v;
-	    row = r;
-        column = c;
+	    coordinate = c;
 
 	    switch (value) {
 		    case 0:

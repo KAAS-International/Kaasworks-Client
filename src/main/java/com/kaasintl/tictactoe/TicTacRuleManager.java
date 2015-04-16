@@ -23,7 +23,7 @@ public class TicTacRuleManager extends RuleManager {
 
     @Override
     public boolean isValid(int i){
-        for(i = 0; i < 10; i++){
+        for(i = 0; i < 9; i++){
             if(i > 9 || i < 0){
                 return false;
             }
@@ -31,34 +31,26 @@ public class TicTacRuleManager extends RuleManager {
         return true;
     }
 
-    public boolean isAWin( int side )
-    {
-//        if((gameManager.getGameBoard().getField(0) == side) && (board[i][1] == side) && (board[i][2] == side)) {
-//            return true;
-//        }
-//
-//        for(int j = 0; j < 3; j++) {
-//            if((board[0][j] == side) && (board[1][j] == side) && (board[2][j] == side)) {
-//                return true;
-//            }
-//        }
-//
-//        if((side == board[0][0]) && (side == board[1][1]) && (side == board[2][2])) {
-//            return true;
-//        } else if((side == board[2][0]) && (side == board[1][1]) && (side == board[0][2])) {
-//            return true;
-//        }
-
+    public boolean isAWin( int side ) {
+        if ((gameManager.getGameBoard().getField(0).getValue() == side) && (gameManager.getGameBoard().getField(4).getValue() == side) && (gameManager.getGameBoard().getField(8).getValue() == side)) {
+            return true;
+        } else if ((gameManager.getGameBoard().getField(2).getValue() == side) && (gameManager.getGameBoard().getField(4).getValue() == side) && (gameManager.getGameBoard().getField(6).getValue() == side)) {
+            return true;
+        } else if ((gameManager.getGameBoard().getField(0).getValue() == side) && (gameManager.getGameBoard().getField(3).getValue() == side) && (gameManager.getGameBoard().getField(6).getValue() == side)) {
+            return true;
+        } else if ((gameManager.getGameBoard().getField(1).getValue() == side) && (gameManager.getGameBoard().getField(4).getValue() == side) && (gameManager.getGameBoard().getField(7).getValue() == side)) {
+            return true;
+        } else if ((gameManager.getGameBoard().getField(2).getValue() == side) && (gameManager.getGameBoard().getField(5).getValue() == side) && (gameManager.getGameBoard().getField(8).getValue() == side)) {
+            return true;
+        }
         return false;
     }
 
     // Simple supporting routines
     public void clearBoard( )
     {
-        for(int i = 0; i < 8; i++) {
-//            board[0][i] = 2;
-//            board[1][i] = 2;
-//            board[2][i] = 2;
+        for(int i = 0; i < 9; i++) {
+            gameManager.getGameBoard().getField(i).setValue(EMPTY);
         }
     }
 
@@ -78,19 +70,16 @@ public class TicTacRuleManager extends RuleManager {
 
     private boolean boardIsFull( )
     {
-        for(int i  = 0; i < 3; i++) {
-            for(int j = 0; j < 3; j++) {
-                if(squareIsEmpty(i, j))
-                    return false;
-            }
+        for(int i  = 0; i < 9; i++) {
+            if(squareIsEmpty(i))
+                return false;
         }
         return true;
     }
 
 
-    public boolean squareIsEmpty( int row, int column )
+    public boolean squareIsEmpty(int i)
     {
-        //return board[ row ][ column ] == EMPTY;
-        return true;
+        return gameManager.getGameBoard().getField(i).getValue() == EMPTY;
     }
 }

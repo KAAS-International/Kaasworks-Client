@@ -31,8 +31,18 @@ public class ReversiRuleManager extends RuleManager {
             }
         }
 
+        if (isOccupied(i) == true) return false;
         if (isValidE(move) || isValidN(move) || isValidNE(move) || isValidNW(move) || isValidS(move) || isValidSE(move) || isValidSW(move) || isValidW(move)) return true;
         return false;
+    }
+
+    @Override
+    public boolean isOccupied(int i) {
+        if (gm.getGameBoard().getBoard().get(i).getState() == Field.STATE.Open) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override

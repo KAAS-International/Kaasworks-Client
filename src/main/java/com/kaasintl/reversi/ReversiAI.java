@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class ReversiAI extends AI
 {
-    private int best;
+    private Field best;
     private GameManager gm;
     private ArrayList<Field> moves = new ArrayList<Field>(); // Stores Field + fieldValue
     private ArrayList<Field> options = new ArrayList<Field>(); // Stores possible moves determined by minimax()
@@ -28,14 +28,24 @@ public class ReversiAI extends AI
             }
         }
 
-        for (Field move : moves) {
+        /* for (Field move : moves) {
             options.add(minimax(move));
         }
 
-        return options.get(0);
+        return options.get(0); */
+
+        for (Field move : moves) {
+            if (best == null) {
+                best = move;
+            } else if (move.getValue() > best.getValue()) {
+                best = move;
+            }
+        }
+
+        return best;
     }
 
-    public Field minimax(Field move) {
+    /* public Field minimax(Field move) {
         return null;
-    }
+    } */
 }
