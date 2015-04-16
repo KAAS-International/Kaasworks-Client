@@ -47,8 +47,7 @@ public class GameManager
 		//TODO: load different games dynamically
 		ruleManager = new TicTacRuleManager(this);
 		gameBoard = new TicTacBoard(ruleManager);
-        ai = new TicTacAI(ruleManager, this);
-        this.aiPlays = true;
+
 
 	}
 
@@ -67,6 +66,8 @@ public class GameManager
 		//TODO: load different games dynamically
 		ruleManager = new TicTacRuleManager(this);
 		gameBoard = new TicTacBoard(ruleManager);
+        ai = new TicTacAI(ruleManager, this);
+        this.aiPlays = true;
 	}
 
     public void yourTurn(String turnMessage) {
