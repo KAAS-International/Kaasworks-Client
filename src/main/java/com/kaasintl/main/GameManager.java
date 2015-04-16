@@ -57,6 +57,10 @@ public class GameManager
 		netManager = new NetManager(this);
 		playerList = new ArrayList<>();
 		gameList = new ArrayList<>();
+
+		//TODO: load different games dynamically
+		ruleManager = new TicTacRuleManager();
+		gameBoard = new TicTacBoard(ruleManager);
 	}
 
 	/**
@@ -141,7 +145,12 @@ public class GameManager
 		netManager.login(name);
 	}
 
-	// TODO: Subscribe to Gametype
+	/**
+	 * Subscribes to a specific game
+	 *
+	 * @param game
+	 * @return
+	 */
 	public boolean subscribe(String game)
 	{
 		return true;
