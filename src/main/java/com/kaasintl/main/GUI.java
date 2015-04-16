@@ -95,33 +95,39 @@ public class GUI
 		updateGameList();
 
 		playMoveButton.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				try {
-					if (gameManager.makeMove(Integer.parseInt(move.getText()))) {
-						gameHistory.setText(gameHistory.getText() + "\n You made move :" + move.getText());
-						setMovementEnabled(false);
-					} else {
-						JOptionPane.showMessageDialog(null, "[ERROR] Failed to perform action: move " + move.getText(), "Error", JOptionPane.ERROR_MESSAGE);
-					}
-				} catch (NumberFormatException ex) {
-					gameHistory.setText(gameHistory.getText() + "\n Invalid move :" + move.getText());
-				}
-			}
-		});
-		challengeButton.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				if (gameManager.challenge((String) lobbyPlayerList.getSelectedValue(), gameSelector.getSelectedItem().toString())) {
-					gameHistory.setText(gameHistory.getText() + "\n You challenged " + lobbyPlayerList.getSelectedValue() + " to a game of " + gameSelector.getSelectedItem().toString());
-				} else {
-					JOptionPane.showMessageDialog(null, "[ERROR] Failed to perform action: challenge " + lobbyPlayerList.getSelectedValue(), "Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		lobbyRefreshButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                try
+                {
+                    if (gameManager.makeMove(Integer.parseInt(move.getText())))
+                    {
+                        gameHistory.setText(gameHistory.getText() + "\n You made move :" + move.getText());
+                        setMovementEnabled(false);
+                    } else
+                    {
+                        JOptionPane.showMessageDialog(null, "[ERROR] Failed to perform action: move " + move.getText(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (NumberFormatException ex)
+                {
+                    gameHistory.setText(gameHistory.getText() + "\n Invalid move :" + move.getText());
+                }
+            }
+        });
+        challengeButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                if (gameManager.challenge((String) lobbyPlayerList.getSelectedValue(), gameSelector.getSelectedItem().toString()))
+                {
+                    gameHistory.setText(gameHistory.getText() + "\n You challenged " + lobbyPlayerList.getSelectedValue() + " to a game of " + gameSelector.getSelectedItem().toString());
+                } else
+                {
+                    JOptionPane.showMessageDialog(null, "[ERROR] Failed to perform action: challenge " + lobbyPlayerList.getSelectedValue(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        lobbyRefreshButton.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -150,12 +156,45 @@ public class GUI
 
 		//Initialize Data into view
 		updateLobby();
-	}
 
-	/**
-	 * Updates the lobby list
-	 */
-	private void updateLobby()
+        gameBoard.setModel(new DefaultTableModel(1, 1));
+        gameBoard.getModel().setValueAt("Not currently in a game", 0, 0);
+    }
+
+    /**
+     * Ends the game with a certain result, and draws the result to the screen
+     * (called externally only)
+     *
+     * @param winloss      1 means win, 0 means draw, -1 means loss
+     * @param player1Score
+     * @param player2Score
+     * @param message
+     */
+    public void endGame(int winloss, int player1Score, int player2Score, String message)
+    {
+        switch (winloss)
+        {
+            case -1:
+                appendHistory("You lost the game. \n Player1 scored: " + player1Score + ", Player2 scored " + player2Score);
+                break;
+
+            case 0:
+                appendHistory("The game resulted in a draw. \n Player1 scored: " + player1Score + ", Player2 scored " + player2Score);
+                break;
+
+            case 1:
+                appendHistory("You won the game!!!! Good job " + getUserName() + "!! \n Player1 scored: " + player1Score + ", Player2 scored " + player2Score);
+                break;
+        }
+
+        gameBoard.setModel(new DefaultTableModel(1, 1));
+        gameBoard.getModel().setValueAt("Not currently in a game", 0, 0);
+    }
+
+    /**
+     * Updates the lobby list
+     */
+    private void updateLobby()
 	{
 		// get list of players
 		ArrayList<String> players = gameManager.getPlayerList();
@@ -252,7 +291,13 @@ public class GUI
 		updateGameboard();
 	}
 
-	public void showChallengePopup(int challengeNumber, String player, String game)
+    /**
+     * Shows a popup prompting the player to accept or decline a challenge from another player
+     * @param challengeNumber
+     * @param player
+     * @param game
+     */
+    public void showChallengePopup(int challengeNumber, String player, String game)
 	{
 		JFrame frame = new JFrame("You have been challenged");
 
@@ -282,12 +327,20 @@ public class GUI
 		frame.setVisible(true);
 	}
 
-	public String getUserName()
+    /**
+     * Gets the current player's username
+     * @return
+     */
+    public String getUserName()
 	{
 		return userName;
 	}
 
-	public void setUserName(String userName)
+    /**
+     * Sets the current players username
+     * @param userName
+     */
+    public void setUserName(String userName)
 	{
 		gameManager.login(userName);
 		this.userName = userName;
@@ -303,12 +356,20 @@ public class GUI
         gameHistory.setText(gameHistory.getText() + "\n" + str);
     }
 
-	public String getCurrentGame()
+    /**
+     * Gets the gamename currently stored in the GUI
+     * @return
+     */
+    public String getCurrentGame()
 	{
 		return currentGame;
 	}
 
-	public void setCurrentGame(String currentGame)
+    /**
+     * Sets the game the GUI thinks is currently being played
+     * @param currentGame
+     */
+    public void setCurrentGame(String currentGame)
 	{
 		this.currentGame = currentGame;
 	}
