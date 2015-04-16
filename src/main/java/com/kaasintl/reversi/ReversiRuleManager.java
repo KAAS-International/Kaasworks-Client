@@ -11,34 +11,54 @@ public class ReversiRuleManager extends RuleManager {
     private int coordinate;
     private int[] row;
     private ReversiField[] moves;
-    private GameManager gm;
+    private GameManager gameManager;
 
     public static final int OPPONENT = 0;
     public static final int AI = 1;
 
     public ReversiRuleManager(GameManager gm) {
-        this.gm = gm;
+        this.gameManager = gm;
     }
 
     @Override
     public boolean isValid(int i) {
         ReversiField move = null;
 
-        for (Field field : gm.getGameBoard().getBoard()) {
+        for (Field field : gameManager.getGameBoard().getBoard()) {
             if (field.getCoordinate() == i) {
                 move = (ReversiField) field;
                 break;
             }
         }
 
-        if (isOccupied(i) == true) return false;
+        if (isOccupied(i)) return false;
         if (isValidE(move) || isValidN(move) || isValidNE(move) || isValidNW(move) || isValidS(move) || isValidSE(move) || isValidSW(move) || isValidW(move)) return true;
         return false;
     }
 
+    public void flip(int i) {
+        ReversiField move = null;
+
+        for (Field field : gameManager.getGameBoard().getBoard()) {
+            if (field.getCoordinate() == i) {
+                move = (ReversiField) field;
+                break;
+            }
+        }
+
+        flipN(move);
+        flipNE(move);
+        flipE(move);
+        flipSE(move);
+        flipS(move);
+        flipSW(move);
+        flipW(move);
+        flipNW(move);
+    }
+
     @Override
     public boolean isOccupied(int i) {
-        if (gm.getGameBoard().getBoard().get(i).getState() == Field.STATE.Open) {
+        if (gameManager.getGameBoard().getBoard().get(i).getState() == Field.STATE.Open) {
             return false;
         } else {
             return true;
@@ -61,11 +81,15 @@ public class ReversiRuleManager extends RuleManager {
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            row[i] = f.getCoordinate()-8;
+                if(row.length == 0) {
+                    row[i] = f.getCoordinate() - 8;
+                } else {
+                    row[i] = row[i - 1] -8;
+                }
         }
 
         for (int i : row) {
-            for (Field field : gm.getGameBoard().getBoard()) {
+            for (Field field : gameManager.getGameBoard().getBoard()) {
                 if (field.getCoordinate() == i) {
                     moves[counter] = (ReversiField) field;
                     break;
@@ -94,11 +118,15 @@ public class ReversiRuleManager extends RuleManager {
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            row[i] = f.getCoordinate()-7;
+            if(row.length == 0) {
+                row[i] = f.getCoordinate() - 7;
+            } else {
+                row[i] = row[i - 1] - 7;
+            }
         }
 
         for (int i : row) {
-            for (Field field : gm.getGameBoard().getBoard()) {
+            for (Field field : gameManager.getGameBoard().getBoard()) {
                 if (field.getCoordinate() == i) {
                     moves[counter] = (ReversiField) field;
                     break;
@@ -127,11 +155,15 @@ public class ReversiRuleManager extends RuleManager {
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            row[i] = f.getCoordinate()+1;
+            if(row.length == 0) {
+                row[i] = f.getCoordinate() + 1;
+            } else {
+                row[i] = row[i - 1] + 1;
+            }
         }
 
         for (int i : row) {
-            for (Field field : gm.getGameBoard().getBoard()) {
+            for (Field field : gameManager.getGameBoard().getBoard()) {
                 if (field.getCoordinate() == i) {
                     moves[counter] = (ReversiField) field;
                     break;
@@ -160,11 +192,15 @@ public class ReversiRuleManager extends RuleManager {
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            row[i] = f.getCoordinate()+9;
+            if(row.length == 0) {
+                row[i] = f.getCoordinate() + 9;
+            } else {
+                row[i] = row[i - 1] + 9;
+            }
         }
 
         for (int i : row) {
-            for (Field field : gm.getGameBoard().getBoard()) {
+            for (Field field : gameManager.getGameBoard().getBoard()) {
                 if (field.getCoordinate() == i) {
                     moves[counter] = (ReversiField) field;
                     break;
@@ -193,11 +229,15 @@ public class ReversiRuleManager extends RuleManager {
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            row[i] = f.getCoordinate()+8;
+            if(row.length == 0) {
+                row[i] = f.getCoordinate() + 8;
+            } else {
+                row[i] = row[i - 1] + 8;
+            }
         }
 
         for (int i : row) {
-            for (Field field : gm.getGameBoard().getBoard()) {
+            for (Field field : gameManager.getGameBoard().getBoard()) {
                 if (field.getCoordinate() == i) {
                     moves[counter] = (ReversiField) field;
                     break;
@@ -226,11 +266,15 @@ public class ReversiRuleManager extends RuleManager {
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            row[i] = f.getCoordinate()+7;
+            if(row.length == 0) {
+                row[i] = f.getCoordinate() + 7;
+            } else {
+                row[i] = row[i - 1] + 7;
+            }
         }
 
         for (int i : row) {
-            for (Field field : gm.getGameBoard().getBoard()) {
+            for (Field field : gameManager.getGameBoard().getBoard()) {
                 if (field.getCoordinate() == i) {
                     moves[counter] = (ReversiField) field;
                     break;
@@ -259,11 +303,15 @@ public class ReversiRuleManager extends RuleManager {
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            row[i] = f.getCoordinate()-1;
+            if(row.length == 0) {
+                row[i] = f.getCoordinate() - 1;
+            } else {
+                row[i] = row[i - 1] - 1;
+            }
         }
 
         for (int i : row) {
-            for (Field field : gm.getGameBoard().getBoard()) {
+            for (Field field : gameManager.getGameBoard().getBoard()) {
                 if (field.getCoordinate() == i) {
                     moves[counter] = (ReversiField) field;
                     break;
@@ -292,11 +340,15 @@ public class ReversiRuleManager extends RuleManager {
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            row[i] = f.getCoordinate()-9;
+            if(row.length == 0) {
+                row[i] = f.getCoordinate() - 9;
+            } else {
+                row[i] = row[i - 1] - 9;
+            }
         }
 
         for (int i : row) {
-            for (Field field : gm.getGameBoard().getBoard()) {
+            for (Field field : gameManager.getGameBoard().getBoard()) {
                 if (field.getCoordinate() == i) {
                     moves[counter] = (ReversiField) field;
                     break;
@@ -317,5 +369,253 @@ public class ReversiRuleManager extends RuleManager {
         }
 
         return false;
+    }
+
+    public void flipN(Field f) {
+        coordinate = f.getCoordinate();
+        int counter = 0;
+
+        for (int i = 0; i < 8; i++) {
+            if(row.length == 0) {
+                row[i] = f.getCoordinate() - 8;
+            } else {
+                row[i] = row[i - 1] - 8;
+            }
+        }
+
+        for (int i : row) {
+            for (Field field : gameManager.getGameBoard().getBoard()) {
+                if (field.getCoordinate() == i) {
+                    moves[counter] = (ReversiField) field;
+                    break;
+                }
+            }
+        }
+
+        for (ReversiField move : moves) {
+            if (move.getState() == Field.STATE.Enemy) {
+                move.setState(Field.STATE.Friendly);
+            }
+            else {
+                break;
+            }
+        }
+    }
+
+    public void flipNE(Field f) {
+        coordinate = f.getCoordinate();
+        int counter = 0;
+
+        for (int i = 0; i < 8; i++) {
+            if(row.length == 0) {
+                row[i] = f.getCoordinate() - 7;
+            } else {
+                row[i] = row[i - 1] - 7;
+            }
+        }
+
+        for (int i : row) {
+            for (Field field : gameManager.getGameBoard().getBoard()) {
+                if (field.getCoordinate() == i) {
+                    moves[counter] = (ReversiField) field;
+                    break;
+                }
+            }
+        }
+
+        for (ReversiField move : moves) {
+            if (move.getState() == Field.STATE.Enemy) {
+                move.setState(Field.STATE.Friendly);
+            }
+            else {
+                break;
+            }
+        }
+    }
+
+    public void flipE(Field f) {
+        coordinate = f.getCoordinate();
+        int counter = 0;
+
+        for (int i = 0; i < 8; i++) {
+            if(row.length == 0) {
+                row[i] = f.getCoordinate() + 1;
+            } else {
+                row[i] = row[i - 1] + 1;
+            }
+        }
+
+        for (int i : row) {
+            for (Field field : gameManager.getGameBoard().getBoard()) {
+                if (field.getCoordinate() == i) {
+                    moves[counter] = (ReversiField) field;
+                    break;
+                }
+            }
+        }
+
+        for (ReversiField move : moves) {
+            if (move.getState() == Field.STATE.Enemy) {
+                move.setState(Field.STATE.Friendly);
+            }
+            else {
+                break;
+            }
+        }
+    }
+
+    public void flipSE(Field f) {
+        coordinate = f.getCoordinate();
+        int counter = 0;
+
+        for (int i = 0; i < 8; i++) {
+            if(row.length == 0) {
+                row[i] = f.getCoordinate() + 9;
+            } else {
+                row[i] = row[i - 1] + 9;
+            }
+        }
+
+        for (int i : row) {
+            for (Field field : gameManager.getGameBoard().getBoard()) {
+                if (field.getCoordinate() == i) {
+                    moves[counter] = (ReversiField) field;
+                    break;
+                }
+            }
+        }
+
+        for (ReversiField move : moves) {
+            if (move.getState() == Field.STATE.Enemy) {
+                move.setState(Field.STATE.Friendly);
+            }
+            else {
+                break;
+            }
+        }
+    }
+
+    public void flipS(Field f) {
+        coordinate = f.getCoordinate();
+        int counter = 0;
+
+        for (int i = 0; i < 8; i++) {
+            if(row.length == 0) {
+                row[i] = f.getCoordinate() + 8;
+            } else {
+                row[i] = row[i - 1] + 8;
+            }
+        }
+
+        for (int i : row) {
+            for (Field field : gameManager.getGameBoard().getBoard()) {
+                if (field.getCoordinate() == i) {
+                    moves[counter] = (ReversiField) field;
+                    break;
+                }
+            }
+        }
+
+        for (ReversiField move : moves) {
+            if (move.getState() == Field.STATE.Enemy) {
+                move.setState(Field.STATE.Friendly);
+            }
+            else {
+                break;
+            }
+        }
+    }
+
+    public void flipSW(Field f) {
+        coordinate = f.getCoordinate();
+        int counter = 0;
+
+        for (int i = 0; i < 8; i++) {
+            if(row.length == 0) {
+                row[i] = f.getCoordinate() + 7;
+            } else {
+                row[i] = row[i - 1] + 7;
+            }
+        }
+
+        for (int i : row) {
+            for (Field field : gameManager.getGameBoard().getBoard()) {
+                if (field.getCoordinate() == i) {
+                    moves[counter] = (ReversiField) field;
+                    break;
+                }
+            }
+        }
+
+        for (ReversiField move : moves) {
+            if (move.getState() == Field.STATE.Enemy) {
+                move.setState(Field.STATE.Friendly);
+            }
+            else {
+                break;
+            }
+        }
+    }
+
+    public void flipW(Field f) {
+        coordinate = f.getCoordinate();
+        int counter = 0;
+
+        for (int i = 0; i < 8; i++) {
+            if(row.length == 0) {
+                row[i] = f.getCoordinate() - 1;
+            } else {
+                row[i] = row[i - 1] - 1;
+            }
+        }
+
+        for (int i : row) {
+            for (Field field : gameManager.getGameBoard().getBoard()) {
+                if (field.getCoordinate() == i) {
+                    moves[counter] = (ReversiField) field;
+                    break;
+                }
+            }
+        }
+
+        for (ReversiField move : moves) {
+            if (move.getState() == Field.STATE.Enemy) {
+                move.setState(Field.STATE.Friendly);
+            }
+            else {
+                break;
+            }
+        }
+    }
+
+    public void flipNW(Field f) {
+        coordinate = f.getCoordinate();
+        int counter = 0;
+
+        for (int i = 0; i < 8; i++) {
+            if(row.length == 0) {
+                row[i] = f.getCoordinate() - 9;
+            } else {
+                row[i] = row[i - 1] - 9;
+            }
+        }
+
+        for (int i : row) {
+            for (Field field : gameManager.getGameBoard().getBoard()) {
+                if (field.getCoordinate() == i) {
+                    moves[counter] = (ReversiField) field;
+                    break;
+                }
+            }
+        }
+
+        for (ReversiField move : moves) {
+            if (move.getState() == Field.STATE.Enemy) {
+                move.setState(Field.STATE.Friendly);
+            }
+            else {
+                break;
+            }
+        }
     }
 }
