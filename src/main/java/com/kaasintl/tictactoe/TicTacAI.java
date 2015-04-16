@@ -18,8 +18,8 @@ public class TicTacAI extends AI {
 
     @Override
     public Field nextMove(){
-        TicTacField best = (TicTacField)nextMove(ruleManager.COMPUTER);
-        return best;
+	    TicTacField best = (TicTacField) nextMove(TicTacRuleManager.COMPUTER);
+	    return best;
     }
 
     public Field nextMove( int side) {
@@ -30,38 +30,38 @@ public class TicTacAI extends AI {
         int bestColumn = 0;
         int value;
 
-        if( ( simpleEval = ruleManager.positionValue() ) != ruleManager.UNCLEAR )
-            return new TicTacField(simpleEval);
+	    if ((simpleEval = ruleManager.positionValue()) != TicTacRuleManager.UNCLEAR)
+		    return new TicTacField(simpleEval);
 
-        if(side == ruleManager.OPPONENT) {
-            value = ruleManager.COMPUTER_WIN;
-            opp = ruleManager.COMPUTER;
-        } else {
-            value = ruleManager.OPPONENT_WIN;
-            opp = ruleManager.OPPONENT;
-        }
+	    if (side == TicTacRuleManager.OPPONENT) {
+		    value = TicTacRuleManager.COMPUTER_WIN;
+		    opp = TicTacRuleManager.COMPUTER;
+	    } else {
+		    value = TicTacRuleManager.OPPONENT_WIN;
+		    opp = TicTacRuleManager.OPPONENT;
+	    }
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (ruleManager.squareIsEmpty(i, j)) {
 
                     place(i, j, side);
-                    if (side == ruleManager.OPPONENT) {
-                        reply = (TicTacField)nextMove(opp);
-                        place(i,j,ruleManager.EMPTY);
-                        if (reply.val < value) {
-                            bestRow = i;
+	                if (side == TicTacRuleManager.OPPONENT) {
+		                reply = (TicTacField)nextMove(opp);
+		                place(i, j, TicTacRuleManager.EMPTY);
+		                if (reply.value < value) {
+			                bestRow = i;
                             bestColumn = j;
-                            value = reply.val;
-                        }
+			                value = reply.value;
+		                }
                     } else {
                         reply = (TicTacField)nextMove(opp);
-                        place(i,j,ruleManager.EMPTY);
-                        if (reply.val > value) {
-                            bestRow = i;
+		                place(i, j, TicTacRuleManager.EMPTY);
+		                if (reply.value > value) {
+			                bestRow = i;
                             bestColumn = j;
-                            value = reply.val;
-                        }
+			                value = reply.value;
+		                }
                     }
                 }
             }

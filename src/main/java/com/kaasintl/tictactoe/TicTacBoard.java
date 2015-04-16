@@ -18,6 +18,11 @@ public class TicTacBoard extends GameBoard {
     public TicTacBoard(RuleManager ruleManager) {
         super(ruleManager);
         this.ruleManager = ruleManager;
+
+	    //populate board
+	    for (int i = 0; i < 9; i++) {
+		    board.add(new TicTacField(1));
+	    }
     }
 
     public ArrayList<Field> getBoard() { return board; }

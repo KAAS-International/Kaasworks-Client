@@ -9,16 +9,26 @@ public class TicTacField extends Field {
 
     int row;
     int column;
-    int val;
 
     public TicTacField( int v ) {
         this( v, 0, 0 );
     }
 
     public TicTacField( int v, int r, int c ){
-        val = v;
-        row = r;
+	    value = v;
+	    row = r;
         column = c;
+
+	    switch (value) {
+		    case 0:
+			    token = " ";
+			    break;
+		    case 1:
+			    token = "X";
+			    break;
+		    case 2:
+			    token = "O";
+	    }
     }
 
 }
