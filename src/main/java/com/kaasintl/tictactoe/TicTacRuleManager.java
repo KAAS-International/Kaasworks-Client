@@ -7,14 +7,14 @@ import main.java.com.kaasintl.api.RuleManager;
  */
 public class TicTacRuleManager extends RuleManager {
 
-    private static final int OPPONENT     = 0;
-    private static final int COMPUTER     = 1;
-    public  static final int EMPTY        = 2;
-    public  static final int OPPONENT_WIN = 0;
-    public  static final int DRAW         = 1;
-    public  static final int UNCLEAR      = 2;
-    public  static final int COMPUTER_WIN = 3;
-    private int [ ] [ ] board = new int[ 3 ][ 3 ];
+    public static final int OPPONENT     = 0;
+    public static final int COMPUTER     = 1;
+    public static final int EMPTY        = 2;
+    public static final int OPPONENT_WIN = 0;
+    public static final int DRAW         = 1;
+    public static final int UNCLEAR      = 2;
+    public static final int COMPUTER_WIN = 3;
+    public int [ ] [ ] board = new int[ 3 ][ 3 ];
 
     @Override
     public boolean isValid(int i){

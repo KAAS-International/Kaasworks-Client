@@ -8,15 +8,6 @@ import main.java.com.kaasintl.api.Field;
  */
 public class TicTacAI extends AI {
 
-    private static final int OPPONENT     = 0;
-    private static final int COMPUTER     = 1;
-    public  static final int EMPTY        = 2;
-
-    public  static final int OPPONENT_WIN = 0;
-    public  static final int DRAW         = 1;
-    public  static final int UNCLEAR      = 2;
-    public  static final int COMPUTER_WIN = 3;
-    private int [ ] [ ] board = new int[ 3 ][ 3 ];
     TicTacRuleManager ruleManager;
 
     public TicTacAI(){
@@ -25,7 +16,7 @@ public class TicTacAI extends AI {
 
     @Override
     public Field nextMove(){
-        TicTacField best=(TicTacField)nextMove(COMPUTER);
+        TicTacField best=(TicTacField)nextMove(ruleManager.COMPUTER);
         return best;
     }
 
@@ -37,15 +28,15 @@ public class TicTacAI extends AI {
         int bestColumn = 0;
         int value;
 
-        if( ( simpleEval = ruleManager.positionValue() ) != UNCLEAR )
+        if( ( simpleEval = ruleManager.positionValue() ) != ruleManager.UNCLEAR )
             return new TicTacField(simpleEval);
 
-        if(side == OPPONENT) {
-            value = COMPUTER_WIN;
-            opp = COMPUTER;
+        if(side == ruleManager.OPPONENT) {
+            value = ruleManager.COMPUTER_WIN;
+            opp = ruleManager.COMPUTER;
         } else {
-            value = OPPONENT_WIN;
-            opp = OPPONENT;
+            value = ruleManager.OPPONENT_WIN;
+            opp = ruleManager.OPPONENT;
         }
 
         for (int i = 0; i < 3; i++) {
@@ -53,9 +44,9 @@ public class TicTacAI extends AI {
                 if (ruleManager.squareIsEmpty(i, j)) {
 
                     place(i, j, side);
-                    if (side == OPPONENT) {
+                    if (side == ruleManager.OPPONENT) {
                         reply = (TicTacField)nextMove(opp);
-                        place(i,j,EMPTY);
+                        place(i,j,ruleManager.EMPTY);
                         if (reply.val < value) {
                             bestRow = i;
                             bestColumn = j;
@@ -63,7 +54,7 @@ public class TicTacAI extends AI {
                         }
                     } else {
                         reply = (TicTacField)nextMove(opp);
-                        place(i,j,EMPTY);
+                        place(i,j,ruleManager.EMPTY);
                         if (reply.val > value) {
                             bestRow = i;
                             bestColumn = j;
@@ -80,7 +71,7 @@ public class TicTacAI extends AI {
 
     public void place( int row, int column, int piece )
     {
-        board[ row ][ column ] = piece;
+        ruleManager.board[ row ][ column ] = piece;
     }
 
 }
