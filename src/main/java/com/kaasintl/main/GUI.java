@@ -61,7 +61,8 @@ public class GUI
 		//Game UI
 		JFrame frame = new JFrame("GUI");
 
-		try {
+        /*
+        try {
 			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
 					javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -70,7 +71,7 @@ public class GUI
 			}
 		} catch (Exception e) {
 			// If Nimbus is not available, you can set the GUI to another look and feel.
-		}
+		}*/
 
 		frame.setContentPane(new GUI().mainPanel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
