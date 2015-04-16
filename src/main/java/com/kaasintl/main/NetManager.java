@@ -299,7 +299,7 @@ public class NetManager {
                                             temp = temp + sc.next();
                                         }
                                         parsedMap = parseMap(temp);
-                                        netManager.parsedQueue.add(new Message("challenge", parsedMap));
+                                        gameManager.setChallenge(parsedMap.get("CHALLENGER"), Integer.parseInt(parsedMap.get("CHALLENGENUMBER")), parsedMap.get("GAMETYPE"));
                                         done = true;
                                         break;
                                     case "WIN":
@@ -336,7 +336,7 @@ public class NetManager {
                             case "GAMELIST":
                                 temp = "";
                                 while(sc.hasNext()) {
-                                    temp = temp + sc.next();
+                                    temp = temp + " " + sc.next();
                                 }
                                 parsedList = parseList(temp);
                                 netManager.parsedQueue.add(new Message("gameList", parsedList));
@@ -391,6 +391,7 @@ public class NetManager {
                 key = s;
                 s = scanner.next();
                 value = s.substring(1,s.length() - 1);
+                value = value.replace("\"", "");
                 m.put(key,value);
             }
             return m;
