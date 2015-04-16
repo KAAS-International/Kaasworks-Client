@@ -10,10 +10,23 @@ import main.java.com.kaasintl.main.GameManager;
 public class ReversiRuleManager extends RuleManager {
     private int coordinate;
     private int[] row;
+    private ReversiField[] moves;
+    private GameManager gm;
+
+    public ReversiRuleManager(GameManager gm) {
+        this.gm = gm;
+    }
 
     @Override
     public boolean isValid(int i) {
         ReversiField move = null;
+
+        for (Field field : gm.getGameBoard().getBoard()) {
+            if (field.getCoordinate() == i) {
+                move = (ReversiField) field;
+                break;
+            }
+        }
 
         /* for (ReversiField field : GameManager.getGameBoard().getBoard().board) {
             if (field.getCoordinate() == i) {
@@ -46,10 +59,23 @@ public class ReversiRuleManager extends RuleManager {
             row[i] = f.getCoordinate()-8;
         }
 
+        for (int i : row) {
+            /*
+            for each (Field f in Gameboard.board) {
+                if (f.getNumber() == i) {
+                    moves[i] = f;
+                    break;
+                }
+            }
+             */
+        }
+
         /* TODO: This is pseudo code
-            for each (ReversiField f in ReversiGameBoard) {
+            for each (ReversiField f in moves) {
                 if (f.getSTATE == friendly) {
                     return true;
+                }
+                else if (f.getSTATE == enemy){
                 }
                 else {
                     return false;
