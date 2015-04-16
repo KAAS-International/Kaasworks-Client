@@ -6,6 +6,7 @@ import main.java.com.kaasintl.main.GameManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * Created by Kevin on 9-4-2015.
@@ -31,9 +32,17 @@ public class ReversiAI extends AI
             }
         }
 
-        for (HashMap.Entry<Field, Integer> move : moves.entrySet()) {
-            options.add(minimax(move.getKey()));
+        Iterator it = moves.entrySet().iterator();
+
+        while (it.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry) it.next();
+            options.add(minimax((Field) pair.getKey()));
+            it.remove();
         }
+
+        /* for (HashMap.Entry<Field, Integer> move : moves.entrySet()) {
+            options.add(minimax(move.getKey()));
+        } */
 
         return options.get(0);
     }
