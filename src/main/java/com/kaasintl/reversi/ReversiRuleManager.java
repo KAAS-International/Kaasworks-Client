@@ -36,6 +36,15 @@ public class ReversiRuleManager extends RuleManager {
     }
 
     @Override
+    public boolean isOccupied(int i) {
+        if (gm.getGameBoard().getBoard().get(i).getState() == Field.STATE.Open) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
     public boolean isWin(String player) {
         return true;
     }
