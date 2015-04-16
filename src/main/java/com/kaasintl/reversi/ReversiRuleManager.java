@@ -13,6 +13,9 @@ public class ReversiRuleManager extends RuleManager {
     private ReversiField[] moves;
     private GameManager gm;
 
+    public static final int OPPONENT = 0;
+    public static final int AI = 1;
+
     public ReversiRuleManager(GameManager gm) {
         this.gm = gm;
     }
