@@ -147,7 +147,7 @@ public class GameManager
 	 */
 	public boolean subscribe(String game)
 	{
-		return true;
+		return netManager.subscribe(game);
 	}
 
 	// TODO: Quit the game
