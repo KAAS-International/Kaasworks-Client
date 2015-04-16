@@ -3,6 +3,8 @@ package main.java.com.kaasintl.main;
 import main.java.com.kaasintl.api.Field;
 import main.java.com.kaasintl.api.GameBoard;
 import main.java.com.kaasintl.api.RuleManager;
+import main.java.com.kaasintl.reversi.ReversiGameBoard;
+import main.java.com.kaasintl.reversi.ReversiRuleManager;
 import main.java.com.kaasintl.tictactoe.TicTacBoard;
 import main.java.com.kaasintl.tictactoe.TicTacRuleManager;
 
@@ -33,7 +35,7 @@ public class GameManager
      * Creates an instance of the GameManager, with no GUI provided. This will cause it to make a GUI itself
      */
     public GameManager() {
-        netManager = new NetManager(this);
+        netManager = new NetManager(this, "localhost", 7789);
         playerList = new ArrayList<>();
         gameList = new ArrayList<>();
 
@@ -119,13 +121,30 @@ public class GameManager
      * @param gameType
      */
     public void setChallenge(String challenger, int challengeNumber, String gameType) {
-
+        gui.showChallengePopup(challengeNumber, challenger, gameType);
     }
 
     // TODO: Accept other player's challenge
-    public boolean acceptChallenge()
+    public boolean acceptChallenge(int challengeNumber, String game)
     {
-        return true;
+        if (this.getNetManager().acceptChallenge(challengeNumber)) {
+            switch (game) {
+                case "Tic-tac-toe":
+                    this.setGameType("Tic-tac-toe");
+                    this.setRuleManager(new TicTacRuleManager());
+                    this.setGameBoard(new TicTacBoard(this.getRuleManager()));
+                    break;
+                case "Reversi":
+                    this.setGameType("Reversi");
+                    this.setRuleManager(new ReversiRuleManager());
+                    this.setGameBoard(new ReversiGameBoard(this.getRuleManager()));
+
+                    break;
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

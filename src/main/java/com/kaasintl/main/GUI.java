@@ -81,7 +81,10 @@ public class GUI {
 
         setMovementEnabled(false);
 
+        mainPanel.setVisible(true);
         topframe.setVisible(true);
+        topframe.setContentPane(mainPanel);
+
         loginWindow.setVisible(false);
 
         updateGameList();
@@ -157,7 +160,7 @@ public class GUI {
         lobbyPlayerList.setModel(newListModel);
         lobbyPlayerList.updateUI();
 
-        String timeStamp = new SimpleDateFormat("HHmmss").format(Calendar.getInstance().getTime());
+        String timeStamp = new SimpleDateFormat("HH-mm-ss").format(Calendar.getInstance().getTime());
 
         playerListLabel.setText("Lobby (last updated:  " + timeStamp + ")");
     }
@@ -231,6 +234,17 @@ public class GUI {
     {
         setMovementEnabled(true);
         updateGameboard();
+    }
+
+    public void showChallengePopup(int challengeNumber, String player, String game) {
+        JFrame frame = new JFrame("You have been challenged");
+
+        frame.setContentPane(new challengeWindow(this, challengeNumber, player, game).getMainPanel());
+        frame.pack();
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.setVisible(true);
     }
 
     /**

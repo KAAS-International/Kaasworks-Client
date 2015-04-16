@@ -58,6 +58,22 @@ public class NetManager {
         }
     }
 
+    public NetManager(GameManager g, String host, int port) {
+        this.gameManager = g;
+
+        try {
+            Socket sock = new Socket(host, port);
+            out = new PrintWriter(sock.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+            receiver = new Thread(new Receiver(this));
+            receiver.start();
+            parser = new Thread(new Parser(this));
+            parser.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Log the user in to the server
      * @param name the desired username
@@ -101,6 +117,34 @@ public class NetManager {
         }
 
     }
+
+    public boolean acceptChallenge(int challengeNumber) {
+        out.println("challenge accept " + challengeNumber);
+
+        String response = null;
+        boolean working = true;
+        while (working) {
+            if (parsedQueue.size() > 0) {
+
+                for (int i = 0; i < parsedQueue.size(); i++) {
+                    Message m = parsedQueue.get(i);
+                    if (m.getType().equals("response")) {
+                        response = (String) m.getContent();
+                        parsedQueue.remove(i);
+                        working = false;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (response.equalsIgnoreCase("OK")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     /**
      * Fetches the playerlist from the server
