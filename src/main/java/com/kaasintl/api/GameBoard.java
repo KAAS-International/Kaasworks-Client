@@ -23,6 +23,8 @@ public abstract class GameBoard {
         return board;
     }
 
+    public Field getField(int index) { return board.get(index); }
+
 	public int getBoardHeight()
 	{
 		return boardHeight;
