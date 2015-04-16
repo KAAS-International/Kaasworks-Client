@@ -303,19 +303,6 @@ public class GameManager
         return netManager.sendMove(move);
 	}
 
-	// TODO: Return if it is your turn
-	public boolean isTurn()
-	{
-		return isTurn;
-	}
-
-	public void setTurn(String s)
-	{
-		this.turnMessage = s;
-		// TODO: set isTurn false somewhere
-		this.isTurn = true;
-	}
-
 	// TODO: Return the game's board
 	public GameBoard getGameboard()
 	{
