@@ -79,6 +79,41 @@ public class NetManager
 	}
 
 	/**
+	 * Subscribes to a game
+	 *
+	 * @param game The game to subscribe to
+	 * @return whether or not the action has succeed
+	 */
+	public boolean subscribe(String game)
+	{
+		out.println("subscribe " + game);
+		out.flush();
+
+		String response = null;
+		boolean working = true;
+		while (working) {
+			if (parsedQueue.size() > 0) {
+
+				for (int i = 0; i < parsedQueue.size(); i++) {
+					Message m = parsedQueue.get(i);
+					if (m.getType().equals("response")) {
+						response = (String) m.getContent();
+						parsedQueue.remove(i);
+						working = false;
+						break;
+					}
+				}
+			}
+		}
+
+		if (response.contains("OK")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
 	 * Log the user in to the server
 	 *
 	 * @param name the desired username
