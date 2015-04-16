@@ -5,8 +5,6 @@ import main.java.com.kaasintl.api.Field;
 import main.java.com.kaasintl.main.GameManager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * Created by Kevin on 9-4-2015.

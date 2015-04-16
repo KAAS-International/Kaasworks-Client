@@ -63,6 +63,10 @@ public class ReversiRuleManager extends RuleManager {
             }
         }
 
+        if (moves[0].getState() == Field.STATE.Friendly) {
+            return false;
+        }
+
         for (ReversiField move : moves) {
             if (move.getState() == Field.STATE.Friendly) {
                 return true;
@@ -90,6 +94,10 @@ public class ReversiRuleManager extends RuleManager {
                     break;
                 }
             }
+        }
+
+        if (moves[0].getState() == Field.STATE.Friendly) {
+            return false;
         }
 
         for (ReversiField move : moves) {
@@ -121,6 +129,10 @@ public class ReversiRuleManager extends RuleManager {
             }
         }
 
+        if (moves[0].getState() == Field.STATE.Friendly) {
+            return false;
+        }
+
         for (ReversiField move : moves) {
             if (move.getState() == Field.STATE.Friendly) {
                 return true;
@@ -148,6 +160,10 @@ public class ReversiRuleManager extends RuleManager {
                     break;
                 }
             }
+        }
+
+        if (moves[0].getState() == Field.STATE.Friendly) {
+            return false;
         }
 
         for (ReversiField move : moves) {
@@ -179,6 +195,10 @@ public class ReversiRuleManager extends RuleManager {
             }
         }
 
+        if (moves[0].getState() == Field.STATE.Friendly) {
+            return false;
+        }
+
         for (ReversiField move : moves) {
             if (move.getState() == Field.STATE.Friendly) {
                 return true;
@@ -206,6 +226,10 @@ public class ReversiRuleManager extends RuleManager {
                     break;
                 }
             }
+        }
+
+        if (moves[0].getState() == Field.STATE.Friendly) {
+            return false;
         }
 
         for (ReversiField move : moves) {
@@ -237,6 +261,10 @@ public class ReversiRuleManager extends RuleManager {
             }
         }
 
+        if (moves[0].getState() == Field.STATE.Friendly) {
+            return false;
+        }
+
         for (ReversiField move : moves) {
             if (move.getState() == Field.STATE.Friendly) {
                 return true;
@@ -264,6 +292,10 @@ public class ReversiRuleManager extends RuleManager {
                     break;
                 }
             }
+        }
+
+        if (moves[0].getState() == Field.STATE.Friendly) {
+            return false;
         }
 
         for (ReversiField move : moves) {
