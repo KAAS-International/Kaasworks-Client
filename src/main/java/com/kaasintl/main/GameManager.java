@@ -269,8 +269,22 @@ public class GameManager
 	{
 		setOpponent(opponent);
 		if (!playerToMove.equals(opponent)) {
+            switch (gameType)
+            {
+                case "Tic-tac-toe":
+                    this.setGameType("Tic-tac-toe");
+                    this.setRuleManager(new TicTacRuleManager(this));
+                    this.setGameBoard(new TicTacBoard(this.getRuleManager()));
 
-		}
+                    break;
+                case "Reversi":
+                    this.setGameType("Reversi");
+                    this.setRuleManager(new ReversiRuleManager(this));
+                    this.setGameBoard(new ReversiGameBoard(this.getRuleManager()));
+
+                    break;
+            }
+        }
 	}
 
 	/**
