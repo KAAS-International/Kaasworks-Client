@@ -2,6 +2,7 @@ package main.java.com.kaasintl.tictactoe;
 
 import main.java.com.kaasintl.api.AI;
 import main.java.com.kaasintl.api.Field;
+import main.java.com.kaasintl.api.RuleManager;
 
 /**
  * Created by Niek on 15-4-2015.
@@ -10,19 +11,20 @@ public class TicTacAI extends AI {
 
     TicTacRuleManager ruleManager;
 
-    public TicTacAI(){
+    public TicTacAI(RuleManager r){
+        this.ruleManager = (TicTacRuleManager) r;
         ruleManager.clearBoard();
     }
 
     @Override
     public Field nextMove(){
-        TicTacField best=(TicTacField)nextMove(ruleManager.COMPUTER);
+        TicTacField best = (TicTacField)nextMove(ruleManager.COMPUTER);
         return best;
     }
 
     public Field nextMove( int side) {
         int opp;              // The other side
-        TicTacField reply;           // Opponent's best reply
+        TicTacField reply;    // Opponent's best reply
         int simpleEval;       // Result of an immediate evaluation
         int bestRow = 0;
         int bestColumn = 0;

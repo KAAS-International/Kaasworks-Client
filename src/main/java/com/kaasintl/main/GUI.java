@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 
 /**
  * Created by david on 8-4-15.
@@ -40,6 +41,8 @@ public class GUI
 	private JLabel nameIndicator;
 	private JLabel supportedGamesLabel;
 	private JLabel playerListLabel;
+	private JButton redrawBoardButton;
+	private JScrollPane gameHistoyScrollpane;
 	private String currentGame = "";
 	private JFrame loginWindow;
 
@@ -88,6 +91,8 @@ public class GUI
 
 		loginWindow.setVisible(false);
 
+		nameIndicator.setText("Logged in as " + userName);
+
 		updateGameList();
 
 		playMoveButton.addActionListener(new ActionListener()
@@ -126,6 +131,24 @@ public class GUI
 			}
 		});
 
+		redrawBoardButton.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent actionEvent)
+			{
+				updateGameboard();
+			}
+		});
+
+		subscribeButton.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent actionEvent)
+			{
+				gameManager.subscribe(gameList.getSelectedValue().toString());
+			}
+		});
+
 		//Initialize Data into view
 		updateLobby();
 	}
@@ -147,6 +170,9 @@ public class GUI
 		DefaultListModel<String> newListModel = new DefaultListModel<String>();
 
 		for (String s : listData) {
+			if (s.equals(userName)) {
+				s = s + " (you)";
+			}
 			newListModel.addElement(s);
 		}
 
@@ -183,11 +209,21 @@ public class GUI
 	public void updateGameboard()
 	{
 		GameBoard gb = gameManager.getGameboard();
-		int boardSize = (int) Math.sqrt(gb.getBoard().size());
+		int boardSize = 8; //(int) Math.sqrt(gb.getBoard().size());
 		TableModel tableModel = new DefaultTableModel(boardSize, boardSize);
 
-		for (int i = 0; i < gb.getBoard().size(); i++) {
-			tableModel.setValueAt(gb.getBoard().get(i).getState(), i / boardSize, i % boardSize);
+		Random r = new Random(System.nanoTime());
+
+		String str;
+
+		for (int i = 0; i < 64; i++) {//gb.getBoard().size(); i++) {
+			if (r.nextBoolean()) {
+				str = "X";
+			} else {
+				str = "O";
+			}
+
+			tableModel.setValueAt(str, i / boardSize, i % boardSize);
 		}
 
 		gameBoard.setModel(tableModel);
