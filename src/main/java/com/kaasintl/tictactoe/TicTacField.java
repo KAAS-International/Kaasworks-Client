@@ -21,13 +21,13 @@ public class TicTacField extends Field {
 
 	    switch (value) {
 		    case 0:
-			    token = " ";
-			    break;
-		    case 1:
 			    token = "X";
 			    break;
-		    case 2:
+		    case 1:
 			    token = "O";
+			    break;
+		    case 2:
+			    token = " ";
 	    }
     }
 

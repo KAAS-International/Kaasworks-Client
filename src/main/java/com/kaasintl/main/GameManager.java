@@ -40,7 +40,7 @@ public class GameManager
 	 */
 	public GameManager()
 	{
-		netManager = new NetManager(this, "localhost", 7789);
+		netManager = new NetManager(this, "145.37.59.19", 7789);
 		playerList = new ArrayList<>();
 		gameList = new ArrayList<>();
 

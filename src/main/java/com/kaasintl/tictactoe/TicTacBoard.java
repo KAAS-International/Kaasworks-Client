@@ -18,7 +18,7 @@ public class TicTacBoard extends GameBoard {
 
 	    //populate board
 	    for (int i = 0; i < 9; i++) {
-		    board.add(new TicTacField(1));
+		    board.add(new TicTacField(2));
 	    }
     }
 

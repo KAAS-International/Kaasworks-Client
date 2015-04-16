@@ -11,14 +11,25 @@ import java.util.ArrayList;
  */
 public class ReversiGameBoard extends GameBoard {
 
-    public RuleManager ruleManager;
-
-    public ArrayList<Field> board = new ArrayList<Field>();
-
     public ReversiGameBoard(RuleManager ruleManager)
     {
         super(ruleManager);
         this.ruleManager = ruleManager;
+
+	    boardHeight = 8;
+	    //init board
+
+	    for (int i = 0; i < 64; i++) {
+		    ReversiField f = new ReversiField();
+		    getBoard().add(f);
+		    f.setState(Field.STATE.Open);
+	    }
+
+	    getBoard().get(27).setState(Field.STATE.Friendly);
+	    getBoard().get(36).setState(Field.STATE.Friendly);
+
+	    getBoard().get(28).setState(Field.STATE.Enemy);
+	    getBoard().get(35).setState(Field.STATE.Enemy);
     }
 
     public ArrayList<Field> getBoard()

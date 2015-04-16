@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Connects to a telnet client with a password and username.
@@ -49,7 +50,7 @@ public class NetManager
 		this.gameManager = g;
 
 		try {
-			Socket sock = new Socket("localhost", 7789);
+			Socket sock = new Socket("145.37.59.19", 7789);
 			out = new PrintWriter(sock.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 			receiver = new Thread(new Receiver(this));
@@ -89,6 +90,12 @@ public class NetManager
 		out.println("subscribe " + game);
 		out.flush();
 
+		try {
+			TimeUnit.MILLISECONDS.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
 		String response = null;
 		boolean working = true;
 		while (working) {
@@ -122,11 +129,23 @@ public class NetManager
 	{
 		out.println("login " + name + "\n");
 		out.flush();
+
+		try {
+			TimeUnit.MILLISECONDS.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
     public boolean sendMove(int move) {
         out.println("move " + move + "\n");
         out.flush();
+
+	    try {
+		    TimeUnit.MILLISECONDS.sleep(100);
+	    } catch (InterruptedException e) {
+		    e.printStackTrace();
+	    }
 
         String response = null;
         boolean working = true;
@@ -157,6 +176,12 @@ public class NetManager
 		out.println("challenge " + "\"" + player + "\" \"" + game + "\"");
         out.flush();
 
+		try {
+			TimeUnit.MILLISECONDS.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
 		String response = null;
 		boolean working = true;
 		while (working) {
@@ -186,6 +211,12 @@ public class NetManager
 	{
 		out.println("challenge accept " + challengeNumber);
         out.flush();
+
+		try {
+			TimeUnit.MILLISECONDS.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
 		String response = null;
 		boolean working = true;
@@ -222,6 +253,12 @@ public class NetManager
 		out.println("get playerlist");
 		out.flush();
 
+		try {
+			TimeUnit.MILLISECONDS.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
 		ArrayList<String> list = new ArrayList<>();
 		boolean working = true;
 		while (working) {
@@ -238,6 +275,7 @@ public class NetManager
 				}
 			}
 		}
+
 		return list;
 	}
 
@@ -271,6 +309,12 @@ public class NetManager
 		out.println("get gamelist");
 		out.flush();
 
+		try {
+			TimeUnit.MILLISECONDS.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
 		ArrayList<String> list = new ArrayList<>();
 		boolean working = true;
 		while (working) {
@@ -294,6 +338,12 @@ public class NetManager
 	{
 		out.println("get gamelist");
 		out.flush();
+
+		try {
+			TimeUnit.MILLISECONDS.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private class Receiver implements Runnable
