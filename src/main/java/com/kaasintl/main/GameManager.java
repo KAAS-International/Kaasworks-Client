@@ -70,7 +70,7 @@ public class GameManager
         gameBoard = new ReversiGameBoard(ruleManager);
         //ai = new TicTacAI(ruleManager, this);
         ai = new ReversiAI(this, ruleManager);
-        this.aiPlays = true;
+        //this.aiPlays = true;
 	}
 
     public void yourTurn(String turnMessage) {

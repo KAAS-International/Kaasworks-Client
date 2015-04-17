@@ -24,7 +24,7 @@ public abstract class Field {
 			case Open:
 				return " ";
 			case Friendly:
-				return "X";
+				return "You";
 			case Enemy:
 				return "O";
 			default:
