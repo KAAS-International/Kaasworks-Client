@@ -7,7 +7,6 @@ import main.java.com.kaasintl.api.RuleManager;
 import main.java.com.kaasintl.reversi.ReversiAI;
 import main.java.com.kaasintl.reversi.ReversiGameBoard;
 import main.java.com.kaasintl.reversi.ReversiRuleManager;
-import main.java.com.kaasintl.tictactoe.TicTacAI;
 import main.java.com.kaasintl.tictactoe.TicTacBoard;
 import main.java.com.kaasintl.tictactoe.TicTacRuleManager;
 
@@ -41,7 +40,7 @@ public class GameManager
 	 */
 	public GameManager()
 	{
-		netManager = new NetManager(this, "145.37.59.19", 7789);
+		netManager = new NetManager(this, "145.37.59.7", 7789);
 		playerList = new ArrayList<>();
 		gameList = new ArrayList<>();
 

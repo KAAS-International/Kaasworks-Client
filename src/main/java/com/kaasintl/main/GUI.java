@@ -252,7 +252,7 @@ public class GUI
 		TableModel tableModel = new DefaultTableModel(boardSize, boardSize);
 
 		for (int i = 0; i < gb.getBoard().size(); i++) {
-			tableModel.setValueAt(gb.getBoard().get(i).token, i / boardSize, i % boardSize);
+			tableModel.setValueAt("(" + i + ")" + gb.getBoard().get(i).token, i / boardSize, i % boardSize);
 		}
 
 		gameBoard.setModel(tableModel);
