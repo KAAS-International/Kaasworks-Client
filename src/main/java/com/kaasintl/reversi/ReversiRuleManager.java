@@ -8,8 +8,6 @@ import main.java.com.kaasintl.main.GameManager;
  * Created by Kevin on 9-4-2015.
  */
 public class ReversiRuleManager extends RuleManager {
-    // TODO: Waar is coordinate voor?!
-    private int coordinate = 0;
     private int[] row = new int[8];
     private ReversiField[] moves = new ReversiField[64];
     private GameManager gameManager;
@@ -76,12 +74,11 @@ public class ReversiRuleManager extends RuleManager {
     }
 
     public boolean isValidN(Field f) {
-        coordinate = f.getCoordinate();
         int counter = 0;
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-                if(row.length == 0) {
+                if(i == 0) {
                     row[i] = f.getCoordinate() - 8;
                 } else {
                     row[i] = row[i - 1] -8;
@@ -113,12 +110,11 @@ public class ReversiRuleManager extends RuleManager {
     }
 
     public boolean isValidNE(Field f) {
-        coordinate = f.getCoordinate();
         int counter = 0;
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            if(row.length == 0) {
+            if(i == 0) {
                 row[i] = f.getCoordinate() - 7;
             } else {
                 row[i] = row[i - 1] - 7;
@@ -150,12 +146,11 @@ public class ReversiRuleManager extends RuleManager {
     }
 
     public boolean isValidE(Field f) {
-        coordinate = f.getCoordinate();
         int counter = 0;
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            if(row.length == 0) {
+            if(i == 0) {
                 row[i] = f.getCoordinate() + 1;
             } else {
                 row[i] = row[i - 1] + 1;
@@ -187,12 +182,11 @@ public class ReversiRuleManager extends RuleManager {
     }
 
     public boolean isValidSE(Field f) {
-        coordinate = f.getCoordinate();
         int counter = 0;
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            if(row.length == 0) {
+            if(i == 0) {
                 row[i] = f.getCoordinate() + 9;
             } else {
                 row[i] = row[i - 1] + 9;
@@ -224,12 +218,11 @@ public class ReversiRuleManager extends RuleManager {
     }
 
     public boolean isValidS(Field f) {
-        coordinate = f.getCoordinate();
         int counter = 0;
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            if(row.length == 0) {
+            if(i == 0) {
                 row[i] = f.getCoordinate() + 8;
             } else {
                 row[i] = row[i - 1] + 8;
@@ -261,12 +254,11 @@ public class ReversiRuleManager extends RuleManager {
     }
 
     public boolean isValidSW(Field f) {
-        coordinate = f.getCoordinate();
         int counter = 0;
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            if(row.length == 0) {
+            if(i == 0) {
                 row[i] = f.getCoordinate() + 7;
             } else {
                 row[i] = row[i - 1] + 7;
@@ -298,12 +290,11 @@ public class ReversiRuleManager extends RuleManager {
     }
 
     public boolean isValidW(Field f) {
-        coordinate = f.getCoordinate();
         int counter = 0;
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            if(row.length == 0) {
+            if(i == 0) {
                 row[i] = f.getCoordinate() - 1;
             } else {
                 row[i] = row[i - 1] - 1;
@@ -335,12 +326,11 @@ public class ReversiRuleManager extends RuleManager {
     }
 
     public boolean isValidNW(Field f) {
-        coordinate = f.getCoordinate();
         int counter = 0;
 
         for (int i = 0; i < 8; i++) {
             if (f == null) break;
-            if(row.length == 0) {
+            if(i == 0) {
                 row[i] = f.getCoordinate() - 9;
             } else {
                 row[i] = row[i - 1] - 9;
@@ -372,11 +362,10 @@ public class ReversiRuleManager extends RuleManager {
     }
 
     public void flipN(Field f) {
-        coordinate = f.getCoordinate();
         int counter = 0;
 
         for (int i = 0; i < 8; i++) {
-            if(row.length == 0) {
+            if(i == 0) {
                 row[i] = f.getCoordinate() - 8;
             } else {
                 row[i] = row[i - 1] - 8;
@@ -403,11 +392,10 @@ public class ReversiRuleManager extends RuleManager {
     }
 
     public void flipNE(Field f) {
-        coordinate = f.getCoordinate();
         int counter = 0;
 
         for (int i = 0; i < 8; i++) {
-            if(row.length == 0) {
+            if(i == 0) {
                 row[i] = f.getCoordinate() - 7;
             } else {
                 row[i] = row[i - 1] - 7;
@@ -434,11 +422,10 @@ public class ReversiRuleManager extends RuleManager {
     }
 
     public void flipE(Field f) {
-        coordinate = f.getCoordinate();
         int counter = 0;
 
         for (int i = 0; i < 8; i++) {
-            if(row.length == 0) {
+            if(i == 0) {
                 row[i] = f.getCoordinate() + 1;
             } else {
                 row[i] = row[i - 1] + 1;
@@ -465,11 +452,10 @@ public class ReversiRuleManager extends RuleManager {
     }
 
     public void flipSE(Field f) {
-        coordinate = f.getCoordinate();
         int counter = 0;
 
         for (int i = 0; i < 8; i++) {
-            if(row.length == 0) {
+            if(i == 0) {
                 row[i] = f.getCoordinate() + 9;
             } else {
                 row[i] = row[i - 1] + 9;
@@ -496,11 +482,10 @@ public class ReversiRuleManager extends RuleManager {
     }
 
     public void flipS(Field f) {
-        coordinate = f.getCoordinate();
         int counter = 0;
 
         for (int i = 0; i < 8; i++) {
-            if(row.length == 0) {
+            if(i == 0) {
                 row[i] = f.getCoordinate() + 8;
             } else {
                 row[i] = row[i - 1] + 8;
@@ -527,11 +512,10 @@ public class ReversiRuleManager extends RuleManager {
     }
 
     public void flipSW(Field f) {
-        coordinate = f.getCoordinate();
         int counter = 0;
 
         for (int i = 0; i < 8; i++) {
-            if(row.length == 0) {
+            if(i == 0) {
                 row[i] = f.getCoordinate() + 7;
             } else {
                 row[i] = row[i - 1] + 7;
@@ -558,11 +542,10 @@ public class ReversiRuleManager extends RuleManager {
     }
 
     public void flipW(Field f) {
-        coordinate = f.getCoordinate();
         int counter = 0;
 
         for (int i = 0; i < 8; i++) {
-            if(row.length == 0) {
+            if(i == 0) {
                 row[i] = f.getCoordinate() - 1;
             } else {
                 row[i] = row[i - 1] - 1;
@@ -589,11 +572,10 @@ public class ReversiRuleManager extends RuleManager {
     }
 
     public void flipNW(Field f) {
-        coordinate = f.getCoordinate();
         int counter = 0;
 
         for (int i = 0; i < 8; i++) {
-            if(row.length == 0) {
+            if(i == 0) {
                 row[i] = f.getCoordinate() - 9;
             } else {
                 row[i] = row[i - 1] - 9;
