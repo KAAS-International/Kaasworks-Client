@@ -4,6 +4,7 @@ import main.java.com.kaasintl.api.AI;
 import main.java.com.kaasintl.api.Field;
 import main.java.com.kaasintl.api.GameBoard;
 import main.java.com.kaasintl.api.RuleManager;
+import main.java.com.kaasintl.reversi.ReversiAI;
 import main.java.com.kaasintl.reversi.ReversiGameBoard;
 import main.java.com.kaasintl.reversi.ReversiRuleManager;
 import main.java.com.kaasintl.tictactoe.TicTacAI;
@@ -48,7 +49,6 @@ public class GameManager
 		ruleManager = new TicTacRuleManager(this);
 		gameBoard = new TicTacBoard(ruleManager);
 
-
 	}
 
 	/**
@@ -64,9 +64,12 @@ public class GameManager
 		gameList = new ArrayList<>();
 
 		//TODO: load different games dynamically
-		ruleManager = new TicTacRuleManager(this);
-		gameBoard = new TicTacBoard(ruleManager);
-        ai = new TicTacAI(ruleManager, this);
+		//ruleManager = new TicTacRuleManager(this);
+		ruleManager = new ReversiRuleManager(this);
+		//gameBoard = new TicTacBoard(ruleManager);
+        gameBoard = new ReversiGameBoard(ruleManager);
+        //ai = new TicTacAI(ruleManager, this);
+        ai = new ReversiAI(this, ruleManager);
         this.aiPlays = true;
 	}
 

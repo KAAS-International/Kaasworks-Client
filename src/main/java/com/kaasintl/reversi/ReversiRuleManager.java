@@ -8,9 +8,10 @@ import main.java.com.kaasintl.main.GameManager;
  * Created by Kevin on 9-4-2015.
  */
 public class ReversiRuleManager extends RuleManager {
-    private int coordinate;
-    private int[] row;
-    private ReversiField[] moves;
+    // TODO: Waar is coordinate voor?!
+    private int coordinate = 0;
+    private int[] row = new int[8];
+    private ReversiField[] moves = new ReversiField[64];
     private GameManager gameManager;
 
     public static final int OPPONENT = 0;
@@ -45,7 +46,6 @@ public class ReversiRuleManager extends RuleManager {
                 break;
             }
         }
-
         flipN(move);
         flipNE(move);
         flipE(move);
