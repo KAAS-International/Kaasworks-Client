@@ -50,7 +50,7 @@ public class NetManager
 		this.gameManager = g;
 
 		try {
-			Socket sock = new Socket("145.37.59.19", 7789);
+			Socket sock = new Socket("localhost", 7789);
 			out = new PrintWriter(sock.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 			receiver = new Thread(new Receiver(this));
@@ -455,6 +455,7 @@ public class NetManager
 											temp = temp + sc.next();
 										}
 										parsedMap = parseMap(temp);
+                                        System.out.println("YOURTURN " + temp);
                                         gameManager.yourTurn(parsedMap.get("TURNMESSAGE"));
 										done = true;
 										break;
@@ -473,7 +474,7 @@ public class NetManager
 											temp = temp + sc.next();
 										}
 										parsedMap = parseMap(temp);
-										gameManager.setChallenge(parsedMap.get("CHALLENGER"), Integer.parseInt(parsedMap.get("CHALLENGENUMBER")), parsedMap.get("GAMETYPE "));
+										gameManager.setChallenge(parsedMap.get("CHALLENGER"), Integer.parseInt(parsedMap.get("CHALLENGENUMBER")), parsedMap.get("GAMETYPE"));
 										done = true;
 										break;
 									case "WIN":

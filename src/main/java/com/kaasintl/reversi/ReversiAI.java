@@ -2,6 +2,7 @@ package main.java.com.kaasintl.reversi;
 
 import main.java.com.kaasintl.api.AI;
 import main.java.com.kaasintl.api.Field;
+import main.java.com.kaasintl.api.RuleManager;
 import main.java.com.kaasintl.main.GameManager;
 
 import java.util.ArrayList;
@@ -12,18 +13,20 @@ import java.util.ArrayList;
 public class ReversiAI extends AI
 {
     private Field best;
-    private GameManager gm;
+    private GameManager gameManager;
+    private ReversiRuleManager ruleManager;
     private ArrayList<Field> moves = new ArrayList<Field>(); // Stores Field + fieldValue
     private ArrayList<Field> options = new ArrayList<Field>(); // Stores possible moves determined by minimax()
 
-    public ReversiAI(GameManager gm) {
-        this.gm = gm;
+    public ReversiAI(GameManager gm, RuleManager r) {
+        this.gameManager = gm;
+        this.ruleManager = (ReversiRuleManager) r;
     }
 
     @Override
     public Field nextMove() {
-        for (Field move : gm.getGameBoard().getBoard()) {
-            if (gm.getRuleManager().isValid(move.getCoordinate())) {
+        for (Field move : gameManager.getGameBoard().getBoard()) {
+            if (ruleManager.isValid(move.getCoordinate())) {
                 moves.add(move);
             }
         }
@@ -42,6 +45,7 @@ public class ReversiAI extends AI
             }
         }
 
+        ruleManager.flip(best.getCoordinate());
         return best;
     }
 

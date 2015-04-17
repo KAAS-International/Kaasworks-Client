@@ -4,6 +4,7 @@ import main.java.com.kaasintl.api.AI;
 import main.java.com.kaasintl.api.Field;
 import main.java.com.kaasintl.api.GameBoard;
 import main.java.com.kaasintl.api.RuleManager;
+import main.java.com.kaasintl.reversi.ReversiAI;
 import main.java.com.kaasintl.reversi.ReversiGameBoard;
 import main.java.com.kaasintl.reversi.ReversiRuleManager;
 import main.java.com.kaasintl.tictactoe.TicTacAI;
@@ -47,8 +48,6 @@ public class GameManager
 		//TODO: load different games dynamically
 		ruleManager = new TicTacRuleManager(this);
 		gameBoard = new TicTacBoard(ruleManager);
-        ai = new TicTacAI(ruleManager, this);
-        this.aiPlays = true;
 
 	}
 
@@ -65,8 +64,13 @@ public class GameManager
 		gameList = new ArrayList<>();
 
 		//TODO: load different games dynamically
-		ruleManager = new TicTacRuleManager(this);
-		gameBoard = new TicTacBoard(ruleManager);
+		//ruleManager = new TicTacRuleManager(this);
+		ruleManager = new ReversiRuleManager(this);
+		//gameBoard = new TicTacBoard(ruleManager);
+        gameBoard = new ReversiGameBoard(ruleManager);
+        //ai = new TicTacAI(ruleManager, this);
+        ai = new ReversiAI(this, ruleManager);
+        //this.aiPlays = true;
 	}
 
     public void yourTurn(String turnMessage) {
@@ -252,10 +256,8 @@ public class GameManager
 	 */
 	public void endGame(int winloss, int player1Score, int player2Score, String message)
 	{
-		switch (winloss) {
-
-		}
-	}
+        gui.endGame(winloss, player1Score, player2Score, message);
+    }
 
 	/**
 	 * Notify gameManager when new game starts
@@ -269,8 +271,22 @@ public class GameManager
 	{
 		setOpponent(opponent);
 		if (!playerToMove.equals(opponent)) {
+            switch (gameType)
+            {
+                case "Tic-tac-toe":
+                    this.setGameType("Tic-tac-toe");
+                    this.setRuleManager(new TicTacRuleManager(this));
+                    this.setGameBoard(new TicTacBoard(this.getRuleManager()));
 
-		}
+                    break;
+                case "Reversi":
+                    this.setGameType("Reversi");
+                    this.setRuleManager(new ReversiRuleManager(this));
+                    this.setGameBoard(new ReversiGameBoard(this.getRuleManager()));
+
+                    break;
+            }
+        }
 	}
 
 	/**
@@ -300,20 +316,8 @@ public class GameManager
 
 	public boolean makeMove(int move)
 	{
+        System.out.println("AIMove: " + move);
         return netManager.sendMove(move);
-	}
-
-	// TODO: Return if it is your turn
-	public boolean isTurn()
-	{
-		return isTurn;
-	}
-
-	public void setTurn(String s)
-	{
-		this.turnMessage = s;
-		// TODO: set isTurn false somewhere
-		this.isTurn = true;
 	}
 
 	// TODO: Return the game's board
@@ -383,6 +387,15 @@ public class GameManager
 	 */
 	public void setMove(String player, int move, String details)
 	{
+        if (!(player.equals(opponent)))
+        {
+            gameBoard.getBoard().get(move).setState(Field.STATE.Friendly);
+        } else
+        {
+            gameBoard.getBoard().get(move).setState(Field.STATE.Enemy);
+        }
 
-	}
+        gui.appendHistory(player + " made move " + move + " " + details);
+        gui.updateGameboard();
+    }
 }
