@@ -7,5 +7,8 @@ import main.java.com.kaasintl.api.Field;
  */
 public class ReversiField extends Field
 {
-
+	ReversiField()
+	{
+		//if()
+	}
 }
