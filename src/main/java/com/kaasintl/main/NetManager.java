@@ -24,7 +24,7 @@ public class NetManager
 	public ArrayList<Message> parsedQueue = new ArrayList<>();
 	private GameManager gameManager;
 	private Thread receiver;
-	private Thread parser;
+	public Thread parser;
 	private BufferedReader in;
 	private PrintWriter out;
 
@@ -50,7 +50,7 @@ public class NetManager
 		this.gameManager = g;
 
 		try {
-			Socket sock = new Socket("145.37.59.7", 7789);
+			Socket sock = new Socket("94.214.216.28", 7789);
 			out = new PrintWriter(sock.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 			receiver = new Thread(new Receiver(this));

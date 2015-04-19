@@ -22,7 +22,7 @@ public class GameManager
 	RuleManager ruleManager;
     AI ai;
 	// Connections to other game-components
-	private NetManager netManager;
+	public NetManager netManager;
 	private GUI gui;
 	// local variables
 	private String opponent;
@@ -40,7 +40,7 @@ public class GameManager
 	 */
 	public GameManager()
 	{
-		netManager = new NetManager(this, "145.37.59.7", 7789);
+		netManager = new NetManager(this, "localhost", 7789);
 		playerList = new ArrayList<>();
 		gameList = new ArrayList<>();
 
